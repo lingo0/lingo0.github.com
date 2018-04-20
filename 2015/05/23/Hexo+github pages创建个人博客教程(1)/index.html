@@ -6,22 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://lingo0.github.io">
-  <title>Redis学习点滴 | Ling&#39;s blog</title>
+  <title>Hexo+github pages创建个人博客教程(1) | Ling&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="缓存Redis">
-<meta name="keywords" content="Redis">
+  <meta name="description" content="网上很多方法都是针对hexo2.0的，现在已经不适用了。根据我自己创建的过程，写了这个教程。希望对大家有帮助。">
+<meta name="keywords" content="Hexo, Blog, github">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis学习点滴">
-<meta property="og:url" content="http://lingo0.github.io/2018/04/20/Redis学习点滴/index.html">
+<meta property="og:title" content="Hexo+github pages创建个人博客教程(1)">
+<meta property="og:url" content="http://lingo0.github.io/2015/05/23/Hexo+github pages创建个人博客教程(1)/index.html">
 <meta property="og:site_name" content="Ling&#39;s blog">
-<meta property="og:description" content="缓存Redis">
+<meta property="og:description" content="网上很多方法都是针对hexo2.0的，现在已经不适用了。根据我自己创建的过程，写了这个教程。希望对大家有帮助。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://lingo0.github.io/2018/04/20/Redis学习点滴/Skiplist.png">
-<meta property="og:updated_time" content="2018-04-20T08:01:57.000Z">
+<meta property="og:updated_time" content="2018-04-20T09:42:29.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Redis学习点滴">
-<meta name="twitter:description" content="缓存Redis">
-<meta name="twitter:image" content="http://lingo0.github.io/2018/04/20/Redis学习点滴/Skiplist.png">
+<meta name="twitter:title" content="Hexo+github pages创建个人博客教程(1)">
+<meta name="twitter:description" content="网上很多方法都是针对hexo2.0的，现在已经不适用了。根据我自己创建的过程，写了这个教程。希望对大家有帮助。">
   
     <link rel="alternative" href="/atom.xml" title="Ling&#39;s blog" type="application/atom+xml">
   
@@ -161,51 +159,48 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Redis学习点滴" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Hexo+github pages创建个人博客教程(1)" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Redis学习点滴
+      Hexo+github pages创建个人博客教程(1)
     </h1>
   
 
         
-        <a href="/2018/04/20/Redis学习点滴/" class="archive-article-date">
-  	<time datetime="2018-04-20T06:22:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-20</time>
+        <a href="/2015/05/23/Hexo+github pages创建个人博客教程(1)/" class="archive-article-date">
+  	<time datetime="2015-05-23T11:07:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-05-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Redis的优势"><a href="#Redis的优势" class="headerlink" title="Redis的优势"></a>Redis的优势</h1><h5 id="速度快"><a href="#速度快" class="headerlink" title="速度快"></a>速度快</h5><p>单机读可达10000/S， 写可达 5000/s。RDS巨擘mysql ，基本单机为1000/500。</p>
-<h5 id="为什么快"><a href="#为什么快" class="headerlink" title="为什么快"></a>为什么快</h5><p>redis 是操作内存，操作速度自然比mysql的磁盘操作要快。其次是因为数据存储结构的原因。</p>
+        <p>本教程适用于Hexo3.0。我自己在创建的时候，碰到了许多问题，上网搜索答案花了很多时间，网上很多解答都已经无效，所以我会将如何解决作为我的重点。</p>
+<p>#Hexo的安装</p>
+<h3 id="1、安装Node-js"><a href="#1、安装Node-js" class="headerlink" title="1、安装Node.js"></a>1、安装Node.js</h3><p>w3cschool上的教程很详细，照着安装一下就好了。<br><a href="http://www.w3cschool.cc/nodejs/nodejs-install-setup.html" target="_blank" rel="noopener">Node.js 安装配置</a></p>
 <a id="more"></a>
-<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><p>Redis是内存中的数据结构存储系统。支持5种基本结构：String，List，Set，Sorted set，Hash。</p>
-<h5 id="1、sds"><a href="#1、sds" class="headerlink" title="1、sds"></a>1、sds</h5><p>其中底层是通过SDS（simple dynamic string）动态字符串来实现，与java c的字符串不同，他的定义是不单单是一个char 数组构成，每个sds都会比它真实占用的字符长度都长，通过一个空闲标识符表示sds当前空闲字符有多少，如此设计，在一定长度范围的内的字符串都可以使用此sds，而且不会频繁的进行内存分配，直到此sds不能容纳分配的字符串，如果遇到这种情况情况，才需要进行扩扩容。</p>
-<p>所有的redis k-v 中的字符串都是依托于sds，这是其一；</p>
-<h5 id="2、dict"><a href="#2、dict" class="headerlink" title="2、dict"></a>2、dict</h5><p>其二 dict，每个dict拥有两个数组，一个简单的hash算法；</p>
-<p>redis为了保证最快的执行速度，hash就是可以和一个定值运算。为了扩容，所以有两个dict数据。初始的dic的数组长度不能太大，随着数据的增加，超过了负载因子，dic的数组必须进行扩容</p>
-<h6 id="dict扩容方式"><a href="#dict扩容方式" class="headerlink" title="dict扩容方式"></a>dict扩容方式</h6><p>hashMap的扩容方式是：新生一个更长的数组，遍历老数组向新数组的迁移。</p>
-<p>dict的扩容是渐进式的，扩容过程中不影响当前使用dict数组正常使用，一点点划拉，直到迁移完成，</p>
-<h5 id="3、索引结构"><a href="#3、索引结构" class="headerlink" title="3、索引结构"></a>3、索引结构</h5><p>Redis使用跳跃表，其在随机搜索方面略低于B+树，但是对于数据插入，跳跃表使用了历史上最屌的算法：抛硬币。</p>
-<p>在跳跃表是由N层链表组成，最底层是最完整的的数据，每次数据插入，率先进入到这个链表（有序的），插入完成后，通过抛硬币的算法，判断是否将数据向上层跑，如果是1的话，就抛到上层，然后继续抛硬盘，判断是否继续向上层抛，直到抛出了0结束整个操作，每抛到一层的时候，如果当前层没有数据，就构造一个链表，将数据放进去，然后使用指针指向来源地址，就这样依次类推，形成了跳跃表，每次查询，从最上层遍历查询，如果找到就返回结果，否则就在此层找到最接近查询的值，将查询操作移到另外一层。</p>
-<p><img src="/2018/04/20/Redis学习点滴/Skiplist.png" alt="Skiplist"></p>
-<h5 id="4、存储方式"><a href="#4、存储方式" class="headerlink" title="4、存储方式"></a>4、存储方式</h5><p>redis存储方面巧妙的地方之一，更主要是单线程+多路 I/O 复用模型。</p>
-<h6 id="单线程"><a href="#单线程" class="headerlink" title="单线程"></a>单线程</h6><p>单线程的模式解决了数据存储的顽疾：数据并发安全，任何运行多线程同时访问数据库都会存在这个问题，所以才有了mysql的mvcc和锁， Memcached 的cas 乐观锁，来保证数据不会出现并发导致的数据问题，但是redis 使用单线程就不存在这个问题：1，单线程足够简单，无论在redis的实现还是作为调用方，都不需要为数据并发提心吊胆，不需要加锁。 2.不会出现不必要的线程调度，你知道多线程，频繁切换上下文，也会带来很多性能消耗</p>
-<h6 id="多路-I-O-复用模型"><a href="#多路-I-O-复用模型" class="headerlink" title="多路 I/O 复用模型"></a>多路 I/O 复用模型</h6><p>这个也是java 的NIO体系使用的IO模型，也是linux诸多IO模型中的一种，说白了就是当一个请求来访问redis后，redis去组织数据要返回给请求，这个时间段，redis的请求入口不是阻塞的，其他请求可以继续向redis发送请求，等到redis io流完成后，再向调用者返回数据，这样一来，单线程也不怕会影响速度了</p>
-<h1 id="如何避免缓存击穿"><a href="#如何避免缓存击穿" class="headerlink" title="如何避免缓存击穿"></a>如何避免缓存击穿</h1><blockquote>
-<p>缓存一般作为RDS的前置系统和服务器直连，减轻rds的负担，常理而言，如果服务器查询缓存而不得的话，需要从rds中获取然后更新到缓存中，但是如果在“从rds中获取然后更新到缓存中”，这个阶段，缓存尚未更新成功，大量请求进来的话，rds势必压力暴增，甚至雪崩，或者歹人恶意攻击，一直查询rds和缓存中未存在key，也会导致缓存机制失效，rds压力暴增，称之为缓存击穿</p>
+<h3 id="2、安装Hexo"><a href="#2、安装Hexo" class="headerlink" title="2、安装Hexo"></a>2、安装Hexo</h3><p>打开cmd，输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo</span><br></pre></td></tr></table></figure></p>
+<p>如果系统的cmd不行，可以使用node.js的控制台。或在系统环境变量Path里加入node.js安装目录。</p>
+<h3 id="3、安装Hexo-Server"><a href="#3、安装Hexo-Server" class="headerlink" title="3、安装Hexo-Server"></a>3、安装Hexo-Server</h3><p>根据网上其他教程,在执行这个命令过程中，会出现本地服务不能启动。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure></p>
+<p>那是因为Hexo3.0开始将server模块独立出来了。<br>所以要先安装Hexo-Server模块。一般安装在node_modules下，整个目录在C:\Users\ling\AppData\Roaming\npm\目录下。<br>可以cd到该目录下安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd &lt;hexo_folder&gt;</span><br><span class="line">$ npm install &lt;module_2bInstalled&gt; --save</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-server --save</span><br></pre></td></tr></table></figure>
+<p>其余独立出来的还包括下面这些</p>
+<blockquote>
+<p>npm install hexo-generator-index –save<br>npm install hexo-generator-archive –save<br>npm install hexo-generator-category –save<br>npm install hexo-generator-tag –save<br>npm install hexo-server –save<br>npm install hexo-deployer-git –save<br>npm install <a href="mailto:hexo-renderer-marked@0.2" target="_blank" rel="noopener">hexo-renderer-marked@0.2</a> –save<br>npm install <a href="mailto:hexo-renderer-stylus@0.2" target="_blank" rel="noopener">hexo-renderer-stylus@0.2</a> –save<br>npm install hexo-generator-feed@1 –save<br>npm install hexo-generator-sitemap@1 –save</p>
 </blockquote>
-<p>防止缓存击穿的几种方式：</p>
-<ol>
-<li>缓存永不失效;</li>
-<li>定时同步rds redis;</li>
-<li>不允许应用直接请求查询rds，所有的查询以缓存中为准;</li>
-</ol>
+<p>特别是hexo-deployer-git这个模块,不安装的话后面在运行hexo deploy时会提示找不到git,参见这个<a href="https://github.com/hexojs/hexo/issues/1040" target="_blank" rel="noopener">issues1040</a>.</p>
+<p>可以到\node_modules目录下面看自己是不是已经安装了这些模块.</p>
+<h3 id="4、初始化Hexo"><a href="#4、初始化Hexo" class="headerlink" title="4、初始化Hexo"></a>4、初始化Hexo</h3><p>新建一个Hexo文件夹，运行如下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init &lt;folder&gt;</span><br><span class="line">$ cd &lt;folder&gt;</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure></p>
+<p>完成后，进入新建的Hexo文件夹查看是否初始化成功</p>
+<h3 id="5、生成静态文档"><a href="#5、生成静态文档" class="headerlink" title="5、生成静态文档"></a>5、生成静态文档</h3><p>在Hexo文件夹下，运行如下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure></p>
+<p>命令成功，会产生一个public文件夹</p>
+<h3 id="6、开启本地Server调试"><a href="#6、开启本地Server调试" class="headerlink" title="6、开启本地Server调试"></a>6、开启本地Server调试</h3><p>在Hexo文件夹下，运行如下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure></p>
+<p>如果这个命令失败了，有可能是没有安装hexo-server模块。回看步骤3安装。</p>
+<p>如果开启服务成功，打开localhost:4000则可以在本地看到生成的页面。<br>接下来就可以上传到github上了。</p>
 
       
 
@@ -245,7 +240,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
         		</li>
       		
 		</ul>
@@ -301,7 +296,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://lingo0.github.io/2018/04/20/Redis学习点滴/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://lingo0.github.io/2015/05/23/Hexo+github pages创建个人博客教程(1)/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -315,9 +310,18 @@
   
 <nav id="article-nav">
   
+    <a href="/2015/05/23/Hexo+github pages创建个人博客教程(2)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Hexo+github pages创建个人博客教程(2)
+        
+      </div>
+    </a>
   
-    <a href="/2015/05/28/爬电影天堂上的电影下载地址/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">爬电影天堂上的电影下载地址</div>
+  
+    <a href="/2015/05/23/Hello-MyBlog/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello MyBlog</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -356,7 +360,7 @@
 <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "http://lingo0.github.io/2018/04/20/Redis学习点滴/",
+  id: "http://lingo0.github.io/2015/05/23/Hexo+github pages创建个人博客教程(1)/",
   owner: 'lingo0',
   repo: 'lingo0.github.com',
   oauth: {

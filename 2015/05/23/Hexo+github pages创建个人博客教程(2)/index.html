@@ -6,22 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://lingo0.github.io">
-  <title>Redis学习点滴 | Ling&#39;s blog</title>
+  <title>Hexo+github pages创建个人博客教程(2) | Ling&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="缓存Redis">
-<meta name="keywords" content="Redis">
+  <meta name="description" content="网上很多方法都是针对hexo2.0的，现在已经不适用了。根据我自己创建的过程，写了这个教程。希望对大家有帮助。">
+<meta name="keywords" content="Hexo, Blog, github">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis学习点滴">
-<meta property="og:url" content="http://lingo0.github.io/2018/04/20/Redis学习点滴/index.html">
+<meta property="og:title" content="Hexo+github pages创建个人博客教程(2)">
+<meta property="og:url" content="http://lingo0.github.io/2015/05/23/Hexo+github pages创建个人博客教程(2)/index.html">
 <meta property="og:site_name" content="Ling&#39;s blog">
-<meta property="og:description" content="缓存Redis">
+<meta property="og:description" content="网上很多方法都是针对hexo2.0的，现在已经不适用了。根据我自己创建的过程，写了这个教程。希望对大家有帮助。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://lingo0.github.io/2018/04/20/Redis学习点滴/Skiplist.png">
-<meta property="og:updated_time" content="2018-04-20T08:01:57.000Z">
+<meta property="og:image" content="http://lingo0.github.io/2015/05/23/Hexo+github%20pages创建个人博客教程(2)/new%20re.jpeg">
+<meta property="og:image" content="http://lingo0.github.io/2015/05/23/Hexo+github%20pages创建个人博客教程(2)/setting.jpeg">
+<meta property="og:image" content="http://lingo0.github.io/2015/05/23/Hexo+github%20pages创建个人博客教程(2)/git%20pages.png">
+<meta property="og:image" content="http://lingo0.github.io/2015/05/23/Hexo+github%20pages创建个人博客教程(2)/th.png">
+<meta property="og:updated_time" content="2018-04-20T09:42:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Redis学习点滴">
-<meta name="twitter:description" content="缓存Redis">
-<meta name="twitter:image" content="http://lingo0.github.io/2018/04/20/Redis学习点滴/Skiplist.png">
+<meta name="twitter:title" content="Hexo+github pages创建个人博客教程(2)">
+<meta name="twitter:description" content="网上很多方法都是针对hexo2.0的，现在已经不适用了。根据我自己创建的过程，写了这个教程。希望对大家有帮助。">
+<meta name="twitter:image" content="http://lingo0.github.io/2015/05/23/Hexo+github%20pages创建个人博客教程(2)/new%20re.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="Ling&#39;s blog" type="application/atom+xml">
   
@@ -161,51 +164,59 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Redis学习点滴" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Hexo+github pages创建个人博客教程(2)" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Redis学习点滴
+      Hexo+github pages创建个人博客教程(2)
     </h1>
   
 
         
-        <a href="/2018/04/20/Redis学习点滴/" class="archive-article-date">
-  	<time datetime="2018-04-20T06:22:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-20</time>
+        <a href="/2015/05/23/Hexo+github pages创建个人博客教程(2)/" class="archive-article-date">
+  	<time datetime="2015-05-23T12:10:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-05-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Redis的优势"><a href="#Redis的优势" class="headerlink" title="Redis的优势"></a>Redis的优势</h1><h5 id="速度快"><a href="#速度快" class="headerlink" title="速度快"></a>速度快</h5><p>单机读可达10000/S， 写可达 5000/s。RDS巨擘mysql ，基本单机为1000/500。</p>
-<h5 id="为什么快"><a href="#为什么快" class="headerlink" title="为什么快"></a>为什么快</h5><p>redis 是操作内存，操作速度自然比mysql的磁盘操作要快。其次是因为数据存储结构的原因。</p>
+        <hr>
+<h1 id="github-pages的创建"><a href="#github-pages的创建" class="headerlink" title="github pages的创建"></a>github pages的创建</h1><h3 id="1、安装Git"><a href="#1、安装Git" class="headerlink" title="1、安装Git"></a>1、安装Git</h3><p>下载安装<a href="http://git-scm.com/" target="_blank" rel="noopener">git</a><br>详细可见:<a href="http://jingyan.baidu.com/article/90895e0fb3495f64ed6b0b50.html" target="_blank" rel="noopener">如何在windows下安装GIT</a></p>
+<h3 id="2、注册github"><a href="#2、注册github" class="headerlink" title="2、注册github"></a>2、注册github</h3><p>访问：<a href="http://www.github.com/" target="_blank" rel="noopener">http://www.github.com/</a></p>
+<p>注册你的username和邮箱，邮箱十分重要，GitHub上很多通知都是通过邮箱的。</p>
+<p>注册过程比较简单，详细也可以看：<a href="http://redmine.ossxp.com/doc/gotgithub/02-join-github/010-account-setup.html" target="_blank" rel="noopener">创建GitHub账号</a></p>
 <a id="more"></a>
-<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><p>Redis是内存中的数据结构存储系统。支持5种基本结构：String，List，Set，Sorted set，Hash。</p>
-<h5 id="1、sds"><a href="#1、sds" class="headerlink" title="1、sds"></a>1、sds</h5><p>其中底层是通过SDS（simple dynamic string）动态字符串来实现，与java c的字符串不同，他的定义是不单单是一个char 数组构成，每个sds都会比它真实占用的字符长度都长，通过一个空闲标识符表示sds当前空闲字符有多少，如此设计，在一定长度范围的内的字符串都可以使用此sds，而且不会频繁的进行内存分配，直到此sds不能容纳分配的字符串，如果遇到这种情况情况，才需要进行扩扩容。</p>
-<p>所有的redis k-v 中的字符串都是依托于sds，这是其一；</p>
-<h5 id="2、dict"><a href="#2、dict" class="headerlink" title="2、dict"></a>2、dict</h5><p>其二 dict，每个dict拥有两个数组，一个简单的hash算法；</p>
-<p>redis为了保证最快的执行速度，hash就是可以和一个定值运算。为了扩容，所以有两个dict数据。初始的dic的数组长度不能太大，随着数据的增加，超过了负载因子，dic的数组必须进行扩容</p>
-<h6 id="dict扩容方式"><a href="#dict扩容方式" class="headerlink" title="dict扩容方式"></a>dict扩容方式</h6><p>hashMap的扩容方式是：新生一个更长的数组，遍历老数组向新数组的迁移。</p>
-<p>dict的扩容是渐进式的，扩容过程中不影响当前使用dict数组正常使用，一点点划拉，直到迁移完成，</p>
-<h5 id="3、索引结构"><a href="#3、索引结构" class="headerlink" title="3、索引结构"></a>3、索引结构</h5><p>Redis使用跳跃表，其在随机搜索方面略低于B+树，但是对于数据插入，跳跃表使用了历史上最屌的算法：抛硬币。</p>
-<p>在跳跃表是由N层链表组成，最底层是最完整的的数据，每次数据插入，率先进入到这个链表（有序的），插入完成后，通过抛硬币的算法，判断是否将数据向上层跑，如果是1的话，就抛到上层，然后继续抛硬盘，判断是否继续向上层抛，直到抛出了0结束整个操作，每抛到一层的时候，如果当前层没有数据，就构造一个链表，将数据放进去，然后使用指针指向来源地址，就这样依次类推，形成了跳跃表，每次查询，从最上层遍历查询，如果找到就返回结果，否则就在此层找到最接近查询的值，将查询操作移到另外一层。</p>
-<p><img src="/2018/04/20/Redis学习点滴/Skiplist.png" alt="Skiplist"></p>
-<h5 id="4、存储方式"><a href="#4、存储方式" class="headerlink" title="4、存储方式"></a>4、存储方式</h5><p>redis存储方面巧妙的地方之一，更主要是单线程+多路 I/O 复用模型。</p>
-<h6 id="单线程"><a href="#单线程" class="headerlink" title="单线程"></a>单线程</h6><p>单线程的模式解决了数据存储的顽疾：数据并发安全，任何运行多线程同时访问数据库都会存在这个问题，所以才有了mysql的mvcc和锁， Memcached 的cas 乐观锁，来保证数据不会出现并发导致的数据问题，但是redis 使用单线程就不存在这个问题：1，单线程足够简单，无论在redis的实现还是作为调用方，都不需要为数据并发提心吊胆，不需要加锁。 2.不会出现不必要的线程调度，你知道多线程，频繁切换上下文，也会带来很多性能消耗</p>
-<h6 id="多路-I-O-复用模型"><a href="#多路-I-O-复用模型" class="headerlink" title="多路 I/O 复用模型"></a>多路 I/O 复用模型</h6><p>这个也是java 的NIO体系使用的IO模型，也是linux诸多IO模型中的一种，说白了就是当一个请求来访问redis后，redis去组织数据要返回给请求，这个时间段，redis的请求入口不是阻塞的，其他请求可以继续向redis发送请求，等到redis io流完成后，再向调用者返回数据，这样一来，单线程也不怕会影响速度了</p>
-<h1 id="如何避免缓存击穿"><a href="#如何避免缓存击穿" class="headerlink" title="如何避免缓存击穿"></a>如何避免缓存击穿</h1><blockquote>
-<p>缓存一般作为RDS的前置系统和服务器直连，减轻rds的负担，常理而言，如果服务器查询缓存而不得的话，需要从rds中获取然后更新到缓存中，但是如果在“从rds中获取然后更新到缓存中”，这个阶段，缓存尚未更新成功，大量请求进来的话，rds势必压力暴增，甚至雪崩，或者歹人恶意攻击，一直查询rds和缓存中未存在key，也会导致缓存机制失效，rds压力暴增，称之为缓存击穿</p>
+<p>###3、使用GitHub Pages建立博客</p>
+<p>与GitHub建立好链接之后，就可以方便的使用它提供的Pages服务，GitHub Pages分两种，一种是你的GitHub用户名建立的username.github.com这样的用户&amp;组织页（站），另一种是依附项目的pages。</p>
+<ul>
+<li><p>第一种方式：User &amp; Organization Pages<br>想建立个人博客是用的第一种，形如beiyuu.github.com这样的可访问的站，每个用户名下面只能建立一个，创建之后点击Admin进入项目管理，可以看到是这样的：  而普通的项目是这样的，即使你也是用的othername.github.com：<br>创建好username.github.com项目之后，提交一个index.html文件，然后push到GitHub的master分支（也就是普通意义上的主干）。第一次页面生效需要一些时间，大概10分钟左右。<br>生效之后，访问username.github.com就可以看到你上传的页面了，beiyuu.github.com就是一个例子。</p>
+</li>
+<li><p>第二种方式：<br>关于第二种项目gh-pages，简单提一下，他和用户pages使用的后台程序是同一套，只不过它的目的是项目的帮助文档等跟项目绑定的内容，所以需要在项目的gh-pages分支上去提交相应的文件，GitHub会自动帮你生成项目pages。</p>
+</li>
+</ul>
+<blockquote>
+<p>注意：一开始我使用了第二种来建立博客，但是将Hexo上传上去后，访问后只显示html，不能加载js和css样式。也不知道是什么原因。后来在github上用第一种方式又建了一个仓库，上传上去后访问，显示也正常了。<br>创建第一种方式的关键在于：仓库名称必须为username.github.com (注意不是github.io)</p>
 </blockquote>
-<p>防止缓存击穿的几种方式：</p>
-<ol>
-<li>缓存永不失效;</li>
-<li>定时同步rds redis;</li>
-<li>不允许应用直接请求查询rds，所有的查询以缓存中为准;</li>
-</ol>
+<p>创建步骤如下：<br>1、新建仓库</p>
+<p><img src="/2015/05/23/Hexo+github pages创建个人博客教程(2)/new re.jpeg" alt="new re"></p>
+<p>2、创建成功后，进入资源-setting<br><img src="/2015/05/23/Hexo+github pages创建个人博客教程(2)/setting.jpeg" alt="setting"></p>
+<p>3、overwrite 单击最下面的按钮launch automatic pages generator。<br><img src="/2015/05/23/Hexo+github pages创建个人博客教程(2)/git pages.png" alt="git pages"></p>
+<p>4、选择主题并发布<br><img src="/2015/05/23/Hexo+github pages创建个人博客教程(2)/th.png" alt="th"></p>
+<p>5、过十分钟就可以访问username.github.com来查看新建的github-pages了。</p>
+<h1 id="上传hexo"><a href="#上传hexo" class="headerlink" title="上传hexo"></a>上传hexo</h1><p>github pages的创建完成了，接下来就是上传Hexo了</p>
+<h3 id="1、配置-config-yml"><a href="#1、配置-config-yml" class="headerlink" title="1、配置_config.yml"></a>1、配置_config.yml</h3><blockquote>
+<p>重点是最后# Deployment的配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"># Hexo Configuration</span><br><span class="line">## Docs: http://zespia.tw/hexo/docs/configure.html</span><br><span class="line">## Source: https://github.com/tommy351/hexo/</span><br><span class="line"></span><br><span class="line"># Site 这里的配置，哪项配置反映在哪里，可以参考我的博客</span><br><span class="line">title: Zippera&apos;s blog #站点名，站点左上角</span><br><span class="line">subtitle: Walk steps step by step #副标题，站点左上角</span><br><span class="line">description: Walk steps step by step #给搜索引擎看的，对站点的描述，可以自定义</span><br><span class="line">author: zippera #在站点左下角可以看到</span><br><span class="line">email: #你的联系邮箱</span><br><span class="line">language: zh-CN #中国人嘛，用中文</span><br><span class="line"></span><br><span class="line"># URL #这项暂不配置，绑定域名后，欲创建sitemap.xml需要配置该项</span><br><span class="line">## If your site is put in a subdirectory, set url as &apos;http://yoursite.com/child&apos; and root as &apos;/child/&apos;</span><br><span class="line">url: http://zipperary.com</span><br><span class="line">root: /</span><br><span class="line">permalink: :year/:month/:day/:title/</span><br><span class="line">tag_dir: tags</span><br><span class="line">archive_dir: archives</span><br><span class="line">category_dir: categories</span><br><span class="line"></span><br><span class="line"># Writing 文章布局、写作格式的定义，不修改</span><br><span class="line">new_post_name: :title.md # File name of new posts</span><br><span class="line">default_layout: post</span><br><span class="line">auto_spacing: false # Add spaces between asian characters and western characters</span><br><span class="line">titlecase: false # Transform title into titlecase</span><br><span class="line">max_open_file: 100</span><br><span class="line">filename_case: 0</span><br><span class="line">highlight:</span><br><span class="line">  enable: true</span><br><span class="line">  backtick_code_block: true</span><br><span class="line">  line_number: true</span><br><span class="line">  tab_replace:</span><br><span class="line"></span><br><span class="line"># Category &amp; Tag</span><br><span class="line">default_category: uncategorized</span><br><span class="line">category_map:</span><br><span class="line">tag_map:</span><br><span class="line"></span><br><span class="line"># Archives 默认值为2，这里都修改为1，相应页面就只会列出标题，而非全文</span><br><span class="line">## 2: Enable pagination</span><br><span class="line">## 1: Disable pagination</span><br><span class="line">## 0: Fully Disable</span><br><span class="line">archive: 1</span><br><span class="line">category: 1</span><br><span class="line">tag: 1</span><br><span class="line"></span><br><span class="line"># Server 不修改</span><br><span class="line">## Hexo uses Connect as a server</span><br><span class="line">## You can customize the logger format as defined in</span><br><span class="line">## http://www.senchalabs.org/connect/logger.html</span><br><span class="line">port: 4000</span><br><span class="line">logger: false</span><br><span class="line">logger_format:</span><br><span class="line"></span><br><span class="line"># Date / Time format 日期格式，不修改</span><br><span class="line">## Hexo uses Moment.js to parse and display date</span><br><span class="line">## You can customize the date format as defined in</span><br><span class="line">## http://momentjs.com/docs/#/displaying/format/</span><br><span class="line">date_format: MMM D YYYY</span><br><span class="line">time_format: H:mm:ss</span><br><span class="line"></span><br><span class="line"># Pagination 每页显示文章数，可以自定义，我将10改成了5</span><br><span class="line">## Set per_page to 0 to disable pagination</span><br><span class="line">per_page: 5</span><br><span class="line">pagination_dir: page</span><br><span class="line"></span><br><span class="line"># Disqus Disqus插件，我们会替换成“多说”，不修改</span><br><span class="line">disqus_shortname:</span><br><span class="line"></span><br><span class="line"># Extensions 这里配置站点所用主题和插件，暂默认，后面会介绍怎么修改</span><br><span class="line">## Plugins: https://github.com/tommy351/hexo/wiki/Plugins</span><br><span class="line">## Themes: https://github.com/tommy351/hexo/wiki/Themes</span><br><span class="line">theme: light</span><br><span class="line">exclude_generator:</span><br><span class="line">plugins:</span><br><span class="line">- hexo-generator-feed</span><br><span class="line">- hexo-generator-sitemap</span><br><span class="line"></span><br><span class="line"># Deployment Hexo部署到github要配置,注意repository是ssh格式的</span><br><span class="line">## Docs: http://zespia.tw/hexo/docs/deploy.html</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:username/username.github.com.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="2、部署上传"><a href="#2、部署上传" class="headerlink" title="2、部署上传"></a>2、部署上传</h3><p>在博客目录下，使用命令生成静态文本，每次修改后，上传前都需要再生成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure></p>
+<p>使用命令上传到github<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure></p>
+<p>这一步可能出现很多错误<br>错误总结：<br>1、出现错误 Error：spawn git ENOENT<br>原因：没有git支持。<br>解决方法：在博客目录下，使用git bash来运行hexo deploy命令。</p>
+<p>2、在git bash上出现错误：Not a git repository (or any of the parent directories)<br>原因：没有生成本地git仓库。<br>解决方法：在博客目录下的.deploy_git文件夹中使用命令创建并添加所有文件到仓库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br><span class="line">$ git add .</span><br></pre></td></tr></table></figure></p>
+<p>错误解决后再使用hexo deploy命令上传。<br>在deploy命令执行完后，上github上的仓库中。查看是否上传成功。<br>过几分钟访问github-pages看博客是否生成成功。</p>
+<p>#最后<br>如果大家在创建的时候碰到什么问题，可以留言。我会尽量解答。</p>
 
       
 
@@ -245,7 +256,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
         		</li>
       		
 		</ul>
@@ -301,7 +312,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://lingo0.github.io/2018/04/20/Redis学习点滴/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://lingo0.github.io/2015/05/23/Hexo+github pages创建个人博客教程(2)/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -315,9 +326,18 @@
   
 <nav id="article-nav">
   
+    <a href="/2015/05/28/爬电影天堂上的电影下载地址/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          爬电影天堂上的电影下载地址
+        
+      </div>
+    </a>
   
-    <a href="/2015/05/28/爬电影天堂上的电影下载地址/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">爬电影天堂上的电影下载地址</div>
+  
+    <a href="/2015/05/23/Hexo+github pages创建个人博客教程(1)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hexo+github pages创建个人博客教程(1)</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -356,7 +376,7 @@
 <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "http://lingo0.github.io/2018/04/20/Redis学习点滴/",
+  id: "http://lingo0.github.io/2015/05/23/Hexo+github pages创建个人博客教程(2)/",
   owner: 'lingo0',
   repo: 'lingo0.github.com',
   oauth: {
