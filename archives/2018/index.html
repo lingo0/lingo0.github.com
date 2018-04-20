@@ -6,20 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://lingo0.github.io">
-  <title>java多线程-爬电影天堂上的电影下载地址 | Ling&#39;s blog</title>
+  <title>Archives: 2018 | Ling&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="通过多线程爬虫，爬取网址">
-<meta name="keywords" content="java,爬虫，多线程">
-<meta property="og:type" content="article">
-<meta property="og:title" content="java多线程-爬电影天堂上的电影下载地址">
-<meta property="og:url" content="http://lingo0.github.io/2015/05/28/java多线程-爬电影天堂上的电影下载地址/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Ling&#39;s blog">
+<meta property="og:url" content="http://lingo0.github.io/archives/2018/index.html">
 <meta property="og:site_name" content="Ling&#39;s blog">
-<meta property="og:description" content="通过多线程爬虫，爬取网址">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-15T07:31:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java多线程-爬电影天堂上的电影下载地址">
-<meta name="twitter:description" content="通过多线程爬虫，爬取网址">
+<meta name="twitter:title" content="Ling&#39;s blog">
   
     <link rel="alternative" href="/atom.xml" title="Ling&#39;s blog" type="application/atom+xml">
   
@@ -159,196 +154,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-java多线程-爬电影天堂上的电影下载地址" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      java多线程-爬电影天堂上的电影下载地址
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/04/20/Redis学习点滴/" class="archive-article-date">
+  	<time datetime="2018-04-20T06:22:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-20</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/04/20/Redis学习点滴/">Redis学习点滴</a>
     </h1>
   
 
-        
-        <a href="/2015/05/28/java多线程-爬电影天堂上的电影下载地址/" class="archive-article-date">
-  	<time datetime="2015-05-28T06:22:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-05-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="获取网页html"><a href="#获取网页html" class="headerlink" title="获取网页html"></a>获取网页html</h1><p>刚开始做的时候，在网上搜了一下资料。然后找到了一个获取网页最简单的dome，如下。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getHtml</span><span class="params">(String urlstring)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		<span class="comment">//得到地址</span></span><br><span class="line">		URL url = <span class="keyword">new</span> URL(urlstring);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//建立连接</span></span><br><span class="line">		URLConnection conn =  url.openConnection();</span><br><span class="line"></span><br><span class="line">		<span class="comment">//获得数据</span></span><br><span class="line">		BufferedReader bufferedReader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(conn.getInputStream(), <span class="string">"gbk"</span>));</span><br><span class="line"></span><br><span class="line">		StringBuilder html = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">		String line;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//正则表达式匹配</span></span><br><span class="line"><span class="comment">//		String reg = "\\w+@\\w+";</span></span><br><span class="line"><span class="comment">//		Pattern pattern = Pattern.compile(reg);</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">while</span> ((line = bufferedReader.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">			html.append(line);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> html.toString();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
-<p>于是就按照这个开始编写我自己的爬虫。</p>
-<a id="more"></a>
-<h1 id="如何爬url"><a href="#如何爬url" class="headerlink" title="如何爬url"></a>如何爬url</h1><h2 id="获取电影详情URL"><a href="#获取电影详情URL" class="headerlink" title="获取电影详情URL"></a>获取电影详情URL</h2><p>我发现电影天堂的网址是很有规律的。比如它的最新电影列表的url是：”<a href="http://www.ygdy8.net/html/gndy/dyzz/list_23_NUM.html&quot;，NUM是1到258" target="_blank" rel="noopener">http://www.ygdy8.net/html/gndy/dyzz/list_23_NUM.html&quot;，NUM是1到258</a><br>所以我就没有用爬虫爬url，直接就循环NUM来获取它页面下电影详情的url。因为这个url数量不多，我就没有考虑用多线程。直接其爬完，然后序列化到文件中保存起来。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpiderForMovies</span> <span class="keyword">extends</span> <span class="title">Spider</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Vector&lt;String&gt; urlList = <span class="keyword">new</span> Vector&lt;String&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">(String url)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		<span class="comment">//根据Url地址获取网页内容</span></span><br><span class="line">		String html = HttpUtils.getHtml(url);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (html == <span class="keyword">null</span>)&#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"无法获取url网址内容"</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//对网页内容进行分析和提取</span></span><br><span class="line">		Document doc = Jsoup.parse(html);</span><br><span class="line">		Elements tables = doc.select(<span class="string">"table.tbspan"</span>);<span class="comment">//class等于tbspan的table标签</span></span><br><span class="line">		Elements links = tables.select(<span class="string">"a[href]"</span>); <span class="comment">//带有href属性的a元素</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (Element link : links) &#123;</span><br><span class="line">			String linkHref = link.attr(<span class="string">"href"</span>);</span><br><span class="line"><span class="comment">//			String linkHref = homepage + Href;</span></span><br><span class="line"></span><br><span class="line">			<span class="comment">//加入到Url队列</span></span><br><span class="line">			urlList.add(linkHref);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Vector&lt;String&gt; <span class="title">getUrllist</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> urlList;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getMovieUrl</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InstantiationException, IllegalAccessException </span>&#123;</span><br><span class="line"></span><br><span class="line">		Integer i = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">while</span>(i &lt;= <span class="number">258</span>) &#123;</span><br><span class="line">			String url = url1.replace(<span class="string">"NUM"</span>, i.toString());</span><br><span class="line">			SpiderForMovies spiderForMovies = <span class="keyword">new</span> SpiderForMovies();</span><br><span class="line">			spiderForMovies.execute(url);</span><br><span class="line">			Vector&lt;String&gt;  temp = spiderForMovies.getUrllist();</span><br><span class="line"></span><br><span class="line">			<span class="comment">//合并两个hashset</span></span><br><span class="line">			urlList.addAll(temp);</span><br><span class="line">			i++;</span><br><span class="line"></span><br><span class="line">			System.out.println(i);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		Util.OutPut(<span class="string">"E:\\ling\\url.txt"</span>,urlList);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
-<p>##获取电影下载地址<br>上面总共爬到了八十万的电影详情地址。那么肯定要使用多线程来爬取每个地址下的电影下载地址。在编写多线程获取的时候碰到了很多问题。<br>现在在爬下载地址了，又发现了很多问题。太大了不能一下子保存，看来还是要放到数据库中。<br>首先来看代码吧<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取电影详情</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getMovieParticular</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> N = <span class="number">8</span>;</span><br><span class="line">		CountDownLatch doneSignal = <span class="keyword">new</span> CountDownLatch(N);</span><br><span class="line">		CountDownLatch startSignal = <span class="keyword">new</span> CountDownLatch(<span class="number">1</span>);<span class="comment">// 开始执行信号</span></span><br><span class="line"></span><br><span class="line">		urlList = Util.InPut(<span class="string">"E:\\ling\\url.txt"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		SpiderThread spiderThread = <span class="keyword">new</span> SpiderThread(urlList,doneSignal,startSignal);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">			<span class="keyword">new</span> Thread(spiderThread).start();<span class="comment">// 线程启动了</span></span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">"begin------------"</span>);</span><br><span class="line">		startSignal.countDown();<span class="comment">// 开始执行啦</span></span><br><span class="line">		doneSignal.await();<span class="comment">// 等待所有的线程执行完毕</span></span><br><span class="line"></span><br><span class="line">		movieList = spiderThread.getMovies();</span><br><span class="line">		Util.OutPutMovie(<span class="string">"E:\\ling\\Movie.txt"</span>, movieList);</span><br><span class="line"><span class="comment">//		System.out.println(movieList);</span></span><br><span class="line">		System.out.println(<span class="string">"Ok"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取电影详情爬虫</span></span><br><span class="line"><span class="comment"> * Created by ling on 2015/5/25.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpiderForMovParticular</span> <span class="keyword">extends</span> <span class="title">Spider</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Movie movie;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">(String url)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		movie = <span class="keyword">new</span> Movie();</span><br><span class="line">		<span class="comment">//根据Url地址获取网页内容</span></span><br><span class="line">		String homepage = <span class="string">"http://www.ygdy8.net"</span>;</span><br><span class="line">		String html = HttpUtils.getHtml(homepage + url);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (html == <span class="keyword">null</span>)&#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"无法获取url网址内容"</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//对网页内容进行分析和提取</span></span><br><span class="line">		Document doc = Jsoup.parse(html);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//提取标题</span></span><br><span class="line">		Element link = doc.select(<span class="string">"div.title_all"</span>).last();<span class="comment">//class等于title_all的div标签</span></span><br><span class="line">		String title = link.text();</span><br><span class="line"></span><br><span class="line">		<span class="comment">//提取链接</span></span><br><span class="line">		Elements elements = doc.select(<span class="string">"div#Zoom"</span>);</span><br><span class="line">		Element element = elements.select(<span class="string">"a[href]"</span>).first();</span><br><span class="line">		String href = element.attr(<span class="string">"href"</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//加入到Movie中</span></span><br><span class="line">		movie.setTitle(title);</span><br><span class="line">		movie.setDownlodeUrl(href);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Movie <span class="title">getMovie</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> movie;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 爬虫线程</span></span><br><span class="line"><span class="comment"> * Created by ling on 2015/5/27.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpiderThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//线程开始结束的信号</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> CountDownLatch doneSignal;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> CountDownLatch startSignal;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Vector&lt;String&gt; urlList;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Set&lt;Movie&gt; movieSet = <span class="keyword">new</span> HashSet&lt;Movie&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">SpiderThread</span><span class="params">(Vector&lt;String&gt; urlList, CountDownLatch doneSignal,</span></span></span><br><span class="line"><span class="function"><span class="params">	                    CountDownLatch startSignal)</span> </span>&#123;</span><br><span class="line">		SpiderThread.urlList = urlList;</span><br><span class="line">		<span class="keyword">this</span>.doneSignal = doneSignal;</span><br><span class="line">		<span class="keyword">this</span>.startSignal = startSignal;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			startSignal.await(); <span class="comment">// 等待开始执行信号的发布</span></span><br><span class="line">			SpiderForMovParticular spider = <span class="keyword">new</span> SpiderForMovParticular();</span><br><span class="line">			<span class="keyword">while</span> (!urlList.isEmpty()) &#123;</span><br><span class="line">				<span class="comment">//得到Url</span></span><br><span class="line">				String tmp = getAurl();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">				<span class="keyword">if</span> (tmp != <span class="keyword">null</span>) &#123;</span><br><span class="line">					<span class="keyword">try</span> &#123;</span><br><span class="line">						System.out.println(i + <span class="string">":"</span> + tmp);</span><br><span class="line">						i++;</span><br><span class="line">						spider.execute(tmp);</span><br><span class="line">						movieSet.add(spider.getMovie());</span><br><span class="line"><span class="comment">//						System.out.println(movieSet);</span></span><br><span class="line">					&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">						e.printStackTrace();</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line"></span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">			doneSignal.countDown();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//		SpiderForMovParticular spider = new SpiderForMovParticular();</span></span><br><span class="line"><span class="comment">//		while (!urlList.isEmpty()) &#123;</span></span><br><span class="line"><span class="comment">//			//得到Url</span></span><br><span class="line"><span class="comment">//			String tmp = getAurl();</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//			if (tmp != null) &#123;</span></span><br><span class="line"><span class="comment">//				try &#123;</span></span><br><span class="line"><span class="comment">//					spider.execute(tmp);</span></span><br><span class="line"><span class="comment">//					movieSet.add(spider.getMovie());</span></span><br><span class="line"><span class="comment">//				&#125; catch (IOException e) &#123;</span></span><br><span class="line"><span class="comment">//					e.printStackTrace();</span></span><br><span class="line"><span class="comment">//				&#125;</span></span><br><span class="line"><span class="comment">//			&#125;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//		&#125;</span></span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> String <span class="title">getAurl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (urlList.isEmpty())&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		String tmpAUrl;</span><br><span class="line">		tmpAUrl = urlList.get(<span class="number">0</span>);</span><br><span class="line">		urlList.remove(<span class="number">0</span>);</span><br><span class="line">		<span class="keyword">return</span> tmpAUrl;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Set&lt;Movie&gt; <span class="title">getMovies</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> movieSet;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>首先是几个线程一起来爬存在UrlList中的地址。一开始就是用实现Runnable接口。<br>在run方法中：取出一个Url地址，执行爬虫的execute方法获取电影名称和下载地址，存在Movie对象中，再将此对象，加入MovieSet中。然后将MovieSet序列化到文件中。接下来可以将其放到数据库中。</p>
-<p>过程就是这么简单，但是当用多线程方式将其实现时，碰到了如下几个问题：</p>
-<blockquote>
-<p>1、从urlList中取url的时，同一个url多次被取出。<br>     因为当多个线程同时去访问urlList取数据，就可能会取出相同的url。<br>     所以应该在取出一条数据后将其删除，并保证其他线程不会同时取到别的线程去到的url。那么就要将取url这步同步。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> String <span class="title">getAurl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (urlList.isEmpty())&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		String tmpAUrl;</span><br><span class="line">		tmpAUrl = urlList.get(<span class="number">0</span>);</span><br><span class="line">		urlList.remove(<span class="number">0</span>);</span><br><span class="line">		<span class="keyword">return</span> tmpAUrl;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>2、多个线程如何在所有线程结束后将整个movieSet序列化<br> 一开始我使用了 thread.join() 命令 ，看起来好像也可以使几个线程运行完以后再执行下面的步骤。但是这样做不规范。<br> 后来我上网查了资料，使用了开始信号和结束信号作为线程开始和结束的标志。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//线程开始结束的信号</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> CountDownLatch doneSignal;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> CountDownLatch startSignal;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">SpiderThread</span><span class="params">(Vector&lt;String&gt; urlList, CountDownLatch doneSignal,</span></span></span><br><span class="line"><span class="function"><span class="params">	                    CountDownLatch startSignal)</span> </span>&#123;</span><br><span class="line">		SpiderThread.urlList = urlList;</span><br><span class="line">		<span class="keyword">this</span>.doneSignal = doneSignal;</span><br><span class="line">		<span class="keyword">this</span>.startSignal = startSignal;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			startSignal.await(); <span class="comment">// 等待开始执行信号的发布</span></span><br><span class="line">			SpiderForMovParticular spider = <span class="keyword">new</span> SpiderForMovParticular();</span><br><span class="line">			<span class="keyword">while</span> (!urlList.isEmpty()) &#123;</span><br><span class="line">				<span class="comment">//得到Url</span></span><br><span class="line">				String tmp = getAurl();</span><br><span class="line"></span><br><span class="line">				<span class="keyword">if</span> (tmp != <span class="keyword">null</span>) &#123;</span><br><span class="line">					<span class="keyword">try</span> &#123;</span><br><span class="line">						System.out.println(i + <span class="string">":"</span> + tmp);</span><br><span class="line">						i++;</span><br><span class="line">						spider.execute(tmp);</span><br><span class="line">						movieSet.add(spider.getMovie());</span><br><span class="line"></span><br><span class="line">						<span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">							<span class="keyword">if</span> (movieSet.size() &gt;= (<span class="number">10000</span>)) &#123;</span><br><span class="line">								<span class="comment">//储存movieSet</span></span><br><span class="line">								saveSet();</span><br><span class="line">							&#125;</span><br><span class="line">						&#125;</span><br><span class="line"><span class="comment">//						System.out.println(movieSet);</span></span><br><span class="line">					&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">						e.printStackTrace();</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">			doneSignal.countDown();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">//获取电影详情</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getMovieParticular</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> N = <span class="number">8</span>;</span><br><span class="line">		CountDownLatch doneSignal = <span class="keyword">new</span> CountDownLatch(N);</span><br><span class="line">		CountDownLatch startSignal = <span class="keyword">new</span> CountDownLatch(<span class="number">1</span>);<span class="comment">// 开始执行信号</span></span><br><span class="line"></span><br><span class="line">		urlList = Util.InPut(<span class="string">"E:\\ling\\url.txt"</span>);</span><br><span class="line"><span class="comment">//		urlList = Util.InPut("G:\\test.txt");</span></span><br><span class="line"></span><br><span class="line">		SpiderThread spiderThread = <span class="keyword">new</span> SpiderThread(urlList,doneSignal,startSignal);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">			<span class="keyword">new</span> Thread(spiderThread).start();<span class="comment">// 线程启动了</span></span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">"begin------------"</span>);</span><br><span class="line">		startSignal.countDown();<span class="comment">// 开始执行啦</span></span><br><span class="line">		doneSignal.await();<span class="comment">// 等待所有的线程执行完毕</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//只有所有线程执行完毕后才执行接下来的几部</span></span><br><span class="line">		movieList = spiderThread.getMovies();</span><br><span class="line">		Util.OutPutMovie(<span class="string">"E:\\ling\\Movie\\MovieLast.txt"</span>, movieList);</span><br><span class="line"><span class="comment">//		System.out.println(movieList);</span></span><br><span class="line">		System.out.println(<span class="string">"Ok"</span>);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<p>3、在一开始每次在movieSet中开几个线程，才有几个数据，前面的数据会被覆盖掉。找了很多，最后才发现原来是在SpiderForMovParticular类中，我将Movie 直接实例化了。就像:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Movie movie = <span class="keyword">new</span> Movie();</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<p>这样就不能每次都将不同的movie加入到movieSet中。<br>应该只创建一个引用，然后在方法中再实例化。<br>如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpiderForMovParticular</span> <span class="keyword">extends</span> <span class="title">Spider</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Movie movie;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">(String url)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		movie = <span class="keyword">new</span> Movie();</span><br><span class="line">		<span class="comment">//根据Url地址获取网页内容</span></span><br><span class="line">		String homepage = <span class="string">"http://www.ygdy8.net"</span>;</span><br><span class="line">		String html = HttpUtils.getHtml(homepage + url);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (html == <span class="keyword">null</span>)&#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"无法获取url网址内容"</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//对网页内容进行分析和提取</span></span><br><span class="line">		Document doc = Jsoup.parse(html);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//提取标题</span></span><br><span class="line">		String title = <span class="keyword">null</span>;</span><br><span class="line">		Element link = doc.select(<span class="string">"div.title_all"</span>).last();<span class="comment">//class等于title_all的div标签</span></span><br><span class="line">		<span class="keyword">if</span> (link != <span class="keyword">null</span>)&#123;</span><br><span class="line">			title = link.text();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//提取链接</span></span><br><span class="line">		String href = <span class="keyword">null</span>;</span><br><span class="line">		Elements elements = doc.select(<span class="string">"div#Zoom"</span>);</span><br><span class="line">		Element element = elements.select(<span class="string">"a[href]"</span>).first();</span><br><span class="line">		<span class="keyword">if</span> (element != <span class="keyword">null</span>) &#123;</span><br><span class="line">			href = element.attr(<span class="string">"href"</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//加入到Movie中</span></span><br><span class="line">		movie.setTitle(title);</span><br><span class="line">		movie.setDownlodeUrl(href);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Movie <span class="title">getMovie</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> movie;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p>#最后<br>总共爬到了825694条电影地址，现在还在爬电影的下载地址。应该很快就能爬完。</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://lingo0.github.io/2015/05/28/java多线程-爬电影天堂上的电影下载地址/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2018/04/20/Redis学习点滴/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Redis学习点滴
-        
-      </div>
-    </a>
   
   
-    <a href="/2015/05/23/Hexo+github pages创建个人博客教程(2)——创建github pages并上传/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hexo+github pages创建个人博客教程(2)——创建github pages并上传</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -371,8 +230,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
