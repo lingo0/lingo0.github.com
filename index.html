@@ -156,6 +156,167 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-spring-boot自定义配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/21/spring-boot自定义配置/">spring boot学习</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/21/spring-boot自定义配置/" class="archive-article-date">
+  	<time datetime="2018-04-21T11:36:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>​        最近看了《Spring boot 实战》这本书，但其中大部分内容都是讲如何使用spring boot和一些spring的常用配置，并没有过多涉及到其中的实现方式和原理。对于已经会使用，想要了解其中原理的同学并不推荐看这本书。下面将Spring boot中最关键的自动配置相关知识来梳理一下。</p>
+<h3 id="自定义配置"><a href="#自定义配置" class="headerlink" title="自定义配置"></a>自定义配置</h3><blockquote>
+<p>影响自动配置的方式有：1、显示配置进行覆盖；2、使用属性进行精细化配置</p>
+</blockquote>
+<h4 id="1、覆盖Spring-boot自动配置"><a href="#1、覆盖Spring-boot自动配置" class="headerlink" title="1、覆盖Spring boot自动配置"></a>1、覆盖Spring boot自动配置</h4><p>只需要编写一个显式配置，Spring Boot会发现你的配置，随后降低自动配置的优先级，以显示的配置为准。</p>
+<h6 id="是怎么允许被覆盖的？"><a href="#是怎么允许被覆盖的？" class="headerlink" title="是怎么允许被覆盖的？"></a>是怎么允许被覆盖的？</h6><p>​        大部分情况 SpringBoot的自动配置类的Bean方法上有注解@ConditionalOnMissingBean，意思是没有里配置指定的Bean时才会执行。因此当我们显示的配置对应的类时，就不会执行Spring本身的配置类。</p>
+<p>其中基本上配置类都在org.springframework.boot.autoconfigure.*中， 如JDBC的配置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.boot.autoconfigure.jdbc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.sql.DataSource;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.AutoConfigureAfter;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.EnableAutoConfiguration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.condition.ConditionalOnClass;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Primary;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.JdbcOperations;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.JdbcTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;</span><br><span class="line"><span class="keyword">import</span> org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> EnableAutoConfiguration Auto-configuration&#125; for &#123;<span class="doctag">@link</span> JdbcTemplate&#125; and</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@link</span> NamedParameterJdbcTemplate&#125;.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Dave Syer</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Phillip Webb</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Stephane Nicoll</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Kazuki Shimizu</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 1.4.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ConditionalOnClass</span>(&#123; DataSource.class, JdbcTemplate.class &#125;)</span><br><span class="line"><span class="meta">@ConditionalOnSingleCandidate</span>(DataSource.class)</span><br><span class="line"><span class="meta">@AutoConfigureAfter</span>(DataSourceAutoConfiguration.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JdbcTemplateAutoConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> DataSource dataSource;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">JdbcTemplateAutoConfiguration</span><span class="params">(DataSource dataSource)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.dataSource = dataSource;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">	<span class="meta">@Primary</span></span><br><span class="line">	<span class="meta">@ConditionalOnMissingBean</span>(JdbcOperations.class)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> JdbcTemplate <span class="title">jdbcTemplate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> JdbcTemplate(<span class="keyword">this</span>.dataSource);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">	<span class="meta">@Primary</span></span><br><span class="line">	<span class="meta">@ConditionalOnMissingBean</span>(NamedParameterJdbcOperations.class)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> NamedParameterJdbcTemplate <span class="title">namedParameterJdbcTemplate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> NamedParameterJdbcTemplate(<span class="keyword">this</span>.dataSource);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>JdbcTemplate()方法上添加了@Bean注解，在需要时可以配置出一个JdbcTemplate Bean。还有@ConditionalOnMissingBean注解，要求当前不存在JdbcOperations类型的Bean时才生效。Spring Boot的设计是先加载应用级配置，随后再考虑自动配置类。</p>
+<h4 id="2、通过属性文件外置配置"><a href="#2、通过属性文件外置配置" class="headerlink" title="2、通过属性文件外置配置"></a>2、通过属性文件外置配置</h4><p>除了上述直接写配置类去覆盖自动配置，更多是通过配置文件去修改原先的配置。Spring Boot应用程序有多种设置途径，可以从多种属性源获得属性，包括：</p>
+<ol>
+<li>命令行参数</li>
+<li>java：comp/env里的JNDI属性</li>
+<li>JVM系统属性</li>
+<li>系统环境变量</li>
+<li>随机生成的待random.*的属性，如${random.long}</li>
+<li>应用程序以外的application.properties文件</li>
+<li>应用程序内的application.properties文件</li>
+<li>通过@PropertySource标注的属性源</li>
+<li>默认属性</li>
+</ol>
+<p>以上列表是按优先级排序的，优先级高的会覆盖优先级低的属性。</p>
+<p>如application.properties文件可以放在以下四个位置：</p>
+<ol>
+<li>外置，在相对于应用程序运行目录的/config子目录里</li>
+<li>外置，在应用程序运行的目录里</li>
+<li>内置，在config包内</li>
+<li>内置，在Classpath根目录</li>
+</ol>
+<p>一般来说，都是放在Classpath根目录下的resource文件夹下。其实是优先级最低的，会被上面的覆盖。</p>
+<h3 id="自动配置中使用的条件化注解"><a href="#自动配置中使用的条件化注解" class="headerlink" title="自动配置中使用的条件化注解"></a>自动配置中使用的条件化注解</h3><table>
+<thead>
+<tr>
+<th>条件化注解</th>
+<th>配置生效条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>@ConditionOnBean</td>
+<td>配置了某个特定Bean</td>
+</tr>
+<tr>
+<td>@ConditionOnMissingBean</td>
+<td>没有配置特定Bean</td>
+</tr>
+<tr>
+<td>@ConditionOnClass</td>
+<td>Classpath里有指定的类</td>
+</tr>
+<tr>
+<td>@ConditionOnMissingClass</td>
+<td>Classpath里缺少指定的类</td>
+</tr>
+<tr>
+<td>@ConditionOnExpression</td>
+<td>给定的Spring Expression Language表达式计算为true</td>
+</tr>
+<tr>
+<td>@ConditionOnJava</td>
+<td>Java的版本匹配特定值或一个范围值</td>
+</tr>
+<tr>
+<td>@ConditionOnJndi</td>
+<td>参数给定的Jndi位置</td>
+</tr>
+<tr>
+<td>@ConditionOnProperty</td>
+<td>指定的配置属性要有一个明确的值</td>
+</tr>
+<tr>
+<td>@ConditionOnResource</td>
+<td>Classpath里有指定</td>
+</tr>
+<tr>
+<td>@ConditionOnWebApplication</td>
+<td>Web应用程序</td>
+</tr>
+<tr>
+<td>@ConditionOnNotWebApplication</td>
+<td>不是Web应用程序</td>
+</tr>
+</tbody>
+</table>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Sping</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/21/spring-boot自定义配置/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Redis学习点滴" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -641,11 +802,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+                <a href="javascript:void(0)" class="js-tag color1">Sping</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
             
             <div class="clearfix"></div>
