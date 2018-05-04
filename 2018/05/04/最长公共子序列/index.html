@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="http://lingo0.github.io">
   <title>最长公共子序列 | Ling&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#最长公共子序列问题-LCS问题 ###问题描述：给定两个序列 X={x1,x2,x3,…,xm}和Y={y1,y2,…,yn}，求X和Y长度最长的公共子序列。">
+  <meta name="description" content="最长公共子序列问题-LCS问题问题描述：给定两个序列 X={x1,x2,x3,…,xm}和Y={y1,y2,…,yn}，求X和Y长度最长的公共子序列。">
 <meta name="keywords" content="Java,ACM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="最长公共子序列">
 <meta property="og:url" content="http://lingo0.github.io/2018/05/04/最长公共子序列/index.html">
 <meta property="og:site_name" content="Ling&#39;s blog">
-<meta property="og:description" content="#最长公共子序列问题-LCS问题 ###问题描述：给定两个序列 X={x1,x2,x3,…,xm}和Y={y1,y2,…,yn}，求X和Y长度最长的公共子序列。">
+<meta property="og:description" content="最长公共子序列问题-LCS问题问题描述：给定两个序列 X={x1,x2,x3,…,xm}和Y={y1,y2,…,yn}，求X和Y长度最长的公共子序列。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://img.blog.csdn.net/20150427114632114">
-<meta property="og:updated_time" content="2018-05-04T08:52:01.340Z">
+<meta property="og:updated_time" content="2018-05-04T08:55:55.326Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="最长公共子序列">
-<meta name="twitter:description" content="#最长公共子序列问题-LCS问题 ###问题描述：给定两个序列 X={x1,x2,x3,…,xm}和Y={y1,y2,…,yn}，求X和Y长度最长的公共子序列。">
+<meta name="twitter:description" content="最长公共子序列问题-LCS问题问题描述：给定两个序列 X={x1,x2,x3,…,xm}和Y={y1,y2,…,yn}，求X和Y长度最长的公共子序列。">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20150427114632114">
   
     <link rel="alternative" href="/atom.xml" title="Ling&#39;s blog" type="application/atom+xml">
@@ -181,15 +181,31 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#最长公共子序列问题-LCS问题</p>
-<p>###问题描述：<br>给定两个序列 X={x1,x2,x3,…,xm}和Y={y1,y2,…,yn}，求X和Y长度最长的公共子序列。</p>
+        <h1 id="最长公共子序列问题-LCS问题"><a href="#最长公共子序列问题-LCS问题" class="headerlink" title="最长公共子序列问题-LCS问题"></a>最长公共子序列问题-LCS问题</h1><h3 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h3><p>给定两个序列 X={x1,x2,x3,…,xm}和Y={y1,y2,…,yn}，求X和Y长度最长的公共子序列。</p>
 <a id="more"></a>
-<p>###求解思路：</p>
-<ol>
-<li>寻找特征:<br>LCS问题具有最优子结构性质。可以将子问题对应两个输入序列的前缀对。<br>令Z = {z1,z2,…,zk}，为X和Y的任意LCS。有如下性质，<br>1.1 如果xm = yn,则zk = xm = yn 且Zk-1是Xm-1和Yn-1的一个LCS。<br>1.2 如果xm不等于yn，那么zk不等于xm意味着Z是Xm-1和Y的一个LCS。<br>1.3 如果xm不等于yn，那么zk不等于yn意味着Z是Xm和Yn-1的一个LCS。</li>
-<li>设计递归公式<br>根据上面的特征，可以知道要求解Xn和Ym的一个LCS时，我们需要求解一个或两个子问题。如果xm=yn，我们应该求解Xm-1和Yn-1的一个LCS。如果xm不等于yn，就必须求解两个子问题：求Xm-1和Y的一个LCS与X和Yn-1的一个LCS。其中较长的一个即为X和Y的一个LCS。<br>可以用一个二维数组C来储存Xi和Yi的LCS长度，可以得到如下公式：<br><img src="http://img.blog.csdn.net/20150427114632114" alt="这里写图片描述"></li>
-<li>优化<br>这里对与这个问题可以使用动态数组的方法，将C[i,j]自底向上的计算出来，最终求得C[m,n],也就是Xm和Yn的最大公共子序列。但是通过观察上面那个公式，我们可以发现要计算C[i, j]只需计算C[i-1,j-1]或者C[i-1,j]和C[i,j-1]。而无需用到C[i,0]～C[i,j-1]及C[i-1,j]～C[i-1,n]。<br>所以我们可以采用自顶而下的方法，需要用到哪个再去计算那个，这样可以减小计算量。也被称作为备忘录方法</li>
-<li>算法描述<br>首先将C[i,0],C[0,j]初始化为0。其余m×n个C[i,j]全部初始化为-1。<br>计算C[i,j]的递归算法LCS(X,Y, i,j,C)：<br>若x[i]=y[j]，则去检查C[i-1,j-1]，若C[i-1,j-1]&gt; -1（已经计算出来），就直接把C[i-1,j-1]+1赋给C[i,j]。若C[i-1,j-1]=-1（尚未计算出来），就递归调用LCS(X,Y, i-1,j-1,C) 计算出C[i-1,j-1]，然后再把C[i-1,j-1]+1赋给C[i,j] 。<br>若x[i] != y[j]，则要检查C[i-1,j]和C[i,j-1]。若两者均 &gt; -1（已经计算出来），<br>则把max{ C[i-1,j], C[i,j-1]} 赋给C[i,j]。若C[i-1,j], C[i,j-1] 两者中有一个等于-1（尚未计算出来），或两者均等于-1，就递归调用LCS将其计算出来，<br>然后再把max{ C[i-1,j], C[i,j-1]} 赋给C[i,j]。</li>
+<h3 id="求解思路："><a href="#求解思路：" class="headerlink" title="求解思路："></a>求解思路：</h3><ol>
+<li><p>寻找特征:</p>
+<p>LCS问题具有最优子结构性质。可以将子问题对应两个输入序列的前缀对。</p>
+<p>令Z = {z1,z2,…,zk}，为X和Y的任意LCS。有如下性质，</p>
+<p>1.1 如果xm = yn,则zk = xm = yn 且Zk-1是Xm-1和Yn-1的一个LCS。</p>
+<p>1.2 如果xm不等于yn，那么zk不等于xm意味着Z是Xm-1和Y的一个LCS。</p>
+<p>1.3 如果xm不等于yn，那么zk不等于yn意味着Z是Xm和Yn-1的一个LCS。</p>
+</li>
+<li><p>设计递归公式 </p>
+<p>根据上面的特征，可以知道要求解Xn和Ym的一个LCS时，我们需要求解一个或两个子问题。如果xm=yn，我们应该求解Xm-1和Yn-1的一个LCS。如果xm不等于yn，就必须求解两个子问题：求Xm-1和Y的一个LCS与X和Yn-1的一个LCS。其中较长的一个即为X和Y的一个LCS。</p>
+<p>可以用一个二维数组C来储存Xi和Yi的LCS长度，可以得到如下公式：</p>
+<p><img src="http://img.blog.csdn.net/20150427114632114" alt="这里写图片描述"></p>
+</li>
+<li><p>优化</p>
+<p>这里对与这个问题可以使用动态数组的方法，将C[i,j]自底向上的计算出来，最终求得C[m,n],也就是Xm和Yn的最大公共子序列。但是通过观察上面那个公式，我们可以发现要计算C[i, j]只需计算C[i-1,j-1]或者C[i-1,j]和C[i,j-1]。而无需用到C[i,0]～C[i,j-1]及C[i-1,j]～C[i-1,n]。</p>
+<p>所以我们可以采用自顶而下的方法，需要用到哪个再去计算那个，这样可以减小计算量。也被称作为备忘录方法</p>
+</li>
+<li><p>算法描述</p>
+<p>首先将C[i,0],C[0,j]初始化为0。其余m×n个C[i,j]全部初始化为-1。</p>
+<p>计算C[i,j]的递归算法LCS(X,Y, i,j,C)：</p>
+<p>若x[i]=y[j]，则去检查C[i-1,j-1]，若C[i-1,j-1]&gt; -1（已经计算出来），就直接把C[i-1,j-1]+1赋给C[i,j]。若C[i-1,j-1]=-1（尚未计算出来），就递归调用LCS(X,Y, i-1,j-1,C) 计算出C[i-1,j-1]，然后再把C[i-1,j-1]+1赋给C[i,j] 。</p>
+<p>若x[i] != y[j]，则要检查C[i-1,j]和C[i,j-1]。若两者均 &gt; -1（已经计算出来），则把max{ C[i-1,j], C[i,j-1]} 赋给C[i,j]。若C[i-1,j], C[i,j-1] 两者中有一个等于-1（尚未计算出来），或两者均等于-1，就递归调用LCS将其计算出来，然后再把max{ C[i-1,j], C[i,j-1]} 赋给C[i,j]。</p>
+</li>
 </ol>
 <h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * com.mogujie.ACM</span></span><br><span class="line"><span class="comment"> * 最长公共子序列问题-LCS问题</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * 问题描述：给定两个序列 X=&#123;x1,x2,x3,…,xm&#125;和Y=&#123;y1,y2,…,yn&#125;，求X和Y长度最长的公共子序列。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @author muzhi</span></span><br><span class="line"><span class="comment"> * 2018/5/4</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LongestCommonSubsequence</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 解题思路：</span></span><br><span class="line"><span class="comment">     * LCS问题具有最优子结构性质。可以将子问题对应两个输入序列的前缀对。</span></span><br><span class="line"><span class="comment">     * 令Z = &#123;z1,z2,…,zk&#125;，为X和Y的任意LCS。有如下性质，</span></span><br><span class="line"><span class="comment">     * 1.1 如果xm = yn,则zk = xm = yn 且Zk-1是Xm-1和Yn-1的一个LCS。</span></span><br><span class="line"><span class="comment">     * 1.2 如果xm不等于yn，那么zk不等于xm意味着Z是Xm-1和Y的一个LCS。</span></span><br><span class="line"><span class="comment">     * 1.3 如果xm不等于yn，那么zk不等于yn意味着Z是Xm和Yn-1的一个LCS。</span></span><br><span class="line"><span class="comment">     * 因此，最大子序列就是计算</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">LCS</span><span class="params">(<span class="keyword">char</span>[] x, <span class="keyword">char</span>[] y, <span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="keyword">int</span>[][] c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (i == <span class="number">0</span> || j == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (x[i] == y[j]) &#123;</span><br><span class="line">            <span class="comment">// 说明还没有计算出来</span></span><br><span class="line">            <span class="keyword">if</span> (c[i - <span class="number">1</span>][j - <span class="number">1</span>] == <span class="number">-1</span>) &#123;</span><br><span class="line">                LCS(x, y, i - <span class="number">1</span>, j - <span class="number">1</span>, c);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                c[i][j] = c[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (c[i][j - <span class="number">1</span>] == <span class="number">-1</span>) &#123;</span><br><span class="line">                LCS(x, y, i, j - <span class="number">1</span>, c);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (c[i - <span class="number">1</span>][j] == <span class="number">-1</span>) &#123;</span><br><span class="line">                LCS(x, y, i - <span class="number">1</span>, j, c);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            c[i][j] = c[i][j - <span class="number">1</span>] &gt; c[i - <span class="number">1</span>][j] ? c[i][j - <span class="number">1</span>] : c[i - <span class="number">1</span>][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">doSoult</span><span class="params">(String x, String y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> xSize = x.length();</span><br><span class="line">        <span class="keyword">int</span> ySize = y.length();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[][] c = <span class="keyword">new</span> <span class="keyword">int</span>[xSize + <span class="number">1</span>][ySize + <span class="number">1</span>];</span><br><span class="line">        <span class="comment">// 初始化c的值为-1</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= xSize; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= ySize; j++) &#123;</span><br><span class="line">                c[i][j] = <span class="number">-1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">char</span>[] xCharArray = <span class="keyword">new</span> <span class="keyword">char</span>[xSize + <span class="number">1</span>];</span><br><span class="line">        xCharArray[<span class="number">0</span>] = <span class="string">'#'</span>;</span><br><span class="line">        <span class="keyword">char</span>[] yCharArray = <span class="keyword">new</span> <span class="keyword">char</span>[ySize + <span class="number">1</span>];</span><br><span class="line">        yCharArray[<span class="number">0</span>] = <span class="string">'#'</span>;</span><br><span class="line"></span><br><span class="line">        System.arraycopy(x.toCharArray(), <span class="number">0</span>, xCharArray, <span class="number">1</span>, xSize);</span><br><span class="line">        System.arraycopy(y.toCharArray(), <span class="number">0</span>, yCharArray, <span class="number">1</span>, ySize);</span><br><span class="line"></span><br><span class="line">        LCS(xCharArray, yCharArray, xSize, ySize, c);</span><br><span class="line">        <span class="keyword">return</span> c[xSize][ySize];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        String x = <span class="string">"abcderg"</span>;</span><br><span class="line">        String y = <span class="string">"abc"</span>;</span><br><span class="line">        System.out.println(doSoult(x, y));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -449,19 +465,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IOC</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -473,15 +481,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IOC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ACM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ACM</a>
               </li>
             
             <div class="clearfix"></div>
