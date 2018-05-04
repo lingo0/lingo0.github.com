@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://lingo0.github.io">
-  <title>Archives: 2018/4 | Ling&#39;s blog</title>
+  <title>最长公共子序列 | Ling&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Ling&#39;s blog">
-<meta property="og:url" content="http://lingo0.github.io/archives/2018/04/index.html">
+  <meta name="description" content="#最长公共子序列问题-LCS问题 ###问题描述：给定两个序列 X={x1,x2,x3,…,xm}和Y={y1,y2,…,yn}，求X和Y长度最长的公共子序列。">
+<meta name="keywords" content="Java,ACM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最长公共子序列">
+<meta property="og:url" content="http://lingo0.github.io/2018/05/04/最长公共子序列/index.html">
 <meta property="og:site_name" content="Ling&#39;s blog">
+<meta property="og:description" content="#最长公共子序列问题-LCS问题 ###问题描述：给定两个序列 X={x1,x2,x3,…,xm}和Y={y1,y2,…,yn}，求X和Y长度最长的公共子序列。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20150427114632114">
+<meta property="og:updated_time" content="2018-05-04T08:52:01.340Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ling&#39;s blog">
+<meta name="twitter:title" content="最长公共子序列">
+<meta name="twitter:description" content="#最长公共子序列问题-LCS问题 ###问题描述：给定两个序列 X={x1,x2,x3,…,xm}和Y={y1,y2,…,yn}，求X和Y长度最长的公共子序列。">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20150427114632114">
   
     <link rel="alternative" href="/atom.xml" title="Ling&#39;s blog" type="application/atom+xml">
   
@@ -154,182 +161,202 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-最长公共子序列" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      最长公共子序列
+    </h1>
+  
+
+        
+        <a href="/2018/05/04/最长公共子序列/" class="archive-article-date">
+  	<time datetime="2018-05-04T08:48:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-04</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#最长公共子序列问题-LCS问题</p>
+<p>###问题描述：<br>给定两个序列 X={x1,x2,x3,…,xm}和Y={y1,y2,…,yn}，求X和Y长度最长的公共子序列。</p>
+<a id="more"></a>
+<p>###求解思路：</p>
+<ol>
+<li>寻找特征:<br>LCS问题具有最优子结构性质。可以将子问题对应两个输入序列的前缀对。<br>令Z = {z1,z2,…,zk}，为X和Y的任意LCS。有如下性质，<br>1.1 如果xm = yn,则zk = xm = yn 且Zk-1是Xm-1和Yn-1的一个LCS。<br>1.2 如果xm不等于yn，那么zk不等于xm意味着Z是Xm-1和Y的一个LCS。<br>1.3 如果xm不等于yn，那么zk不等于yn意味着Z是Xm和Yn-1的一个LCS。</li>
+<li>设计递归公式<br>根据上面的特征，可以知道要求解Xn和Ym的一个LCS时，我们需要求解一个或两个子问题。如果xm=yn，我们应该求解Xm-1和Yn-1的一个LCS。如果xm不等于yn，就必须求解两个子问题：求Xm-1和Y的一个LCS与X和Yn-1的一个LCS。其中较长的一个即为X和Y的一个LCS。<br>可以用一个二维数组C来储存Xi和Yi的LCS长度，可以得到如下公式：<br><img src="http://img.blog.csdn.net/20150427114632114" alt="这里写图片描述"></li>
+<li>优化<br>这里对与这个问题可以使用动态数组的方法，将C[i,j]自底向上的计算出来，最终求得C[m,n],也就是Xm和Yn的最大公共子序列。但是通过观察上面那个公式，我们可以发现要计算C[i, j]只需计算C[i-1,j-1]或者C[i-1,j]和C[i,j-1]。而无需用到C[i,0]～C[i,j-1]及C[i-1,j]～C[i-1,n]。<br>所以我们可以采用自顶而下的方法，需要用到哪个再去计算那个，这样可以减小计算量。也被称作为备忘录方法</li>
+<li>算法描述<br>首先将C[i,0],C[0,j]初始化为0。其余m×n个C[i,j]全部初始化为-1。<br>计算C[i,j]的递归算法LCS(X,Y, i,j,C)：<br>若x[i]=y[j]，则去检查C[i-1,j-1]，若C[i-1,j-1]&gt; -1（已经计算出来），就直接把C[i-1,j-1]+1赋给C[i,j]。若C[i-1,j-1]=-1（尚未计算出来），就递归调用LCS(X,Y, i-1,j-1,C) 计算出C[i-1,j-1]，然后再把C[i-1,j-1]+1赋给C[i,j] 。<br>若x[i] != y[j]，则要检查C[i-1,j]和C[i,j-1]。若两者均 &gt; -1（已经计算出来），<br>则把max{ C[i-1,j], C[i,j-1]} 赋给C[i,j]。若C[i-1,j], C[i,j-1] 两者中有一个等于-1（尚未计算出来），或两者均等于-1，就递归调用LCS将其计算出来，<br>然后再把max{ C[i-1,j], C[i,j-1]} 赋给C[i,j]。</li>
+</ol>
+<h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * com.mogujie.ACM</span></span><br><span class="line"><span class="comment"> * 最长公共子序列问题-LCS问题</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * 问题描述：给定两个序列 X=&#123;x1,x2,x3,…,xm&#125;和Y=&#123;y1,y2,…,yn&#125;，求X和Y长度最长的公共子序列。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @author muzhi</span></span><br><span class="line"><span class="comment"> * 2018/5/4</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LongestCommonSubsequence</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 解题思路：</span></span><br><span class="line"><span class="comment">     * LCS问题具有最优子结构性质。可以将子问题对应两个输入序列的前缀对。</span></span><br><span class="line"><span class="comment">     * 令Z = &#123;z1,z2,…,zk&#125;，为X和Y的任意LCS。有如下性质，</span></span><br><span class="line"><span class="comment">     * 1.1 如果xm = yn,则zk = xm = yn 且Zk-1是Xm-1和Yn-1的一个LCS。</span></span><br><span class="line"><span class="comment">     * 1.2 如果xm不等于yn，那么zk不等于xm意味着Z是Xm-1和Y的一个LCS。</span></span><br><span class="line"><span class="comment">     * 1.3 如果xm不等于yn，那么zk不等于yn意味着Z是Xm和Yn-1的一个LCS。</span></span><br><span class="line"><span class="comment">     * 因此，最大子序列就是计算</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">LCS</span><span class="params">(<span class="keyword">char</span>[] x, <span class="keyword">char</span>[] y, <span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="keyword">int</span>[][] c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (i == <span class="number">0</span> || j == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (x[i] == y[j]) &#123;</span><br><span class="line">            <span class="comment">// 说明还没有计算出来</span></span><br><span class="line">            <span class="keyword">if</span> (c[i - <span class="number">1</span>][j - <span class="number">1</span>] == <span class="number">-1</span>) &#123;</span><br><span class="line">                LCS(x, y, i - <span class="number">1</span>, j - <span class="number">1</span>, c);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                c[i][j] = c[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (c[i][j - <span class="number">1</span>] == <span class="number">-1</span>) &#123;</span><br><span class="line">                LCS(x, y, i, j - <span class="number">1</span>, c);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (c[i - <span class="number">1</span>][j] == <span class="number">-1</span>) &#123;</span><br><span class="line">                LCS(x, y, i - <span class="number">1</span>, j, c);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            c[i][j] = c[i][j - <span class="number">1</span>] &gt; c[i - <span class="number">1</span>][j] ? c[i][j - <span class="number">1</span>] : c[i - <span class="number">1</span>][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">doSoult</span><span class="params">(String x, String y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> xSize = x.length();</span><br><span class="line">        <span class="keyword">int</span> ySize = y.length();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[][] c = <span class="keyword">new</span> <span class="keyword">int</span>[xSize + <span class="number">1</span>][ySize + <span class="number">1</span>];</span><br><span class="line">        <span class="comment">// 初始化c的值为-1</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= xSize; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= ySize; j++) &#123;</span><br><span class="line">                c[i][j] = <span class="number">-1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">char</span>[] xCharArray = <span class="keyword">new</span> <span class="keyword">char</span>[xSize + <span class="number">1</span>];</span><br><span class="line">        xCharArray[<span class="number">0</span>] = <span class="string">'#'</span>;</span><br><span class="line">        <span class="keyword">char</span>[] yCharArray = <span class="keyword">new</span> <span class="keyword">char</span>[ySize + <span class="number">1</span>];</span><br><span class="line">        yCharArray[<span class="number">0</span>] = <span class="string">'#'</span>;</span><br><span class="line"></span><br><span class="line">        System.arraycopy(x.toCharArray(), <span class="number">0</span>, xCharArray, <span class="number">1</span>, xSize);</span><br><span class="line">        System.arraycopy(y.toCharArray(), <span class="number">0</span>, yCharArray, <span class="number">1</span>, ySize);</span><br><span class="line"></span><br><span class="line">        LCS(xCharArray, yCharArray, xSize, ySize, c);</span><br><span class="line">        <span class="keyword">return</span> c[xSize][ySize];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        String x = <span class="string">"abcderg"</span>;</span><br><span class="line">        String y = <span class="string">"abc"</span>;</span><br><span class="line">        System.out.println(doSoult(x, y));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://s10.mogucdn.com/mlcdn/c45406/180420_0dg7116cadcl9g416clgb9al70ac2_426x432.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/26/为tiny-spring添加注解注入功能/" class="archive-article-date">
-  	<time datetime="2018-04-26T02:41:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/26/为tiny-spring添加注解注入功能/">为tiny-spring添加注解注入功能</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">IOC</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/25/tiny-spring 分析/" class="archive-article-date">
-  	<time datetime="2018-04-25T07:40:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/25/tiny-spring 分析/">tiny-spring分析</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/21/SpringBoot学习/" class="archive-article-date">
-  	<time datetime="2018-04-21T11:36:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/21/SpringBoot学习/">SpringBoot学习</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Sping</a>
-        		</li>
-      		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/20/Redis学习点滴/" class="archive-article-date">
-  	<time datetime="2018-04-20T06:22:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/20/Redis学习点滴/">Redis学习点滴</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
+      		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ACM</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://lingo0.github.io/2018/05/04/最长公共子序列/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/04/26/为tiny-spring添加注解注入功能/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">为tiny-spring添加注解注入功能</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://lingo0.github.io/2018/05/04/最长公共子序列/",
+  owner: 'lingo0',
+  repo: 'lingo0.github.com',
+  oauth: {
+    client_id: 'c72bd154eaeeabfd97bd',
+    client_secret: '46414fa1d7c7a55b66dccee93890b94e7677bcde',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
+  
 
 
           </div>
@@ -352,8 +379,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
