@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://lingo0.github.io">
-  <title>Tag: Hexo | Ling&#39;s blog</title>
+  <title>快速上手Dubbo | Ling&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Ling&#39;s blog">
-<meta property="og:url" content="http://lingo0.github.io/tags/Hexo/index.html">
+  <meta name="description" content="​    因为接下去工作中RPC框架是使用Dubbo，所以试着用了一下，写了简单的provider和comsumer测试。之前所在公司用的是自研的RPC通信框架，大体上感觉差不多，唯一的区别应该就是服务发现和治理上的，Dubbo使用了zookeeper，等之后的文章再具体分析。">
+<meta name="keywords" content="Spring,Dubbo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="快速上手Dubbo">
+<meta property="og:url" content="http://lingo0.github.io/2018/05/11/快速上手Dubbo/index.html">
 <meta property="og:site_name" content="Ling&#39;s blog">
+<meta property="og:description" content="​    因为接下去工作中RPC框架是使用Dubbo，所以试着用了一下，写了简单的provider和comsumer测试。之前所在公司用的是自研的RPC通信框架，大体上感觉差不多，唯一的区别应该就是服务发现和治理上的，Dubbo使用了zookeeper，等之后的文章再具体分析。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-05-15T01:31:22.878Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ling&#39;s blog">
+<meta name="twitter:title" content="快速上手Dubbo">
+<meta name="twitter:description" content="​    因为接下去工作中RPC框架是使用Dubbo，所以试着用了一下，写了简单的provider和comsumer测试。之前所在公司用的是自研的RPC通信框架，大体上感觉差不多，唯一的区别应该就是服务发现和治理上的，Dubbo使用了zookeeper，等之后的文章再具体分析。">
   
     <link rel="alternative" href="/atom.xml" title="Ling&#39;s blog" type="application/atom+xml">
   
@@ -154,136 +159,264 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-快速上手Dubbo" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      快速上手Dubbo
+    </h1>
+  
+
+        
+        <a href="/2018/05/11/快速上手Dubbo/" class="archive-article-date">
+  	<time datetime="2018-05-11T06:18:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-11</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>​    因为接下去工作中RPC框架是使用Dubbo，所以试着用了一下，写了简单的provider和comsumer测试。之前所在公司用的是自研的RPC通信框架，大体上感觉差不多，唯一的区别应该就是服务发现和治理上的，Dubbo使用了zookeeper，等之后的文章再具体分析。</p>
+<a id="more"></a>
+<h2 id="一、环境搭建"><a href="#一、环境搭建" class="headerlink" title="一、环境搭建"></a>一、环境搭建</h2><blockquote>
+<p>todo 这个后续再补充，测试的时候为了方便，直接使用了现成的线下环境。</p>
+</blockquote>
+<h2 id="二、服务提供方配置-provider"><a href="#二、服务提供方配置-provider" class="headerlink" title="二、服务提供方配置 provider"></a>二、服务提供方配置 provider</h2><ol>
+<li><p>通过spring-boot 快速搭建工程，因为spring官方没有dubbo的starter，所以新建完成后，需要手动引入dubbo的maven依赖。</p>
+</li>
+<li><p>添加服务提供方配置文件 provider.xml。文件的内容如下，具体的配置属性可以查看官方文档</p>
+<p><a href="http://dubbo.apache.org/books/dubbo-user-book/references/xml/introduction.html" target="_blank" rel="noopener">http://dubbo.apache.org/books/dubbo-user-book/references/xml/introduction.html</a></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:dubbo</span>=<span class="string">"http://code.alibabatech.com/schema/dubbo"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">       http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 应用配置名称 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dubbo:application</span> <span class="attr">name</span>=<span class="string">"lingshenghang-test-provider"</span>  /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 注册中心配置，使用zookeeper注册中心暴露服务地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dubbo:registry</span> <span class="attr">address</span>=<span class="string">"zookeeper://10.XXX.XXX.XXX:2181"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 用dubbo协议在20880端口暴露服务 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dubbo:protocol</span> <span class="attr">name</span>=<span class="string">"dubbo"</span> <span class="attr">port</span>=<span class="string">"20880"</span></span></span><br><span class="line"><span class="tag">                    <span class="attr">threads</span>=<span class="string">"400"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--filter="-exception,eduexception" serialization="fastjson"/&gt; --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 名字如果和dubbo默认的filter前缀名字重的话，会默认选择dubbo的filter，比如使用exception，则会默认使用到ExceptionFilter --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&lt;dubbo:provider timeout="10000" loadbalance="random"--&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!--executes="300" actives="20" filter="-exception,eduexception" /&gt;--&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 服务提供 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dubbo:service</span></span></span><br><span class="line"><span class="tag">            <span class="attr">interface</span>=<span class="string">"com.example.dubbo.TestProviderService"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">ref</span>=<span class="string">"testProviderService"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--&lt;dubbo:protocol name="dubbo" port="20880" /&gt;--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&lt;dubbo:service interface="com.alibaba.dubbo.demo.DemoService" ref="demoServiceLocal" /&gt;--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&lt;dubbo:reference id="demoServiceRemote" interface="com.alibaba.dubbo.demo.DemoService" /&gt;--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建服务接口和服务接口实现，这个就是你要提供的服务接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TestProviderService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">getName</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>暴露服务</p>
+<p>都可以通过注解方式和通过xml配置方式。</p>
+<ul>
+<li><p>注解方式</p>
+<p>在类上打@Service注解，注意是dubbo的@Service不是Spring的@Service。 同时在 xml中加上dubbo:annotation指定启动扫描路径。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 暴露dubbo服务的方式 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 使用注解方式暴露接口，会自动扫描package下所有包中dubbo相关的注解，这样就不用在xml中再针对每个服务接口配置dubbo:service interface--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dubbo:annotation</span> <span class="attr">package</span>=<span class="string">"com.example.dubbo"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>xml配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 服务暴露 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dubbo:service</span> <span class="attr">interface</span>=<span class="string">"com.example.dubbo.TestProviderService"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">ref</span>=<span class="string">"testProviderService"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>然后就可以启动看看了。</p>
+<p>我启动时候碰到了问题，没有引入zookeeper的包，在pom.xml中加上就行。</p>
+</li>
+<li><p>为消费方提供jar包</p>
+<h2 id="三、服务消费方配置-comsumer"><a href="#三、服务消费方配置-comsumer" class="headerlink" title="三、服务消费方配置 comsumer"></a>三、服务消费方配置 comsumer</h2></li>
+<li><p>和服务提供一样，先搭个spring项目，引入dubbo的maven依赖。</p>
+</li>
+<li><p>引入 服务方提供的jar包。</p>
+</li>
+<li><p>添加dubbo配置文件，comsumer.xml</p>
+<p>要注意的点是，dubbo:application 需要唯一，不能和服务提供方一样。</p>
+</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;beans xmlns=<span class="string">"http://www.springframework.org/schema/beans"</span></span><br><span class="line">       xmlns:xsi=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> xmlns:dubbo=<span class="string">"http://code.alibabatech.com/schema/dubbo"</span></span><br><span class="line">       xsi:schemaLocation=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd"</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 应用配置名称 --&gt;</span><br><span class="line">    &lt;dubbo:application name=<span class="string">"lingshenghang-test-comsumer"</span>/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 服务注册中心 --&gt;</span><br><span class="line">    &lt;dubbo:registry address=<span class="string">"zookeeper://10.165.124.209:2181"</span>/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 关闭comsumer 服务启动检查--&gt;</span><br><span class="line">    &lt;dubbo:consumer check=<span class="string">"false"</span>/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 远程服务 --&gt;</span><br><span class="line">    &lt;dubbo:reference id=<span class="string">"testProviderService"</span></span><br><span class="line">                     <span class="class"><span class="keyword">interface</span></span>=<span class="string">"com.example.dubbo.TestProviderService"</span>/&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li><p>创建远程服务</p>
+<p>也是两种方式，注解和xml</p>
+<ul>
+<li><p>注解方式</p>
+<p>在类的远程成员变量上加上@Reference，同时需要在xml中添加配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 使用注解方式创建远程服务代理--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dubbo:annotation</span> <span class="attr">package</span>=<span class="string">"com.example.dubbo"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>xml方式</p>
+<p>添加xml中配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 使用xml配置方式创建远程服务代理，id即为provider.xml中暴露的服务的id--&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 等同于dubbo:annotation 加上代码里的@Reference注解--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dubbo:reference</span> <span class="attr">id</span>=<span class="string">"testProviderService"</span></span></span><br><span class="line"><span class="tag">                 <span class="attr">interface</span>=<span class="string">"com.example.dubbo.TestProviderService"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>创建一个测试Controller</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ComsumerController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> TestProviderService testProviderService;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/canbuy"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testComsumer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       testProviderService.getName();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动工程，测试</p>
+<p>注意如果是同一台机器上启动的话，要修改下两者的tomcat端口。在一个工程里的application.properties中添加server.port=8011。</p>
+</li>
+<li><p>可以上 dubbo admin 网址，查看应用名和服务名。</p>
+</li>
+</ol>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://s10.mogucdn.com/mlcdn/c45406/180420_0dg7116cadcl9g416clgb9al70ac2_426x432.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/05/23/Hexo+github pages创建个人博客教程(2)/" class="archive-article-date">
-  	<time datetime="2015-05-23T12:10:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-05-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/23/Hexo+github pages创建个人博客教程(2)/">Hexo+github pages创建个人博客教程(2)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
         		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/05/23/Hexo+github pages创建个人博客教程(1)/" class="archive-article-date">
-  	<time datetime="2015-05-23T11:07:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-05-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/23/Hexo+github pages创建个人博客教程(1)/">Hexo+github pages创建个人博客教程(1)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
+      		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Dubbo</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://lingo0.github.io/2018/05/11/快速上手Dubbo/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/05/23/Hello-MyBlog/" class="archive-article-date">
-  	<time datetime="2015-05-23T09:03:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-05-23</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2018/05/14/RabbitMQ学习整理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          RabbitMQ学习整理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/05/04/最长公共子序列/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">最长公共子序列</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/23/Hello-MyBlog/">Hello MyBlog</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://lingo0.github.io/2018/05/11/快速上手Dubbo/",
+  owner: 'lingo0',
+  repo: 'lingo0.github.com',
+  oauth: {
+    client_id: 'c72bd154eaeeabfd97bd',
+    client_secret: '46414fa1d7c7a55b66dccee93890b94e7677bcde',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
+  
 
 
           </div>
@@ -306,9 +439,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

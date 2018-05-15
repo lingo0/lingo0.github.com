@@ -156,6 +156,291 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-RabbitMQ快速上手" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/14/RabbitMQ快速上手/">RabbitMQ快速上手</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/14/RabbitMQ快速上手/" class="archive-article-date">
+  	<time datetime="2018-05-14T12:28:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上手前建议先看上一篇blog，了解RabbitMQ基础知识。</p>
+<p>具体内容可以查询官网：<a href="http://www.rabbitmq.com/" target="_blank" rel="noopener">http://www.rabbitmq.com/</a></p>
+        
+          <a class="article-more-a" href="/2018/05/14/RabbitMQ快速上手/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">RabbitMQ</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/14/RabbitMQ快速上手/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-RabbitMQ学习整理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/14/RabbitMQ学习整理/">RabbitMQ学习整理</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/14/RabbitMQ学习整理/" class="archive-article-date">
+  	<time datetime="2018-05-14T10:55:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="RabbitMQ基础知识详解"><a href="#RabbitMQ基础知识详解" class="headerlink" title="RabbitMQ基础知识详解"></a>RabbitMQ基础知识详解</h1><blockquote>
+<p>新工作又是新的消息队列，和之前用的消息队列又有些区别，之前使用的消息中间件基于JMS，而RabbitMQ基于AMQP。因此需要学习对比下。</p>
+</blockquote>
+<h3 id="一、RabbitMQ的基本概念"><a href="#一、RabbitMQ的基本概念" class="headerlink" title="一、RabbitMQ的基本概念"></a>一、RabbitMQ的基本概念</h3><ol>
+<li><p>队列、生产者、消费者</p>
+<p> 队列是RabbitMQ的内部对象，用于存储消息。生产者（下图中的P）生产消息并投递到队列中，消费者（下图中的C）可以从队列中获取消息并消费。</p>
+<p><img src="https://img-blog.csdn.net/20170828201708910?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZHJlYW1jaGFzZXJpbmc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<p>多个消费者可以订阅同一个队列，这时队列中的消息会被平均分摊给多个消费者进行处理，而不是每个消费者都收到所有的消息并处理。</p>
+<p><img src="https://img-blog.csdn.net/20170828201853982?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZHJlYW1jaGFzZXJpbmc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+</li>
+<li><p>Exchange、Binding</p>
+<p>生产者将消息投递到队列中，实际上这在RabbitMQ中这种事情永远都不会发生。实际的情况是，生产者将消息发送到Exchange（交换器，下图中的X），再通过Binding将Exchange与Queue关联起来。</p>
+</li>
+</ol>
+<p><img src="https://img-blog.csdn.net/20170828202419941?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZHJlYW1jaGFzZXJpbmc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<ol start="3">
+<li><p>Exchange Type、Bingding key、routing key</p>
+<p>在绑定（Binding）Exchange与Queue的同时，一般会指定一个binding key。在绑定多个Queue到同一个Exchange的时候，这些Binding允许使用相同的binding key。</p>
+<p>生产者在将消息发送给Exchange的时候，一般会指定一个routing key，来指定这个消息的路由规则，生产者就可以在发送消息给Exchange时，通过指定routing key来决定消息流向哪里。</p>
+<p>RabbitMQ常用的Exchange Type有三种：fanout、direct、topic。</p>
+<ul>
+<li><strong>fanout</strong>:把所有发送到该Exchange的消息投递到所有与它绑定的队列中。</li>
+<li><strong>direct:</strong>把消息投递到那些binding key与routing key完全匹配的队列中。</li>
+<li><strong>topic</strong>:将消息路由到binding key与routing key模式匹配的队列中。</li>
+</ul>
+<p>​      附上一张RabbitMQ的结构图：</p>
+</li>
+</ol>
+<p><img src="https://img-blog.csdn.net/20170828204522460?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZHJlYW1jaGFzZXJpbmc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<h4 id="分析上图："><a href="#分析上图：" class="headerlink" title="分析上图："></a>分析上图：</h4><ul>
+<li><strong>RabbitMQ Server</strong>： 也叫broker server，它不是运送食物的卡车，而是一种传输服务。原话是<strong>RabbitMQ</strong>isn’t a food truck, it’s a delivery service. 他的角色就是维护一条从Producer到Consumer的路线，保证数据能够按照指定的方式进行传输。但是这个保证也不是100%的保证，但是对于普通的应用来说这已经足够了。当然对于商业系统来说，可以再做一层数据一致性的guard，就可以彻底保证系统的一致性了。</li>
+<li><strong>Client A &amp; B</strong>： 也叫Producer，数据的发送方。createmessages and publish (send) them to a broker server (RabbitMQ).一个Message有两个部分：payload（有效载荷）和label（标签）。payload顾名思义就是传输的数据。label是exchange的名字或者说是一个tag，它描述了payload，而且RabbitMQ也是通过这个label来决定把这个Message发给哪个Consumer。AMQP仅仅描述了label，而RabbitMQ决定了如何使用这个label的规则。</li>
+<li><strong>Client 1，2，3</strong>：也叫Consumer，数据的接收方。Consumersattach to a broker server (RabbitMQ) and subscribe to a queue。把queue比作是一个有名字的邮箱。当有Message到达某个邮箱后，RabbitMQ把它发送给它的某个订阅者即Consumer。当然可能会把同一个Message发送给很多的Consumer。在这个Message中，只有payload，label已经被删掉了。对于Consumer来说，它是不知道谁发送的这个信息的。就是协议本身不支持。但是当然了如果Producer发送的payload包含了Producer的信息就另当别论了。</li>
+</ul>
+<p>对于一个数据从Producer到Consumer的正确传递，还有三个概念需要明确：exchanges, queues and bindings。</p>
+<ul>
+<li><strong>Exchanges</strong> are where producers publish their messages.</li>
+</ul>
+<ul>
+<li><strong>Queues</strong>are where the messages end up and are received by consumers</li>
+<li><p><strong>Bindings</strong> are how the messages get routed from the exchange to particular queues.</p>
+<p> 还有几个概念是上述图中没有标明的，那就是Connection（连接），Channel（通道，频道）。</p>
+</li>
+<li><p><strong>Connection</strong>： 就是一个TCP的连接。Producer和Consumer都是通过TCP连接到RabbitMQ Server的。程序的起始处就是建立这个TCP连接。</p>
+</li>
+<li><strong>Channels： </strong>虚拟连接。它建立在上述的TCP连接中。数据流动都是在Channel中进行的。也就是说，一般情况是程序起始建立TCP连接，第二步就是建立这个Channel。</li>
+</ul>
+<h3 id="二、消息队列创建过程"><a href="#二、消息队列创建过程" class="headerlink" title="二、消息队列创建过程"></a>二、消息队列创建过程</h3><ol>
+<li>客户端连接到消息队列服务器，打开一个channels；</li>
+<li>客户端声明一个exchange，并设置相关属性；</li>
+<li>客户端声明一个queue，并设置相关属性；</li>
+<li>客户端使用routing key，在exchange和queue之间建立好绑定关系；</li>
+<li>客户端投递消息到exchange；</li>
+<li>exchange接收到消息后，就根据消息的key和已经设置的binding，进行消息路由，将消息投递到一个或多个队列里。</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">RabbitMQ</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/14/RabbitMQ学习整理/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-快速上手Dubbo" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/11/快速上手Dubbo/">快速上手Dubbo</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/11/快速上手Dubbo/" class="archive-article-date">
+  	<time datetime="2018-05-11T06:18:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>​    因为接下去工作中RPC框架是使用Dubbo，所以试着用了一下，写了简单的provider和comsumer测试。之前所在公司用的是自研的RPC通信框架，大体上感觉差不多，唯一的区别应该就是服务发现和治理上的，Dubbo使用了zookeeper，等之后的文章再具体分析。</p>
+        
+          <a class="article-more-a" href="/2018/05/11/快速上手Dubbo/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Dubbo</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/11/快速上手Dubbo/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-最长公共子序列" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -724,160 +1009,10 @@
 
 
   
-    <article id="post-Hexo+github pages创建个人博客教程(1)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/23/Hexo+github pages创建个人博客教程(1)/">Hexo+github pages创建个人博客教程(1)</a>
-    </h1>
-  
-
-        
-        <a href="/2015/05/23/Hexo+github pages创建个人博客教程(1)/" class="archive-article-date">
-  	<time datetime="2015-05-23T11:07:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-05-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本教程适用于Hexo3.0。我自己在创建的时候，碰到了许多问题，上网搜索答案花了很多时间，网上很多解答都已经无效，所以我会将如何解决作为我的重点。</p>
-<p>#Hexo的安装</p>
-<h3 id="1、安装Node-js"><a href="#1、安装Node-js" class="headerlink" title="1、安装Node.js"></a>1、安装Node.js</h3><p>w3cschool上的教程很详细，照着安装一下就好了。<br><a href="http://www.w3cschool.cc/nodejs/nodejs-install-setup.html" target="_blank" rel="noopener">Node.js 安装配置</a></p>
-        
-          <a class="article-more-a" href="/2015/05/23/Hexo+github pages创建个人博客教程(1)/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/05/23/Hexo+github pages创建个人博客教程(1)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Hello-MyBlog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/23/Hello-MyBlog/">Hello MyBlog</a>
-    </h1>
-  
-
-        
-        <a href="/2015/05/23/Hello-MyBlog/" class="archive-article-date">
-  	<time datetime="2015-05-23T09:03:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-05-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="新建的个人博客"><a href="#新建的个人博客" class="headerlink" title="新建的个人博客"></a>新建的个人博客</h1><p>最近在知乎和微博上都看到有人推广自己的个人博客，所以按耐不住也想捣鼓一个。前前后后弄了快两天，网上很多建站的攻略都过期了，碰到了很多问题。明天我会结合自己建站的过程，写一个攻略。</p>
-        
-          <a class="article-more-a" href="/2015/05/23/Hello-MyBlog/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/05/23/Hello-MyBlog/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 
@@ -971,11 +1106,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -995,15 +1130,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ACM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ACM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RabbitMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
               </li>
             
             <div class="clearfix"></div>
