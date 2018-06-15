@@ -6,22 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://lingo0.github.io">
-  <title>最长公共子序列 | Ling&#39;s blog</title>
+  <title>Spring Cloud Config | Ling&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最长公共子序列问题-LCS问题问题描述：给定两个序列 X={x1,x2,x3,…,xm}和Y={y1,y2,…,yn}，求X和Y长度最长的公共子序列。">
-<meta name="keywords" content="Java,ACM">
+  <meta name="description" content="Spring Cloud Config现在项目使用了Spring Cloud Config配置中心，下面简单将学习到的记录一下。 为什么要用Spring Cloud Config？ 由于在分布式系统中，服务数量巨多，可以方便服务配置文件统一管理 可以实时更新配置 可以与Spring项目无缝集成">
+<meta name="keywords" content="spring">
 <meta property="og:type" content="article">
-<meta property="og:title" content="最长公共子序列">
-<meta property="og:url" content="http://lingo0.github.io/2018/05/04/最长公共子序列/index.html">
+<meta property="og:title" content="Spring Cloud Config">
+<meta property="og:url" content="http://lingo0.github.io/2018/06/15/Spring-Cloud-Config/index.html">
 <meta property="og:site_name" content="Ling&#39;s blog">
-<meta property="og:description" content="最长公共子序列问题-LCS问题问题描述：给定两个序列 X={x1,x2,x3,…,xm}和Y={y1,y2,…,yn}，求X和Y长度最长的公共子序列。">
+<meta property="og:description" content="Spring Cloud Config现在项目使用了Spring Cloud Config配置中心，下面简单将学习到的记录一下。 为什么要用Spring Cloud Config？ 由于在分布式系统中，服务数量巨多，可以方便服务配置文件统一管理 可以实时更新配置 可以与Spring项目无缝集成">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://img.blog.csdn.net/20150427114632114">
-<meta property="og:updated_time" content="2018-05-04T08:55:55.326Z">
+<meta property="og:image" content="https://github.com/lingo0/MyPostImage/blob/master/blog/springCloudConfig/%E6%9E%B6%E6%9E%84.jpg?raw=true">
+<meta property="og:image" content="https://github.com/lingo0/MyPostImage/blob/master/blog/springCloudConfig/%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0.jpg?raw=true">
+<meta property="og:updated_time" content="2018-06-15T09:44:32.194Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="最长公共子序列">
-<meta name="twitter:description" content="最长公共子序列问题-LCS问题问题描述：给定两个序列 X={x1,x2,x3,…,xm}和Y={y1,y2,…,yn}，求X和Y长度最长的公共子序列。">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20150427114632114">
+<meta name="twitter:title" content="Spring Cloud Config">
+<meta name="twitter:description" content="Spring Cloud Config现在项目使用了Spring Cloud Config配置中心，下面简单将学习到的记录一下。 为什么要用Spring Cloud Config？ 由于在分布式系统中，服务数量巨多，可以方便服务配置文件统一管理 可以实时更新配置 可以与Spring项目无缝集成">
+<meta name="twitter:image" content="https://github.com/lingo0/MyPostImage/blob/master/blog/springCloudConfig/%E6%9E%B6%E6%9E%84.jpg?raw=true">
   
     <link rel="alternative" href="/atom.xml" title="Ling&#39;s blog" type="application/atom+xml">
   
@@ -161,53 +162,142 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-最长公共子序列" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Spring-Cloud-Config" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      最长公共子序列
+      Spring Cloud Config
     </h1>
   
 
         
-        <a href="/2018/05/04/最长公共子序列/" class="archive-article-date">
-  	<time datetime="2018-05-04T08:48:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-04</time>
+        <a href="/2018/06/15/Spring-Cloud-Config/" class="archive-article-date">
+  	<time datetime="2018-06-15T06:49:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-15</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="最长公共子序列问题-LCS问题"><a href="#最长公共子序列问题-LCS问题" class="headerlink" title="最长公共子序列问题-LCS问题"></a>最长公共子序列问题-LCS问题</h1><h3 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h3><p>给定两个序列 X={x1,x2,x3,…,xm}和Y={y1,y2,…,yn}，求X和Y长度最长的公共子序列。</p>
+        <h2 id="Spring-Cloud-Config"><a href="#Spring-Cloud-Config" class="headerlink" title="Spring Cloud Config"></a>Spring Cloud Config</h2><p>现在项目使用了Spring Cloud Config配置中心，下面简单将学习到的记录一下。</p>
+<h3 id="为什么要用Spring-Cloud-Config？"><a href="#为什么要用Spring-Cloud-Config？" class="headerlink" title="为什么要用Spring Cloud Config？"></a>为什么要用Spring Cloud Config？</h3><ol>
+<li>由于在分布式系统中，服务数量巨多，可以方便服务配置文件统一管理</li>
+<li>可以实时更新配置</li>
+<li>可以与Spring项目无缝集成</li>
+</ol>
 <a id="more"></a>
-<h3 id="求解思路："><a href="#求解思路：" class="headerlink" title="求解思路："></a>求解思路：</h3><ol>
-<li><p>寻找特征:</p>
-<p>LCS问题具有最优子结构性质。可以将子问题对应两个输入序列的前缀对。</p>
-<p>令Z = {z1,z2,…,zk}，为X和Y的任意LCS。有如下性质，</p>
-<p>1.1 如果xm = yn,则zk = xm = yn 且Zk-1是Xm-1和Yn-1的一个LCS。</p>
-<p>1.2 如果xm不等于yn，那么zk不等于xm意味着Z是Xm-1和Y的一个LCS。</p>
-<p>1.3 如果xm不等于yn，那么zk不等于yn意味着Z是Xm和Yn-1的一个LCS。</p>
+<p>###简介</p>
+<p><code>SpringCloudConfig</code>就是我们通常意义上的配置中心，把应用原本放在本地文件的配置抽取出来放在中心服务器，从而能够提供更好的管理、发布能力。<code>SpringCloudConfig</code>分服务端和客户端，服务端负责将<code>git</code>中存储的配置文件发布成<code>REST</code>接口，客户端可以从服务端REST接口获取配置。</p>
+<h3 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h3><p><img src="https://github.com/lingo0/MyPostImage/blob/master/blog/springCloudConfig/%E6%9E%B6%E6%9E%84.jpg?raw=true" alt="架构"></p>
+<p>在<code>Spring Cloud Config</code>中有三个角色:</p>
+<ol>
+<li>配置仓库，专门存放配置文件的git项目</li>
+<li>Spring Cloud Config Server 配置中心服务端，用于从git项目拉取配置文件。</li>
+<li>Spring Cloud Config Client 客户端，也就是具体是Service。就是将Client的配置放在远程的git项目中，统一管理和更新。</li>
+</ol>
+<p>这个架构十分简单明了，下面就是个demo。</p>
+<h3 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h3><h5 id="一、配置文件项目"><a href="#一、配置文件项目" class="headerlink" title="一、配置文件项目"></a>一、配置文件项目</h5><ol>
+<li>在远程git仓库新建一个存放配置文件的git项目<code>config-repo</code></li>
+<li>添加项目配置文件，如<code>application.properties</code> <code>application-dev.properties</code>,<code>application-test.properties</code>等。</li>
+</ol>
+<blockquote>
+<p>{application}-{profile}.properties</p>
+<p>或</p>
+<p>{application}-{profile}.yaml</p>
+<p>其中：</p>
+<p>{application}映射到Config客户端的spring.application.name属性</p>
+<p>{profile}映射到Config客户端的spring.profiles.active属性，可以⽤来区分环境，</p>
+<p>⽐如dev，test，produce等等</p>
+</blockquote>
+<h5 id="二、Spring-Cloud-Config-Server"><a href="#二、Spring-Cloud-Config-Server" class="headerlink" title="二、Spring Cloud Config Server"></a>二、Spring Cloud Config Server</h5><ol>
+<li><p>新建spring boot项目 <code>spring-cloud-config-server</code></p>
 </li>
-<li><p>设计递归公式 </p>
-<p>根据上面的特征，可以知道要求解Xn和Ym的一个LCS时，我们需要求解一个或两个子问题。如果xm=yn，我们应该求解Xm-1和Yn-1的一个LCS。如果xm不等于yn，就必须求解两个子问题：求Xm-1和Y的一个LCS与X和Yn-1的一个LCS。其中较长的一个即为X和Y的一个LCS。</p>
-<p>可以用一个二维数组C来储存Xi和Yi的LCS长度，可以得到如下公式：</p>
-<p><img src="http://img.blog.csdn.net/20150427114632114" alt="这里写图片描述"></p>
+<li><p>添加依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-config-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>优化</p>
-<p>这里对与这个问题可以使用动态数组的方法，将C[i,j]自底向上的计算出来，最终求得C[m,n],也就是Xm和Yn的最大公共子序列。但是通过观察上面那个公式，我们可以发现要计算C[i, j]只需计算C[i-1,j-1]或者C[i-1,j]和C[i,j-1]。而无需用到C[i,0]～C[i,j-1]及C[i-1,j]～C[i-1,n]。</p>
-<p>所以我们可以采用自顶而下的方法，需要用到哪个再去计算那个，这样可以减小计算量。也被称作为备忘录方法</p>
+<li><p>在程序的启动类 <code>Application</code>上添加注解  <code>@EnableConfigServer</code> 开启 <code>SpringCloudConfig</code> 服务端</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> io.ymq.example.config.server;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.config.server.EnableConfigServer;</span><br><span class="line"></span><br><span class="line"><span class="meta">@EnableConfigServer</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigServerApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(ConfigServerApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>算法描述</p>
-<p>首先将C[i,0],C[0,j]初始化为0。其余m×n个C[i,j]全部初始化为-1。</p>
-<p>计算C[i,j]的递归算法LCS(X,Y, i,j,C)：</p>
-<p>若x[i]=y[j]，则去检查C[i-1,j-1]，若C[i-1,j-1]&gt; -1（已经计算出来），就直接把C[i-1,j-1]+1赋给C[i,j]。若C[i-1,j-1]=-1（尚未计算出来），就递归调用LCS(X,Y, i-1,j-1,C) 计算出C[i-1,j-1]，然后再把C[i-1,j-1]+1赋给C[i,j] 。</p>
-<p>若x[i] != y[j]，则要检查C[i-1,j]和C[i,j-1]。若两者均 &gt; -1（已经计算出来），则把max{ C[i-1,j], C[i,j-1]} 赋给C[i,j]。若C[i-1,j], C[i,j-1] 两者中有一个等于-1（尚未计算出来），或两者均等于-1，就递归调用LCS将其计算出来，然后再把max{ C[i-1,j], C[i,j-1]} 赋给C[i,j]。</p>
+<li><p>添加配置</p>
+<p>在配置文件 <code>application.properties</code>中添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spring.application.name=config-server</span><br><span class="line">server.port=8888</span><br><span class="line">spring.cloud.config.label=master</span><br><span class="line">spring.cloud.config.server.git.uri=ssh://XXXXXXX:22222/edu/config-repo.git</span><br><span class="line">spring.cloud.config.server.git.search-paths=spring-cloud-config</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>spring.cloud.config.server.git.uri：配置git仓库地址</p>
+<p>spring.cloud.config.label：配置仓库的分支</p>
+<p>spring.cloud.config.server.git.searchPaths：配置仓库存储路径,一个应用一个目录。这样就可以在一个仓库中管理多个服务的配置</p>
+<p>spring.cloud.config.server.git.username：访问git仓库的用户名        如果是公开项目，则不需要</p>
+<p>spring.cloud.config.server.git.password：访问git仓库的用户密码     如果是公开项目，则不需要</p>
+<p>spring.cloud.config.server.git.basedir：指定缓存文件夹</p>
+<p>spring.cloud.config.server.git.cloneOnStart： 服务端可以配置为在启动时克隆存储库</p>
+</blockquote>
+</li>
+<li><p>可以通过接口访问配置文件</p>
+<p>http请求地址和资源文件映射如下:</p>
+<ul>
+<li><code>/{application}/{profile}[/{label}]</code></li>
+<li><code>/{application}-{profile}.yml</code></li>
+<li><code>/{label}/{application}-{profile}.yml</code></li>
+<li><code>/{application}-{profile}.properties</code></li>
+<li><code>/{label}/{application}-{profile}.properties</code></li>
+</ul>
 </li>
 </ol>
-<h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * com.mogujie.ACM</span></span><br><span class="line"><span class="comment"> * 最长公共子序列问题-LCS问题</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * 问题描述：给定两个序列 X=&#123;x1,x2,x3,…,xm&#125;和Y=&#123;y1,y2,…,yn&#125;，求X和Y长度最长的公共子序列。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @author muzhi</span></span><br><span class="line"><span class="comment"> * 2018/5/4</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LongestCommonSubsequence</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 解题思路：</span></span><br><span class="line"><span class="comment">     * LCS问题具有最优子结构性质。可以将子问题对应两个输入序列的前缀对。</span></span><br><span class="line"><span class="comment">     * 令Z = &#123;z1,z2,…,zk&#125;，为X和Y的任意LCS。有如下性质，</span></span><br><span class="line"><span class="comment">     * 1.1 如果xm = yn,则zk = xm = yn 且Zk-1是Xm-1和Yn-1的一个LCS。</span></span><br><span class="line"><span class="comment">     * 1.2 如果xm不等于yn，那么zk不等于xm意味着Z是Xm-1和Y的一个LCS。</span></span><br><span class="line"><span class="comment">     * 1.3 如果xm不等于yn，那么zk不等于yn意味着Z是Xm和Yn-1的一个LCS。</span></span><br><span class="line"><span class="comment">     * 因此，最大子序列就是计算</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">LCS</span><span class="params">(<span class="keyword">char</span>[] x, <span class="keyword">char</span>[] y, <span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="keyword">int</span>[][] c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (i == <span class="number">0</span> || j == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (x[i] == y[j]) &#123;</span><br><span class="line">            <span class="comment">// 说明还没有计算出来</span></span><br><span class="line">            <span class="keyword">if</span> (c[i - <span class="number">1</span>][j - <span class="number">1</span>] == <span class="number">-1</span>) &#123;</span><br><span class="line">                LCS(x, y, i - <span class="number">1</span>, j - <span class="number">1</span>, c);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                c[i][j] = c[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (c[i][j - <span class="number">1</span>] == <span class="number">-1</span>) &#123;</span><br><span class="line">                LCS(x, y, i, j - <span class="number">1</span>, c);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (c[i - <span class="number">1</span>][j] == <span class="number">-1</span>) &#123;</span><br><span class="line">                LCS(x, y, i - <span class="number">1</span>, j, c);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            c[i][j] = c[i][j - <span class="number">1</span>] &gt; c[i - <span class="number">1</span>][j] ? c[i][j - <span class="number">1</span>] : c[i - <span class="number">1</span>][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">doSoult</span><span class="params">(String x, String y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> xSize = x.length();</span><br><span class="line">        <span class="keyword">int</span> ySize = y.length();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[][] c = <span class="keyword">new</span> <span class="keyword">int</span>[xSize + <span class="number">1</span>][ySize + <span class="number">1</span>];</span><br><span class="line">        <span class="comment">// 初始化c的值为-1</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= xSize; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= ySize; j++) &#123;</span><br><span class="line">                c[i][j] = <span class="number">-1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">char</span>[] xCharArray = <span class="keyword">new</span> <span class="keyword">char</span>[xSize + <span class="number">1</span>];</span><br><span class="line">        xCharArray[<span class="number">0</span>] = <span class="string">'#'</span>;</span><br><span class="line">        <span class="keyword">char</span>[] yCharArray = <span class="keyword">new</span> <span class="keyword">char</span>[ySize + <span class="number">1</span>];</span><br><span class="line">        yCharArray[<span class="number">0</span>] = <span class="string">'#'</span>;</span><br><span class="line"></span><br><span class="line">        System.arraycopy(x.toCharArray(), <span class="number">0</span>, xCharArray, <span class="number">1</span>, xSize);</span><br><span class="line">        System.arraycopy(y.toCharArray(), <span class="number">0</span>, yCharArray, <span class="number">1</span>, ySize);</span><br><span class="line"></span><br><span class="line">        LCS(xCharArray, yCharArray, xSize, ySize, c);</span><br><span class="line">        <span class="keyword">return</span> c[xSize][ySize];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        String x = <span class="string">"abcderg"</span>;</span><br><span class="line">        String y = <span class="string">"abc"</span>;</span><br><span class="line">        System.out.println(doSoult(x, y));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="三、Spring-Cloud-Config-Client"><a href="#三、Spring-Cloud-Config-Client" class="headerlink" title="三、Spring Cloud Config Client"></a>三、Spring Cloud Config Client</h5><ol>
+<li><p>新建spring项目 <code>spring-cloud-config-client</code>，就是正常的spring项目</p>
+</li>
+<li><p>添加依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-config-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置文件 <code>bootstrap.properties</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring.cloud.config.label=master</span><br><span class="line">spring.cloud.config.profile=dev</span><br><span class="line">spring.cloud.config.uri=XXXXXX</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>spring.cloud.config.label 指明远程仓库的分支</p>
+<p>spring.cloud.config.profile 根据环境获取文件</p>
+<p>spring.cloud.config.uri  指明配置服务中心的网址。</p>
+<p>spring.cloud.config.failFast  在没有连接配置服务端时直接启动失败</p>
+</blockquote>
+<p>用<code>bootstrap.properties</code>而不是<code>application.properties</code>是因为bootstrap加载比<code>application.properties</code>要早。</p>
+</li>
+</ol>
+<p>至此，配置就完成了，可以启动client测试一下，看client是否能够获取到配置在远程仓库的属性。</p>
+<h3 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h3><p>如果像上面那样配置，服务端负责将<code>git</code>中存储的配置文件发布成<code>REST</code>接口，客户端可以从服务端REST接口获取配置。但客户端并不能主动感知到配置的变化，从而主动去获取新的配置，这需要每个客户端通过<code>POST</code>方法触发各自的<code>/refresh</code>。如果所有客户端的配置的更改，都需要手动触发客户端 <code>/refresh</code> ，当服务越来越多的时候，那岂不是维护成本很高，显然不太合适</p>
+<p>我们需要客户端能够感知配置仓库更新，自动拉取最新配置。我们可以使用<code>Spring Cloud Bus</code> 消息总线实现方案，可以优雅的解决以上问题，那就是通过消息代理中间件<code>RabbitMQ</code> ，和 <code>Git</code>的<code>Webhooks</code>來触发配置的更新。</p>
+<h3 id="实现自动刷新配置"><a href="#实现自动刷新配置" class="headerlink" title="实现自动刷新配置"></a>实现自动刷新配置</h3><h4 id="Spring-Cloud-Bus"><a href="#Spring-Cloud-Bus" class="headerlink" title="Spring Cloud Bus"></a>Spring Cloud Bus</h4><p><code>Spring Cloud Bus</code> 将分布式系统的节点通过轻量级消息代理连接起来。用于在集群中传播状态更改（例如配置更改事件）或其他管理指令。<code>Spring Cloud Bus</code> 的一个核心思想是通过分布式的启动器对 <code>Spring Boot</code> 应用进行扩展，也可以用来建立一个或多个应用之间的通信频道。目前唯一实现的方式是用 <code>AMQP</code> 消息代理作为通道，但是相同的基本功能集（还有一些取决于传输）在其他传输的路线图上。</p>
+<h3 id="消息总线"><a href="#消息总线" class="headerlink" title="消息总线"></a>消息总线</h3><p>消息总线是一种通信工具，可以在机器之间互相传输消息、文件等。消息总线扮演着一种消息路由的角色，拥有一套完备的路由机制来决定消息传输方向。发送段只需要向消息总线发出消息而不用管消息被如何转发。  <code>Spring cloud bus</code> 通过轻量消息代理连接各个分布的节点。管理和传播所有分布式项目中的消息，本质是利用了MQ的广播机制在分布式的系统中传播消息，目前常用的有<code>Kafka</code>和<code>RabbitMQ</code> 。  下面是配置中心刷新配置的例子：</p>
+<p><img src="https://github.com/lingo0/MyPostImage/blob/master/blog/springCloudConfig/%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0.jpg?raw=true" alt="例子"></p>
+<p>因为我们引入了消息总线，所以Server和Client都连接到了RabbitMQ队列当中。</p>
+<ol>
+<li>当Server接收到refresh请求的时候，并发送给Spring Cloud Bus。</li>
+<li>通过Spring Cloud Bus给发送Client客户端发送更新消息</li>
+<li>Client接收到通知，请求Server端获取最新配置</li>
+</ol>
+<p>那么如何在更新配置仓库的时候自动触发refresh呢？ 我们可以使用远程仓库的webhook钩子来实现。</p>
+<p>webhook会在我们向仓库发送push请求的时候，对指定的url发送一个POST请求。当我们向配置中心的配置仓库发送push请求，他就会向我们的配置中心的/bus/refresh发送一个POST请求，那么就达到了服务刷新的目的了。</p>
+<h3 id="Quick-Start-2"><a href="#Quick-Start-2" class="headerlink" title="Quick Start 2"></a>Quick Start 2</h3><p>跟着上面的Quick Start只需要做很少的修改就能支持。</p>
+<h5 id="Spring-Cloud-Config-Server改造"><a href="#Spring-Cloud-Config-Server改造" class="headerlink" title="Spring Cloud Config Server改造"></a>Spring Cloud Config Server改造</h5><ol>
+<li><p>添加pom依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-bus-amqp<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>引入<code>spring-cloud-starter-bus-amqp</code>包，增加对消息总线的支持</p>
+</li>
+<li><p>配置文件添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spring.rabbitmq.host=192.168.252.126</span><br><span class="line">spring.rabbitmq.port=5672</span><br><span class="line">spring.rabbitmq.username=XXXXXX</span><br><span class="line">spring.rabbitmq.password=XXXXXX</span><br></pre></td></tr></table></figure>
+<p>配置文件增加RebbitMq的相关配置</p>
+</li>
+</ol>
+<h5 id="Spring-Cloud-Config-Client改造"><a href="#Spring-Cloud-Config-Client改造" class="headerlink" title="Spring Cloud Config Client改造"></a>Spring Cloud Config Client改造</h5><p>​    和Server一样，添加pom依赖和配置文件。</p>
+<h5 id="git配置仓库添加webhook"><a href="#git配置仓库添加webhook" class="headerlink" title="git配置仓库添加webhook"></a>git配置仓库添加webhook</h5><p>​    只需要在仓库git-&gt;settings-&gt;Webhooks。</p>
+<p>​    payload url中填上配置中心的/bus/refresh就可以达到目的了。</p>
+<p>以上项目就改造完成了。</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="局部刷新"><a href="#局部刷新" class="headerlink" title="局部刷新"></a>局部刷新</h4><p>某些场景下（例如灰度发布），我们可能只想刷新部分微服务的配置，此时可通过<code>/bus/refresh</code>端点的<code>destination</code>参数来定位要刷新的应用程序。</p>
+<p>例如：<code>/bus/refresh?destination=customers:8000</code>，这样消息总线上的微服务实例就会根据<code>destination</code>参数的值来判断是否需要要刷新。其中，<code>customers:8000</code>指的是各个微服务的<code>ApplicationContext ID</code>。</p>
+<p><code>destination</code>参数也可以用来定位特定的微服务。例如：<code>/bus/refresh?destination=customers:**</code>，这样就可以触发<code>customers</code>微服务所有实例的配置刷新。</p>
+<h4 id="跟踪总线事件"><a href="#跟踪总线事件" class="headerlink" title="跟踪总线事件"></a>跟踪总线事件</h4><p>一些场景下，我们可能希望知道<code>Spring Cloud Bus</code>事件传播的细节。此时，我们可以跟踪总线事件（<code>RemoteApplicationEvent</code>的子类都是总线事件）。</p>
+<p>跟踪总线事件非常简单，只需设置<code>spring.cloud.bus.trace.enabled=true</code>，这样在<code>/bus/refresh</code>端点被请求后，访问<code>/trace</code>端点就可获得类似如下的结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;timestamp&quot;: 1514543931362,</span><br><span class="line">        &quot;info&quot;: &#123;</span><br><span class="line">            &quot;method&quot;: &quot;GET&quot;,</span><br><span class="line">            &quot;path&quot;: &quot;/eureka-provider/dev/master&quot;,</span><br><span class="line">            &quot;headers&quot;: &#123;</span><br><span class="line">                &quot;request&quot;: &#123;</span><br><span class="line">                    &quot;accept&quot;: &quot;application/json, application/*+json&quot;,</span><br><span class="line">                    &quot;user-agent&quot;: &quot;Java/1.8.0_112&quot;,</span><br><span class="line">                    &quot;host&quot;: &quot;localhost:8888&quot;,</span><br><span class="line">                    &quot;connection&quot;: &quot;keep-alive&quot;</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;response&quot;: &#123;</span><br><span class="line">                    &quot;X-Application-Context&quot;: &quot;config-server:8888&quot;,</span><br><span class="line">                    &quot;Content-Type&quot;: &quot;application/json;charset=UTF-8&quot;,</span><br><span class="line">                    &quot;Transfer-Encoding&quot;: &quot;chunked&quot;,</span><br><span class="line">                    &quot;Date&quot;: &quot;Fri, 29 Dec 2017 10:38:51 GMT&quot;,</span><br><span class="line">                    &quot;status&quot;: &quot;200&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;timeTaken&quot;: &quot;6002&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;timestamp&quot;: 1514543927451,</span><br><span class="line">        &quot;info&quot;: &#123;</span><br><span class="line">            &quot;method&quot;: &quot;GET&quot;,</span><br><span class="line">            &quot;path&quot;: &quot;/eureka-provider/dev/master&quot;,</span><br><span class="line">            &quot;headers&quot;: &#123;</span><br><span class="line">                &quot;request&quot;: &#123;</span><br><span class="line">                    &quot;accept&quot;: &quot;application/json, application/*+json&quot;,</span><br><span class="line">                    &quot;user-agent&quot;: &quot;Java/1.8.0_112&quot;,</span><br><span class="line">                    &quot;host&quot;: &quot;localhost:8888&quot;,</span><br><span class="line">                    &quot;connection&quot;: &quot;keep-alive&quot;</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;response&quot;: &#123;</span><br><span class="line">                    &quot;X-Application-Context&quot;: &quot;config-server:8888&quot;,</span><br><span class="line">                    &quot;Content-Type&quot;: &quot;application/json;charset=UTF-8&quot;,</span><br><span class="line">                    &quot;Transfer-Encoding&quot;: &quot;chunked&quot;,</span><br><span class="line">                    &quot;Date&quot;: &quot;Fri, 29 Dec 2017 10:38:47 GMT&quot;,</span><br><span class="line">                    &quot;status&quot;: &quot;200&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;timeTaken&quot;: &quot;4927&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;timestamp&quot;: 1514543925254,</span><br><span class="line">        &quot;info&quot;: &#123;</span><br><span class="line">            &quot;method&quot;: &quot;GET&quot;,</span><br><span class="line">            &quot;path&quot;: &quot;/eureka-provider/dev/master&quot;,</span><br><span class="line">            &quot;headers&quot;: &#123;</span><br><span class="line">                &quot;request&quot;: &#123;</span><br><span class="line">                    &quot;accept&quot;: &quot;application/json, application/*+json&quot;,</span><br><span class="line">                    &quot;user-agent&quot;: &quot;Java/1.8.0_112&quot;,</span><br><span class="line">                    &quot;host&quot;: &quot;localhost:8888&quot;,</span><br><span class="line">                    &quot;connection&quot;: &quot;keep-alive&quot;</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;response&quot;: &#123;</span><br><span class="line">                    &quot;X-Application-Context&quot;: &quot;config-server:8888&quot;,</span><br><span class="line">                    &quot;Content-Type&quot;: &quot;application/json;charset=UTF-8&quot;,</span><br><span class="line">                    &quot;Transfer-Encoding&quot;: &quot;chunked&quot;,</span><br><span class="line">                    &quot;Date&quot;: &quot;Fri, 29 Dec 2017 10:38:45 GMT&quot;,</span><br><span class="line">                    &quot;status&quot;: &quot;200&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;timeTaken&quot;: &quot;2862&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;timestamp&quot;: 1514543923565,</span><br><span class="line">        &quot;info&quot;: &#123;</span><br><span class="line">            &quot;method&quot;: &quot;POST&quot;,</span><br><span class="line">            &quot;path&quot;: &quot;/bus/refresh&quot;,</span><br><span class="line">            &quot;headers&quot;: &#123;</span><br><span class="line">                &quot;request&quot;: &#123;</span><br><span class="line">                    &quot;cache-control&quot;: &quot;no-cache&quot;,</span><br><span class="line">                    &quot;postman-token&quot;: &quot;0e497ec1-0c03-4dc2-bb61-ce2a266227d3&quot;,</span><br><span class="line">                    &quot;user-agent&quot;: &quot;PostmanRuntime/7.1.1&quot;,</span><br><span class="line">                    &quot;accept&quot;: &quot;*/*&quot;,</span><br><span class="line">                    &quot;host&quot;: &quot;127.0.0.1:8888&quot;,</span><br><span class="line">                    &quot;accept-encoding&quot;: &quot;gzip, deflate&quot;,</span><br><span class="line">                    &quot;content-length&quot;: &quot;0&quot;,</span><br><span class="line">                    &quot;connection&quot;: &quot;keep-alive&quot;</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;response&quot;: &#123;</span><br><span class="line">                    &quot;X-Application-Context&quot;: &quot;config-server:8888&quot;,</span><br><span class="line">                    &quot;status&quot;: &quot;200&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;timeTaken&quot;: &quot;6616&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>​    </p>
 
       
 
@@ -247,11 +337,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ACM</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">spring</a>
         		</li>
       		
 		</ul>
@@ -307,7 +393,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://lingo0.github.io/2018/05/04/最长公共子序列/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://lingo0.github.io/2018/06/15/Spring-Cloud-Config/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -321,18 +407,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/05/11/快速上手Dubbo/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          快速上手Dubbo
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/04/26/为tiny-spring添加注解注入功能/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">为tiny-spring添加注解注入功能</div>
+    <a href="/2018/06/09/Tomcat架构和类加载启动过程/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Tomcat架构和类加载启动过程</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -371,7 +448,7 @@
 <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "http://lingo0.github.io/2018/05/04/最长公共子序列/",
+  id: "http://lingo0.github.io/2018/06/15/Spring-Cloud-Config/",
   owner: 'lingo0',
   repo: 'lingo0.github.com',
   oauth: {
