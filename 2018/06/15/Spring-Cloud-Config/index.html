@@ -18,7 +18,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://github.com/lingo0/MyPostImage/blob/master/blog/springCloudConfig/%E6%9E%B6%E6%9E%84.jpg?raw=true">
 <meta property="og:image" content="https://github.com/lingo0/MyPostImage/blob/master/blog/springCloudConfig/%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0.jpg?raw=true">
-<meta property="og:updated_time" content="2018-06-15T09:48:20.865Z">
+<meta property="og:updated_time" content="2018-06-26T11:37:01.240Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Cloud Config">
 <meta name="twitter:description" content="现在项目使用了Spring Cloud Config配置中心，下面简单将学习到的记录一下。 为什么要用Spring Cloud Config？ 由于在分布式系统中，服务数量巨多，可以方便服务配置文件统一管理 可以实时更新配置 可以与Spring项目无缝集成">
@@ -287,6 +287,7 @@
 </li>
 </ol>
 <h5 id="Spring-Cloud-Config-Client改造"><a href="#Spring-Cloud-Config-Client改造" class="headerlink" title="Spring Cloud Config Client改造"></a>Spring Cloud Config Client改造</h5><p>​    和Server一样，添加pom依赖和配置文件。</p>
+<p>​        在使用@value注解的类上，加上@RefreshScope注解，来使能够更新属性值。</p>
 <h5 id="git配置仓库添加webhook"><a href="#git配置仓库添加webhook" class="headerlink" title="git配置仓库添加webhook"></a>git配置仓库添加webhook</h5><p>​    只需要在仓库git-&gt;settings-&gt;Webhooks。</p>
 <p>​    payload url中填上配置中心的/bus/refresh就可以达到目的了。</p>
 <p>以上项目就改造完成了。</p>
@@ -574,15 +575,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IOC</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -590,7 +583,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ACM</a>
+                <a href="javascript:void(0)" class="js-tag color2">Tomcat</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IOC</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -599,6 +596,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ACM</a>
               </li>
             
             <div class="clearfix"></div>
