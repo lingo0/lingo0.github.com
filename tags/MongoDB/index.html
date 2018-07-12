@@ -6,20 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://lingo0.github.io">
-  <title>为tiny-spring添加注解注入功能 | Ling&#39;s blog</title>
+  <title>Tag: MongoDB | Ling&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="之前tiny-spring已经实现了通过xml配置类的方式自动装配和依赖注入，现在要给tiny-spring框架加入自动扫描包下的类，再执行自动装配和依赖注入。 流程步骤可以分为：  类加载器获取包路径； 扫描并加载路径下的类集合； 将扫描到的类集合解析成BeanDefinition对象集合； 交给自动装配和依赖注入；  步骤1~2可以归结为获取指定包下面的类集合，然后再解析，最后自动装配和注入。">
-<meta name="keywords" content="Spring,IOC">
-<meta property="og:type" content="article">
-<meta property="og:title" content="为tiny-spring添加注解注入功能">
-<meta property="og:url" content="http://lingo0.github.io/2018/04/26/为tiny-spring添加注解注入功能/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Ling&#39;s blog">
+<meta property="og:url" content="http://lingo0.github.io/tags/MongoDB/index.html">
 <meta property="og:site_name" content="Ling&#39;s blog">
-<meta property="og:description" content="之前tiny-spring已经实现了通过xml配置类的方式自动装配和依赖注入，现在要给tiny-spring框架加入自动扫描包下的类，再执行自动装配和依赖注入。 流程步骤可以分为：  类加载器获取包路径； 扫描并加载路径下的类集合； 将扫描到的类集合解析成BeanDefinition对象集合； 交给自动装配和依赖注入；  步骤1~2可以归结为获取指定包下面的类集合，然后再解析，最后自动装配和注入。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-28T03:27:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="为tiny-spring添加注解注入功能">
-<meta name="twitter:description" content="之前tiny-spring已经实现了通过xml配置类的方式自动装配和依赖注入，现在要给tiny-spring框架加入自动扫描包下的类，再执行自动装配和依赖注入。 流程步骤可以分为：  类加载器获取包路径； 扫描并加载路径下的类集合； 将扫描到的类集合解析成BeanDefinition对象集合； 交给自动装配和依赖注入；  步骤1~2可以归结为获取指定包下面的类集合，然后再解析，最后自动装配和注入。">
+<meta name="twitter:title" content="Ling&#39;s blog">
   
     <link rel="alternative" href="/atom.xml" title="Ling&#39;s blog" type="application/atom+xml">
   
@@ -159,226 +154,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-为tiny-spring添加注解注入功能" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      为tiny-spring添加注解注入功能
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/07/11/Mongo快速上手/" class="archive-article-date">
+  	<time datetime="2018-07-11T06:51:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-11</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/07/11/Mongo快速上手/">Mongo快速上手</a>
     </h1>
   
 
-        
-        <a href="/2018/04/26/为tiny-spring添加注解注入功能/" class="archive-article-date">
-  	<time datetime="2018-04-26T02:41:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>之前tiny-spring已经实现了通过xml配置类的方式自动装配和依赖注入，现在要给tiny-spring框架加入自动扫描包下的类，再执行自动装配和依赖注入。</p>
-<p>流程步骤可以分为：</p>
-<ol>
-<li>类加载器获取包路径；</li>
-<li>扫描并加载路径下的类集合；</li>
-<li>将扫描到的类集合解析成BeanDefinition对象集合；</li>
-<li>交给自动装配和依赖注入；</li>
-</ol>
-<p>步骤1~2可以归结为获取指定包下面的类集合，然后再解析，最后自动装配和注入。</p>
-<a id="more"></a>
-<h3 id="1-获取指定包下面的类集合"><a href="#1-获取指定包下面的类集合" class="headerlink" title="1. 获取指定包下面的类集合"></a>1. 获取指定包下面的类集合</h3><ol>
-<li>首先我们需要一个类加载器</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取类加载器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ClassLoader <span class="title">getDefaultClassLoader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	ClassLoader cl = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		cl = Thread.currentThread().getContextClassLoader();</span><br><span class="line">	&#125; <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">		<span class="comment">// Cannot access thread context ClassLoader - falling back...</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (cl == <span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="comment">// 如果没有当前线程的ClassLoader 则 使用当前类的ClassLoader</span></span><br><span class="line">		cl = ClassUtils.class.getClassLoader();</span><br><span class="line">		<span class="keyword">if</span> (cl == <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				<span class="comment">// 如果还是null，则获取启动程序的ClassLoader</span></span><br><span class="line">				cl = ClassLoader.getSystemClassLoader();</span><br><span class="line">			&#125; <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">				<span class="comment">// Cannot access system ClassLoader - oh well, maybe the caller can live with null...</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> cl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>然后需要有通过类名，获取类对象的方法</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取类</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> className 类名</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> initialize 是否初始化，一般选false，交给IOC容器去初始化</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> loader 类加载器</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> 类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> ClassNotFoundException</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Class&lt;?&gt; loadClass(String className, <span class="keyword">boolean</span> initialize, ClassLoader loader)</span><br><span class="line">		<span class="keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line">	<span class="keyword">return</span> Class.forName(className, initialize, loader);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>将上面的结合起来，获取路径下面的Class集合</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取指定包下面的类</span></span><br><span class="line"><span class="comment"> * 根据包名并将其转换成文件路径，读取class文件或jar包，获取指定的类名去加载类。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Set&lt;Class&lt;?&gt;&gt; getClassSet(String location) &#123;</span><br><span class="line">	Set&lt;Class&lt;?&gt;&gt; classSet = <span class="keyword">new</span> HashSet&lt;Class&lt;?&gt;&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		Enumeration&lt;URL&gt; urls = getDefaultClassLoader().getResources(location.replace(<span class="string">"."</span>, <span class="string">"/"</span>));</span><br><span class="line">		<span class="keyword">while</span> (urls.hasMoreElements()) &#123;</span><br><span class="line">			URL url = urls.nextElement();</span><br><span class="line">			<span class="keyword">if</span> (url != <span class="keyword">null</span>) &#123;</span><br><span class="line">				String protocol = url.getProtocol();</span><br><span class="line">				<span class="keyword">if</span> (protocol.equals(<span class="string">"file"</span>)) &#123;</span><br><span class="line">					String packagePath = url.getPath().replaceAll(<span class="string">"%20"</span>, <span class="string">""</span>);</span><br><span class="line">					addClass(classSet, packagePath, location);</span><br><span class="line">				&#125; <span class="keyword">else</span> <span class="keyword">if</span> (protocol.equals(<span class="string">"jar"</span>)) &#123;</span><br><span class="line">					<span class="comment">// 获取Jar包中的类</span></span><br><span class="line">					JarURLConnection jarURLConnection = (JarURLConnection) url.openConnection();</span><br><span class="line">					<span class="keyword">if</span> (jarURLConnection != <span class="keyword">null</span>) &#123;</span><br><span class="line">						JarFile jarFile = jarURLConnection.getJarFile();</span><br><span class="line">						<span class="keyword">if</span> (jarFile != <span class="keyword">null</span>) &#123;</span><br><span class="line">							Enumeration&lt;JarEntry&gt; jarEntrys = jarFile.entries();</span><br><span class="line">							<span class="keyword">while</span> (jarEntrys.hasMoreElements()) &#123;</span><br><span class="line">								JarEntry jarEntry = jarEntrys.nextElement();</span><br><span class="line">								String jarEntryName = jarEntry.getName();</span><br><span class="line">								<span class="keyword">if</span> (jarEntryName.endsWith(<span class="string">".class"</span>)) &#123;</span><br><span class="line">									String className = jarEntryName.substring(<span class="number">0</span>, jarEntryName.lastIndexOf(<span class="string">"."</span>))</span><br><span class="line">											.replaceAll(<span class="string">"/"</span>, <span class="string">"."</span>);</span><br><span class="line">									doAddClass(classSet, className);</span><br><span class="line">								&#125;</span><br><span class="line">							&#125;</span><br><span class="line">						&#125;</span><br><span class="line"></span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> classSet;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">addClass</span><span class="params">(Set&lt;Class&lt;?&gt;&gt; classSet, String packagePath, String packageName)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">final</span> File[] files = <span class="keyword">new</span> File(packagePath).listFiles(<span class="keyword">new</span> FileFilter() &#123;</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">accept</span><span class="params">(File pathname)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> (pathname.isFile() &amp;&amp; pathname.getName().endsWith(<span class="string">".class"</span>)) || pathname.isDirectory();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (File file : files) &#123;</span><br><span class="line">		String fileName = file.getName();</span><br><span class="line">		<span class="keyword">if</span> (file.isFile()) &#123;</span><br><span class="line">			String className = fileName.substring(<span class="number">0</span>, fileName.lastIndexOf(<span class="string">"."</span>));</span><br><span class="line">			<span class="keyword">if</span> (className != <span class="keyword">null</span>) &#123;</span><br><span class="line">				className = packageName + <span class="string">"."</span> + className;</span><br><span class="line">			&#125;</span><br><span class="line">			doAddClass(classSet, className);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			String subPackagePath = fileName;</span><br><span class="line">			<span class="keyword">if</span> (packagePath != <span class="keyword">null</span>) &#123;</span><br><span class="line">				subPackagePath = packagePath + <span class="string">"/"</span> + subPackagePath;</span><br><span class="line">			&#125;</span><br><span class="line">			String subPackageName = fileName;</span><br><span class="line">			<span class="keyword">if</span> (packageName != <span class="keyword">null</span>) &#123;</span><br><span class="line">				subPackageName = packageName + <span class="string">"."</span> + subPackageName;</span><br><span class="line">			&#125;</span><br><span class="line">			addClass(classSet, subPackagePath, subPackageName);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">doAddClass</span><span class="params">(Set&lt;Class&lt;?&gt;&gt; classSet, String className)</span> </span>&#123;</span><br><span class="line">	Class&lt;?&gt; cls = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		cls = loadClass(className, <span class="keyword">false</span>);</span><br><span class="line">	&#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">	classSet.add(cls);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2-解析和自动装配"><a href="#2-解析和自动装配" class="headerlink" title="2.解析和自动装配"></a>2.解析和自动装配</h3><p>通过继承AbstractApplicationContext类，实现抽象方法 loadBeanDefinitions 来加载类定义，并注入到内置的BeanFactory中，然后用 refrsh方法来自动装配和依赖注入。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 从包路径扫描和加载的具体实现类。</span></span><br><span class="line"><span class="comment"> * 内部通过扫描对应的包来获取类信息并解析成BeanDefinition。</span></span><br><span class="line"><span class="comment"> * 然后将其保存到内置的 BeanFactory 中。</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> muzhi</span></span><br><span class="line"><span class="comment"> * 18/4/27</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassPathScanApplicationContext</span> <span class="keyword">extends</span> <span class="title">AbstractApplicationContext</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 先显示的传入包路径</span></span><br><span class="line">	<span class="keyword">private</span> String configLocation;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">ClassPathScanApplicationContext</span><span class="params">(String configLocation)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>(configLocation, <span class="keyword">new</span> AutowireCapableBeanFactory());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">ClassPathScanApplicationContext</span><span class="params">(String configLocation, AbstractBeanFactory beanFactory)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(beanFactory);</span><br><span class="line">		<span class="keyword">this</span>.configLocation = configLocation;</span><br><span class="line">		refresh();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">loadBeanDefinitions</span><span class="params">(AbstractBeanFactory beanFactory)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="comment">// todo 后续继续封装成Scanner</span></span><br><span class="line">		Set&lt;Class&lt;?&gt;&gt; classes = ClassUtils.getClassSet(<span class="keyword">this</span>.configLocation);</span><br><span class="line">		Map&lt;String, BeanDefinition&gt; tempFactory = <span class="keyword">new</span> HashMap&lt;String, BeanDefinition&gt;();</span><br><span class="line">		<span class="keyword">for</span> (Class cl : classes) &#123;</span><br><span class="line">			BeanDefinition beanDefinition = <span class="keyword">new</span> BeanDefinition();</span><br><span class="line">			String className = cl.getName();</span><br><span class="line"></span><br><span class="line">			beanDefinition.setBeanClassName(className);</span><br><span class="line">			beanDefinition.setBeanClass(cl);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// 注入属性</span></span><br><span class="line">			Field[] beanFields = cl.getDeclaredFields();</span><br><span class="line">			<span class="keyword">for</span> (Field beanField : beanFields) &#123;</span><br><span class="line">				<span class="keyword">if</span> (beanField.isAnnotationPresent(Resource.class)) &#123;</span><br><span class="line">					String fieldName = beanField.getName();</span><br><span class="line">					BeanReference beanReference = <span class="keyword">new</span> BeanReference(fieldName);</span><br><span class="line">					beanDefinition.getPropertyValues().addPropertyValue(<span class="keyword">new</span> PropertyValue(fieldName, beanReference));</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			tempFactory.put(className, beanDefinition);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (Map.Entry&lt;String, BeanDefinition&gt; beanDefinitionEntry : tempFactory.entrySet()) &#123;</span><br><span class="line">			beanFactory.registerBeanDefinition(beanDefinitionEntry.getKey(), beanDefinitionEntry.getValue());</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这样基本实现了，类通过扫描包自动装配，代码已经上传到 <a href="https://github.com/lingo0/tiny-spring-ling.git" target="_blank" rel="noopener">https://github.com/lingo0/tiny-spring-ling.git</a> 。</p>
-<p>但是和Spring框架的结构还是不一样的，之后学习Spring的框架思想再继续优化。</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="https://s10.mogucdn.com/mlcdn/c45406/180420_0dg7116cadcl9g416clgb9al70ac2_426x432.png">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">IOC</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MongoDB</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://lingo0.github.io/2018/04/26/为tiny-spring添加注解注入功能/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2018/05/04/最长公共子序列/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          最长公共子序列
-        
-      </div>
-    </a>
   
   
-    <a href="/2018/04/25/tiny-spring 分析/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">tiny-spring分析</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  id: "http://lingo0.github.io/2018/04/26/为tiny-spring添加注解注入功能/",
-  owner: 'lingo0',
-  repo: 'lingo0.github.com',
-  oauth: {
-    client_id: 'c72bd154eaeeabfd97bd',
-    client_secret: '46414fa1d7c7a55b66dccee93890b94e7677bcde',
-  },
-})
-gitment.render('gitment-ctn')
-</script>
-  
+    
 
 
           </div>
@@ -401,9 +230,9 @@ gitment.render('gitment-ctn')
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

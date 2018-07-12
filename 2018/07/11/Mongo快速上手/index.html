@@ -6,20 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://lingo0.github.io">
-  <title>为tiny-spring添加注解注入功能 | Ling&#39;s blog</title>
+  <title>Mongo快速上手 | Ling&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="之前tiny-spring已经实现了通过xml配置类的方式自动装配和依赖注入，现在要给tiny-spring框架加入自动扫描包下的类，再执行自动装配和依赖注入。 流程步骤可以分为：  类加载器获取包路径； 扫描并加载路径下的类集合； 将扫描到的类集合解析成BeanDefinition对象集合； 交给自动装配和依赖注入；  步骤1~2可以归结为获取指定包下面的类集合，然后再解析，最后自动装配和注入。">
-<meta name="keywords" content="Spring,IOC">
+  <meta name="description" content="一、基础概念   Sql概念 MongoDB概念 说明     table collection 数据库表/集合   row document 数据记录行/文档   column field 数据字段/域   index index 索引   primary key primary key 主键,MongoDB自动将_id字段设置为主键    例子： 数据库 db - db一个mongodb中可以">
+<meta name="keywords" content="MongoDB">
 <meta property="og:type" content="article">
-<meta property="og:title" content="为tiny-spring添加注解注入功能">
-<meta property="og:url" content="http://lingo0.github.io/2018/04/26/为tiny-spring添加注解注入功能/index.html">
+<meta property="og:title" content="Mongo快速上手">
+<meta property="og:url" content="http://lingo0.github.io/2018/07/11/Mongo快速上手/index.html">
 <meta property="og:site_name" content="Ling&#39;s blog">
-<meta property="og:description" content="之前tiny-spring已经实现了通过xml配置类的方式自动装配和依赖注入，现在要给tiny-spring框架加入自动扫描包下的类，再执行自动装配和依赖注入。 流程步骤可以分为：  类加载器获取包路径； 扫描并加载路径下的类集合； 将扫描到的类集合解析成BeanDefinition对象集合； 交给自动装配和依赖注入；  步骤1~2可以归结为获取指定包下面的类集合，然后再解析，最后自动装配和注入。">
+<meta property="og:description" content="一、基础概念   Sql概念 MongoDB概念 说明     table collection 数据库表/集合   row document 数据记录行/文档   column field 数据字段/域   index index 索引   primary key primary key 主键,MongoDB自动将_id字段设置为主键    例子： 数据库 db - db一个mongodb中可以">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-28T03:27:27.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/lingo0/MyPostImage/master/blog/mongo/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/lingo0/MyPostImage/master/blog/mongo/%E5%AD%97%E6%AE%B5.png">
+<meta property="og:updated_time" content="2018-07-12T07:16:24.872Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="为tiny-spring添加注解注入功能">
-<meta name="twitter:description" content="之前tiny-spring已经实现了通过xml配置类的方式自动装配和依赖注入，现在要给tiny-spring框架加入自动扫描包下的类，再执行自动装配和依赖注入。 流程步骤可以分为：  类加载器获取包路径； 扫描并加载路径下的类集合； 将扫描到的类集合解析成BeanDefinition对象集合； 交给自动装配和依赖注入；  步骤1~2可以归结为获取指定包下面的类集合，然后再解析，最后自动装配和注入。">
+<meta name="twitter:title" content="Mongo快速上手">
+<meta name="twitter:description" content="一、基础概念   Sql概念 MongoDB概念 说明     table collection 数据库表/集合   row document 数据记录行/文档   column field 数据字段/域   index index 索引   primary key primary key 主键,MongoDB自动将_id字段设置为主键    例子： 数据库 db - db一个mongodb中可以">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/lingo0/MyPostImage/master/blog/mongo/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.png">
   
     <link rel="alternative" href="/atom.xml" title="Ling&#39;s blog" type="application/atom+xml">
   
@@ -159,52 +162,212 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-为tiny-spring添加注解注入功能" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Mongo快速上手" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      为tiny-spring添加注解注入功能
+      Mongo快速上手
     </h1>
   
 
         
-        <a href="/2018/04/26/为tiny-spring添加注解注入功能/" class="archive-article-date">
-  	<time datetime="2018-04-26T02:41:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-26</time>
+        <a href="/2018/07/11/Mongo快速上手/" class="archive-article-date">
+  	<time datetime="2018-07-11T06:51:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>之前tiny-spring已经实现了通过xml配置类的方式自动装配和依赖注入，现在要给tiny-spring框架加入自动扫描包下的类，再执行自动装配和依赖注入。</p>
-<p>流程步骤可以分为：</p>
-<ol>
-<li>类加载器获取包路径；</li>
-<li>扫描并加载路径下的类集合；</li>
-<li>将扫描到的类集合解析成BeanDefinition对象集合；</li>
-<li>交给自动装配和依赖注入；</li>
+        <h3 id="一、基础概念"><a href="#一、基础概念" class="headerlink" title="一、基础概念"></a>一、基础概念</h3><table>
+<thead>
+<tr>
+<th>Sql概念</th>
+<th>MongoDB概念</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>table</td>
+<td>collection</td>
+<td>数据库表/集合</td>
+</tr>
+<tr>
+<td>row</td>
+<td>document</td>
+<td>数据记录行/文档</td>
+</tr>
+<tr>
+<td>column</td>
+<td>field</td>
+<td>数据字段/域</td>
+</tr>
+<tr>
+<td>index</td>
+<td>index</td>
+<td>索引</td>
+</tr>
+<tr>
+<td>primary key</td>
+<td>primary key</td>
+<td>主键,MongoDB自动将_id字段设置为主键</td>
+</tr>
+</tbody>
+</table>
+<h5 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h5><p><img src="https://raw.githubusercontent.com/lingo0/MyPostImage/master/blog/mongo/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.png" alt="基本概念"></p>
+<h4 id="数据库-db-db"><a href="#数据库-db-db" class="headerlink" title="数据库 db - db"></a>数据库 db - db</h4><p>一个mongodb中可以建立多个数据库。</p>
+<p>MongoDB的默认数据库为”db”，该数据库存储在data目录中。</p>
+<p>MongoDB的单个实例可以容纳多个独立的数据库，每一个都有自己的集合和权限，不同的数据库也放置在不同的文件中。</p>
+<p>相关命令：</p>
+<blockquote>
+<p> <strong>“show dbs”</strong> 命令可以显示所有数据的列表。</p>
+<p> <strong>“db”</strong> 命令可以显示当前数据库对象或集合。</p>
+<p> <strong>“use”</strong> 命令，可以连接到一个指定的数据库。</p>
+</blockquote>
+<h4 id="文档-document-row"><a href="#文档-document-row" class="headerlink" title="文档 document - row"></a>文档 document - row</h4><p>文档是一组键值(key-value)对(即BSON)。MongoDB 的文档不需要设置相同的字段，并且相同的字段不需要相同的数据类型，这与关系型数据库有很大的区别，也是 MongoDB 非常突出的特点。</p>
+<p>一个简单的文档例子如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"site"</span>:<span class="string">"www.runoob.com"</span>, <span class="attr">"name"</span>:<span class="string">"菜鸟教程"</span>&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="需要注意的是："><a href="#需要注意的是：" class="headerlink" title="需要注意的是："></a>需要注意的是：</h6><ol>
+<li>文档中的键/值对是有序的。</li>
+<li>文档中的值,不仅可以是在双引号里面的字符串，还可以是其他几种数据类型（甚至可以是整个嵌入的文档)。</li>
+<li>MongoDB区分类型和大小写。</li>
+<li>MongoDB的文档不能有重复的键。</li>
+<li>文档的键是字符串。除了少数例外情况，键可以使用任意UTF-8字符。</li>
 </ol>
-<p>步骤1~2可以归结为获取指定包下面的类集合，然后再解析，最后自动装配和注入。</p>
-<a id="more"></a>
-<h3 id="1-获取指定包下面的类集合"><a href="#1-获取指定包下面的类集合" class="headerlink" title="1. 获取指定包下面的类集合"></a>1. 获取指定包下面的类集合</h3><ol>
-<li>首先我们需要一个类加载器</li>
+<p>######文档键命名规范：</p>
+<ul>
+<li>键不能含有\0 (空字符)。这个字符用来表示键的结尾。</li>
+<li>.和$有特别的意义，只有在特定环境下才能使用。</li>
+<li><p>以下划线”_”开头的键是保留的(不是严格要求的)。</p>
+<h4 id="集合-collection"><a href="#集合-collection" class="headerlink" title="集合 collection"></a>集合 collection</h4></li>
+</ul>
+<p>集合就是 MongoDB 文档组，类似于 RDBMS （关系数据库管理系统：Relational Database Management System)中的表格。</p>
+<p>集合存在于数据库中，集合没有固定的结构，这意味着你在对集合可以插入不同格式和类型的数据，但通常情况下我们插入集合的数据都会有一定的关联性。</p>
+<p>比如，我们可以将以下不同数据结构的文档插入到集合中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;site&quot;:&quot;www.baidu.com&quot;&#125;</span><br><span class="line">&#123;&quot;site&quot;:&quot;www.google.com&quot;,&quot;name&quot;:&quot;Google&quot;&#125;</span><br><span class="line">&#123;&quot;site&quot;:&quot;www.runoob.com&quot;,&quot;name&quot;:&quot;菜鸟教程&quot;,&quot;num&quot;:5&#125;</span><br></pre></td></tr></table></figure>
+<p> 当第一个文档插入时，集合就会被创建。</p>
+<h4 id="支持的数据类型"><a href="#支持的数据类型" class="headerlink" title="支持的数据类型"></a>支持的数据类型</h4><p>下表为MongoDB中常用的几种数据类型。</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td>字符串。存储数据常用的数据类型。在 MongoDB 中，UTF-8 编码的字符串才是合法的。</td>
+</tr>
+<tr>
+<td>Integer</td>
+<td>整型数值。用于存储数值。根据你所采用的服务器，可分为 32 位或 64 位。</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>布尔值。用于存储布尔值（真/假）。</td>
+</tr>
+<tr>
+<td>Double</td>
+<td>双精度浮点值。用于存储浮点值。</td>
+</tr>
+<tr>
+<td>Min/Max keys</td>
+<td>将一个值与 BSON（二进制的 JSON）元素的最低值和最高值相对比。</td>
+</tr>
+<tr>
+<td>Array</td>
+<td>用于将数组或列表或多个值存储为一个键。</td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td>时间戳。记录文档修改或添加的具体时间。</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>用于内嵌文档。</td>
+</tr>
+<tr>
+<td>Null</td>
+<td>用于创建空值。</td>
+</tr>
+<tr>
+<td>Symbol</td>
+<td>符号。该数据类型基本上等同于字符串类型，但不同的是，它一般用于采用特殊符号类型的语言。</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>日期时间。用 UNIX 时间格式来存储当前日期或时间。你可以指定自己的日期时间：创建 Date 对象，传入年月日信息。</td>
+</tr>
+<tr>
+<td>Object ID</td>
+<td>对象 ID。用于创建文档的 ID。</td>
+</tr>
+<tr>
+<td>Binary Data</td>
+<td>二进制数据。用于存储二进制数据。</td>
+</tr>
+<tr>
+<td>Code</td>
+<td>代码类型。用于在文档中存储 JavaScript 代码。</td>
+</tr>
+<tr>
+<td>Regular expression</td>
+<td>正则表达式类型。用于存储正则表达式。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ObjectId"><a href="#ObjectId" class="headerlink" title="ObjectId"></a>ObjectId</h3><p>ObjectId 类似唯一主键，可以很快的去生成和排序，包含 12 bytes，含义是：</p>
+<ul>
+<li>前 4 个字节表示创建 <strong>unix</strong> 时间戳,格林尼治时间 <strong>UTC</strong> 时间，比北京时间晚了 8 个小时</li>
+<li>接下来的 3 个字节是机器标识码</li>
+<li>紧接的两个字节由进程 id 组成 PID</li>
+<li>最后三个字节是随机数</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/lingo0/MyPostImage/master/blog/mongo/%E5%AD%97%E6%AE%B5.png" alt="img"></p>
+<p>MongoDB 中存储的文档必须有一个 _id 键。这个键的值可以是任何类型的，默认是个 ObjectId 对象</p>
+<p>由于 ObjectId 中保存了创建的时间戳，所以你不需要为你的文档保存时间戳字段，你可以通过 getTimestamp 函数来获取文档的创建时间:</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; var newObject = ObjectId()</span><br><span class="line">&gt; newObject.getTimestamp()</span><br><span class="line">ISODate(<span class="string">"2017-11-25T07:21:10Z"</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="MongoDB索引"><a href="#MongoDB索引" class="headerlink" title="MongoDB索引"></a>MongoDB索引</h4><p>索引通常能够极大的提高查询的效率，如果没有索引，MongoDB在读取数据时必须扫描集合中的每个文件并选取那些符合查询条件的记录。</p>
+<p>这种扫描全集合的查询效率是非常低的，特别在处理大量的数据时，查询可以要花费几十秒甚至几分钟，这对网站的性能是非常致命的。</p>
+<p>索引是特殊的数据结构，索引存储在一个易于遍历读取的数据集合中，索引是对数据库表中一列或多列的值进行排序的一种结构</p>
+<h5 id="createIndex-方法"><a href="#createIndex-方法" class="headerlink" title="createIndex() 方法"></a>createIndex() 方法</h5><p>MongoDB使用 createIndex() 方法来创建索引。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.collection.createIndex(keys, options)</span><br></pre></td></tr></table></figure>
+<p>createIndex() 方法中你也可以设置使用多个字段创建索引（关系型数据库中称作复合索引）。</p>
+<h4 id="MongoDB-监控"><a href="#MongoDB-监控" class="headerlink" title="MongoDB 监控"></a>MongoDB 监控</h4><p>需要了解MongoDB的运行情况，并查看MongoDB的性能。这样在大流量得情况下可以很好的应对并保证MongoDB正常运作。</p>
+<p>MongoDB中提供了mongostat 和 mongotop 两个命令来监控MongoDB的运行情况。</p>
+<h5 id="mongostat-命令"><a href="#mongostat-命令" class="headerlink" title="mongostat 命令"></a>mongostat 命令</h5><p>mongostat是mongodb自带的状态检测工具，在命令行下使用。它会间隔固定时间获取mongodb的当前运行状态，并输出。如果你发现数据库突然变慢或者有其他问题的话，你第一手的操作就考虑采用mongostat来查看mongo的状态。</p>
+<p>启动你的Mongod服务，进入到你安装的MongoDB目录下的bin目录， 然后输入mongostat命令，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\set up\mongodb\bin&gt;mongostat</span><br></pre></td></tr></table></figure>
+<h5 id="mongotop-命令"><a href="#mongotop-命令" class="headerlink" title="mongotop 命令"></a>mongotop 命令</h5><p>mongotop也是mongodb下的一个内置工具，mongotop提供了一个方法，用来跟踪一个MongoDB的实例，查看哪些大量的时间花费在读取和写入数据。 mongotop提供每个集合的水平的统计数据。默认情况下，mongotop返回值的每一秒。</p>
+<p>启动你的Mongod服务，进入到你安装的MongoDB目录下的bin目录， 然后输入mongotop命令，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\set up\mongodb\bin&gt;mongotop</span><br></pre></td></tr></table></figure>
+<h3 id="MongoDB-Java-结合-Spring-boot"><a href="#MongoDB-Java-结合-Spring-boot" class="headerlink" title="MongoDB Java 结合 Spring boot"></a>MongoDB Java 结合 Spring boot</h3><p>在 applicationContext中添加mongoClient和mongoTemplate的配置。</p>
+<p>在后续使用中，基本是使用mongoTemplate来执行增删改查工作。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"mongodbUri"</span> <span class="attr">class</span>=<span class="string">"com.mongodb.MongoClientURI"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">value</span>=<span class="string">"$&#123;mongo_db_url&#125;"</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"> <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"mongoClient"</span> <span class="attr">class</span>=<span class="string">"com.mongodb.MongoClient"</span> <span class="attr">destroy-method</span>=<span class="string">"close"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">ref</span>=<span class="string">"mongodbUri"</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"> <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"morphia"</span> <span class="attr">class</span>=<span class="string">"org.mongodb.morphia.Morphia"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"> <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"datastore"</span> <span class="attr">class</span>=<span class="string">"org.mongodb.morphia.Datastore"</span> <span class="attr">factory-bean</span>=<span class="string">"morphia"</span> <span class="attr">factory-method</span>=<span class="string">"createDatastore"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">ref</span>=<span class="string">"mongoClient"</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"$&#123;mongo.dbname:defaultMongoDb&#125;"</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"> <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"mongoTemplate"</span> <span class="attr">class</span>=<span class="string">"org.springframework.data.mongodb.core.MongoTemplate"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">"mongoDbFactory"</span> <span class="attr">ref</span>=<span class="string">"mongoDbFactory"</span> /&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"> <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"mongoDbFactory"</span> <span class="attr">class</span>=<span class="string">"org.springframework.data.mongodb.core.SimpleMongoDbFactory"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">ref</span>=<span class="string">"mongoClient"</span> /&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"1"</span> <span class="attr">value</span>=<span class="string">"$&#123;mongo.dbname:defaultMongoDb&#125;"</span> /&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mongo_db_url:&quot;mongodb://study7920:study7920@hzbxs-study-test026.server.163.org:7920/?maxPoolSize=40&quot;</span><br><span class="line">mongo.dbname:&quot;study_v2&quot;</span><br></pre></td></tr></table></figure>
+<h5 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h5><h6 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h6><ol>
+<li>使用insert方法</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取类加载器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ClassLoader <span class="title">getDefaultClassLoader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	ClassLoader cl = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		cl = Thread.currentThread().getContextClassLoader();</span><br><span class="line">	&#125; <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">		<span class="comment">// Cannot access thread context ClassLoader - falling back...</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (cl == <span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="comment">// 如果没有当前线程的ClassLoader 则 使用当前类的ClassLoader</span></span><br><span class="line">		cl = ClassUtils.class.getClassLoader();</span><br><span class="line">		<span class="keyword">if</span> (cl == <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				<span class="comment">// 如果还是null，则获取启动程序的ClassLoader</span></span><br><span class="line">				cl = ClassLoader.getSystemClassLoader();</span><br><span class="line">			&#125; <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">				<span class="comment">// Cannot access system ClassLoader - oh well, maybe the caller can live with null...</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> cl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongoTemplate.insert(Object);</span><br></pre></td></tr></table></figure>
 <ol start="2">
-<li>然后需要有通过类名，获取类对象的方法</li>
+<li>使用save方法</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取类</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> className 类名</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> initialize 是否初始化，一般选false，交给IOC容器去初始化</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> loader 类加载器</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> 类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> ClassNotFoundException</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Class&lt;?&gt; loadClass(String className, <span class="keyword">boolean</span> initialize, ClassLoader loader)</span><br><span class="line">		<span class="keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line">	<span class="keyword">return</span> Class.forName(className, initialize, loader);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>将上面的结合起来，获取路径下面的Class集合</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取指定包下面的类</span></span><br><span class="line"><span class="comment"> * 根据包名并将其转换成文件路径，读取class文件或jar包，获取指定的类名去加载类。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Set&lt;Class&lt;?&gt;&gt; getClassSet(String location) &#123;</span><br><span class="line">	Set&lt;Class&lt;?&gt;&gt; classSet = <span class="keyword">new</span> HashSet&lt;Class&lt;?&gt;&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		Enumeration&lt;URL&gt; urls = getDefaultClassLoader().getResources(location.replace(<span class="string">"."</span>, <span class="string">"/"</span>));</span><br><span class="line">		<span class="keyword">while</span> (urls.hasMoreElements()) &#123;</span><br><span class="line">			URL url = urls.nextElement();</span><br><span class="line">			<span class="keyword">if</span> (url != <span class="keyword">null</span>) &#123;</span><br><span class="line">				String protocol = url.getProtocol();</span><br><span class="line">				<span class="keyword">if</span> (protocol.equals(<span class="string">"file"</span>)) &#123;</span><br><span class="line">					String packagePath = url.getPath().replaceAll(<span class="string">"%20"</span>, <span class="string">""</span>);</span><br><span class="line">					addClass(classSet, packagePath, location);</span><br><span class="line">				&#125; <span class="keyword">else</span> <span class="keyword">if</span> (protocol.equals(<span class="string">"jar"</span>)) &#123;</span><br><span class="line">					<span class="comment">// 获取Jar包中的类</span></span><br><span class="line">					JarURLConnection jarURLConnection = (JarURLConnection) url.openConnection();</span><br><span class="line">					<span class="keyword">if</span> (jarURLConnection != <span class="keyword">null</span>) &#123;</span><br><span class="line">						JarFile jarFile = jarURLConnection.getJarFile();</span><br><span class="line">						<span class="keyword">if</span> (jarFile != <span class="keyword">null</span>) &#123;</span><br><span class="line">							Enumeration&lt;JarEntry&gt; jarEntrys = jarFile.entries();</span><br><span class="line">							<span class="keyword">while</span> (jarEntrys.hasMoreElements()) &#123;</span><br><span class="line">								JarEntry jarEntry = jarEntrys.nextElement();</span><br><span class="line">								String jarEntryName = jarEntry.getName();</span><br><span class="line">								<span class="keyword">if</span> (jarEntryName.endsWith(<span class="string">".class"</span>)) &#123;</span><br><span class="line">									String className = jarEntryName.substring(<span class="number">0</span>, jarEntryName.lastIndexOf(<span class="string">"."</span>))</span><br><span class="line">											.replaceAll(<span class="string">"/"</span>, <span class="string">"."</span>);</span><br><span class="line">									doAddClass(classSet, className);</span><br><span class="line">								&#125;</span><br><span class="line">							&#125;</span><br><span class="line">						&#125;</span><br><span class="line"></span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> classSet;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">addClass</span><span class="params">(Set&lt;Class&lt;?&gt;&gt; classSet, String packagePath, String packageName)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">final</span> File[] files = <span class="keyword">new</span> File(packagePath).listFiles(<span class="keyword">new</span> FileFilter() &#123;</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">accept</span><span class="params">(File pathname)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> (pathname.isFile() &amp;&amp; pathname.getName().endsWith(<span class="string">".class"</span>)) || pathname.isDirectory();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (File file : files) &#123;</span><br><span class="line">		String fileName = file.getName();</span><br><span class="line">		<span class="keyword">if</span> (file.isFile()) &#123;</span><br><span class="line">			String className = fileName.substring(<span class="number">0</span>, fileName.lastIndexOf(<span class="string">"."</span>));</span><br><span class="line">			<span class="keyword">if</span> (className != <span class="keyword">null</span>) &#123;</span><br><span class="line">				className = packageName + <span class="string">"."</span> + className;</span><br><span class="line">			&#125;</span><br><span class="line">			doAddClass(classSet, className);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			String subPackagePath = fileName;</span><br><span class="line">			<span class="keyword">if</span> (packagePath != <span class="keyword">null</span>) &#123;</span><br><span class="line">				subPackagePath = packagePath + <span class="string">"/"</span> + subPackagePath;</span><br><span class="line">			&#125;</span><br><span class="line">			String subPackageName = fileName;</span><br><span class="line">			<span class="keyword">if</span> (packageName != <span class="keyword">null</span>) &#123;</span><br><span class="line">				subPackageName = packageName + <span class="string">"."</span> + subPackageName;</span><br><span class="line">			&#125;</span><br><span class="line">			addClass(classSet, subPackagePath, subPackageName);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">doAddClass</span><span class="params">(Set&lt;Class&lt;?&gt;&gt; classSet, String className)</span> </span>&#123;</span><br><span class="line">	Class&lt;?&gt; cls = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		cls = loadClass(className, <span class="keyword">false</span>);</span><br><span class="line">	&#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">	classSet.add(cls);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2-解析和自动装配"><a href="#2-解析和自动装配" class="headerlink" title="2.解析和自动装配"></a>2.解析和自动装配</h3><p>通过继承AbstractApplicationContext类，实现抽象方法 loadBeanDefinitions 来加载类定义，并注入到内置的BeanFactory中，然后用 refrsh方法来自动装配和依赖注入。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 从包路径扫描和加载的具体实现类。</span></span><br><span class="line"><span class="comment"> * 内部通过扫描对应的包来获取类信息并解析成BeanDefinition。</span></span><br><span class="line"><span class="comment"> * 然后将其保存到内置的 BeanFactory 中。</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> muzhi</span></span><br><span class="line"><span class="comment"> * 18/4/27</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassPathScanApplicationContext</span> <span class="keyword">extends</span> <span class="title">AbstractApplicationContext</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 先显示的传入包路径</span></span><br><span class="line">	<span class="keyword">private</span> String configLocation;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">ClassPathScanApplicationContext</span><span class="params">(String configLocation)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>(configLocation, <span class="keyword">new</span> AutowireCapableBeanFactory());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">ClassPathScanApplicationContext</span><span class="params">(String configLocation, AbstractBeanFactory beanFactory)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(beanFactory);</span><br><span class="line">		<span class="keyword">this</span>.configLocation = configLocation;</span><br><span class="line">		refresh();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">loadBeanDefinitions</span><span class="params">(AbstractBeanFactory beanFactory)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="comment">// todo 后续继续封装成Scanner</span></span><br><span class="line">		Set&lt;Class&lt;?&gt;&gt; classes = ClassUtils.getClassSet(<span class="keyword">this</span>.configLocation);</span><br><span class="line">		Map&lt;String, BeanDefinition&gt; tempFactory = <span class="keyword">new</span> HashMap&lt;String, BeanDefinition&gt;();</span><br><span class="line">		<span class="keyword">for</span> (Class cl : classes) &#123;</span><br><span class="line">			BeanDefinition beanDefinition = <span class="keyword">new</span> BeanDefinition();</span><br><span class="line">			String className = cl.getName();</span><br><span class="line"></span><br><span class="line">			beanDefinition.setBeanClassName(className);</span><br><span class="line">			beanDefinition.setBeanClass(cl);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// 注入属性</span></span><br><span class="line">			Field[] beanFields = cl.getDeclaredFields();</span><br><span class="line">			<span class="keyword">for</span> (Field beanField : beanFields) &#123;</span><br><span class="line">				<span class="keyword">if</span> (beanField.isAnnotationPresent(Resource.class)) &#123;</span><br><span class="line">					String fieldName = beanField.getName();</span><br><span class="line">					BeanReference beanReference = <span class="keyword">new</span> BeanReference(fieldName);</span><br><span class="line">					beanDefinition.getPropertyValues().addPropertyValue(<span class="keyword">new</span> PropertyValue(fieldName, beanReference));</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			tempFactory.put(className, beanDefinition);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (Map.Entry&lt;String, BeanDefinition&gt; beanDefinitionEntry : tempFactory.entrySet()) &#123;</span><br><span class="line">			beanFactory.registerBeanDefinition(beanDefinitionEntry.getKey(), beanDefinitionEntry.getValue());</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这样基本实现了，类通过扫描包自动装配，代码已经上传到 <a href="https://github.com/lingo0/tiny-spring-ling.git" target="_blank" rel="noopener">https://github.com/lingo0/tiny-spring-ling.git</a> 。</p>
-<p>但是和Spring框架的结构还是不一样的，之后学习Spring的框架思想再继续优化。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongoTemplate.save(Object);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>二者区别是：若新增的数据中存在主键 ，insert() 会提示错误，而save() 则更改原来的内容为新内容。</p>
+</blockquote>
+<p>######删除</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Query query = <span class="keyword">new</span> Query(Criteria.where(<span class="string">"_id"</span>).is(id));</span><br><span class="line">mongoTemplate.remove(query,AutomaticAlarm.class);</span><br></pre></td></tr></table></figure>
+<p>######修改</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Query query=<span class="keyword">new</span> Query(Criteria.where(<span class="string">"_id"</span>).is(id));</span><br><span class="line">Update update = Update.update(<span class="string">"要更新的字段"</span>, <span class="string">"更新的值"</span>);</span><br><span class="line">mongoTemplate.updateFirst(query, update, Object.class);</span><br></pre></td></tr></table></figure>
+<p>也可以用save()方法</p>
+<p>######查询</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查找所有</span></span><br><span class="line">mongoTemplate.findAll(Object.class);</span><br><span class="line"></span><br><span class="line"><span class="comment">//分页查询</span></span><br><span class="line">Query query = <span class="keyword">new</span> Query();</span><br><span class="line">query.skip(<span class="string">"跳过的数据条数"</span>).limit(<span class="string">"一页的数据条数"</span>); </span><br><span class="line"><span class="keyword">return</span> mongoTemplate.find(query, Object.class);</span><br><span class="line"></span><br><span class="line"><span class="comment">//条件查询1，多条件is("值")后面可以加and("字段2").is("值2")</span></span><br><span class="line">Query query=<span class="keyword">new</span> Query(Criteria.where(<span class="string">"字段1"</span>).is(<span class="string">"值1"</span>));</span><br><span class="line"><span class="keyword">return</span> mongoTemplate.find(query, Object.class);</span><br><span class="line"></span><br><span class="line"><span class="comment">//条件查询2，gte大于 lte小于</span></span><br><span class="line">Criteria criteria1 = Criteria.where(<span class="string">"timestamp"</span>).gte(startTime).lte(endTime+<span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
 
       
 
@@ -244,11 +407,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">IOC</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MongoDB</a>
         		</li>
       		
 		</ul>
@@ -304,7 +463,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://lingo0.github.io/2018/04/26/为tiny-spring添加注解注入功能/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://lingo0.github.io/2018/07/11/Mongo快速上手/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -318,18 +477,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/05/04/最长公共子序列/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          最长公共子序列
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/04/25/tiny-spring 分析/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">tiny-spring分析</div>
+    <a href="/2018/06/27/一种生产消费框架实现/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">一种数据库遍历工具实现</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -368,7 +518,7 @@
 <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "http://lingo0.github.io/2018/04/26/为tiny-spring添加注解注入功能/",
+  id: "http://lingo0.github.io/2018/07/11/Mongo快速上手/",
   owner: 'lingo0',
   repo: 'lingo0.github.com',
   oauth: {
