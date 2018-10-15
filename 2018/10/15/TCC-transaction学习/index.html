@@ -6,23 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://lingo0.github.io">
-  <title>Mongo快速上手 | Ling&#39;s blog</title>
+  <title>TCC-transaction学习 | Ling&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、基础概念   Sql概念 MongoDB概念 说明     table collection 数据库表/集合   row document 数据记录行/文档   column field 数据字段/域   index index 索引   primary key primary key 主键,MongoDB自动将_id字段设置为主键">
-<meta name="keywords" content="MongoDB">
+  <meta name="description" content="1. TCC事务简介 TCC事务 即：Try-Confirm-Cancel 。它是基于业务层面的事务定义，把事务运行过程分成 Try、Confirm / Cancel 两个阶段。在每个阶段的逻辑由业务代码控制。每一个初步操作，最终都会被确认或取消。因此，针对一个具体的业务服务，TCC事务机制需要业务系统提供三段业务逻辑：初步操作Try、确认操作Confirm、取消操作Cancel。  Try  从">
+<meta name="keywords" content="分布式事务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mongo快速上手">
-<meta property="og:url" content="http://lingo0.github.io/2018/07/11/Mongo快速上手/index.html">
+<meta property="og:title" content="TCC-transaction学习">
+<meta property="og:url" content="http://lingo0.github.io/2018/10/15/TCC-transaction学习/index.html">
 <meta property="og:site_name" content="Ling&#39;s blog">
-<meta property="og:description" content="一、基础概念   Sql概念 MongoDB概念 说明     table collection 数据库表/集合   row document 数据记录行/文档   column field 数据字段/域   index index 索引   primary key primary key 主键,MongoDB自动将_id字段设置为主键">
+<meta property="og:description" content="1. TCC事务简介 TCC事务 即：Try-Confirm-Cancel 。它是基于业务层面的事务定义，把事务运行过程分成 Try、Confirm / Cancel 两个阶段。在每个阶段的逻辑由业务代码控制。每一个初步操作，最终都会被确认或取消。因此，针对一个具体的业务服务，TCC事务机制需要业务系统提供三段业务逻辑：初步操作Try、确认操作Confirm、取消操作Cancel。  Try  从">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/lingo0/MyPostImage/master/blog/mongo/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/lingo0/MyPostImage/master/blog/mongo/%E5%AD%97%E6%AE%B5.png">
-<meta property="og:updated_time" content="2018-10-15T06:00:43.643Z">
+<meta property="og:image" content="https://liangzl.com/editorImages/cawler/20180604001625_695.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwly1fw6d4se8yqj31fq0mitf7.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNbRwly1fw6d8v5tthj30ec078q3j.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwly1fw6d733dvnj31kw184wo9.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNbRwgy1fw8nx2bwjbj31jm0twahp.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwgy1fw8nzydicsj308i03uaa8.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwgy1fw4hzctbt3j30og0peq4a.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNbRwgy1fw8ofu30voj31kw0lpn5b.jpg">
+<meta property="og:image" content="http://www.iocoder.cn/images/TCC-Transaction/2018_02_22/01.png">
+<meta property="og:updated_time" content="2018-10-15T06:00:20.290Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mongo快速上手">
-<meta name="twitter:description" content="一、基础概念   Sql概念 MongoDB概念 说明     table collection 数据库表/集合   row document 数据记录行/文档   column field 数据字段/域   index index 索引   primary key primary key 主键,MongoDB自动将_id字段设置为主键">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/lingo0/MyPostImage/master/blog/mongo/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.png">
+<meta name="twitter:title" content="TCC-transaction学习">
+<meta name="twitter:description" content="1. TCC事务简介 TCC事务 即：Try-Confirm-Cancel 。它是基于业务层面的事务定义，把事务运行过程分成 Try、Confirm / Cancel 两个阶段。在每个阶段的逻辑由业务代码控制。每一个初步操作，最终都会被确认或取消。因此，针对一个具体的业务服务，TCC事务机制需要业务系统提供三段业务逻辑：初步操作Try、确认操作Confirm、取消操作Cancel。  Try  从">
+<meta name="twitter:image" content="https://liangzl.com/editorImages/cawler/20180604001625_695.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Ling&#39;s blog" type="application/atom+xml">
   
@@ -162,213 +169,197 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Mongo快速上手" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-TCC-transaction学习" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Mongo快速上手
+      TCC-transaction学习
     </h1>
   
 
         
-        <a href="/2018/07/11/Mongo快速上手/" class="archive-article-date">
-  	<time datetime="2018-07-11T06:51:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-11</time>
+        <a href="/2018/10/15/TCC-transaction学习/" class="archive-article-date">
+  	<time datetime="2018-10-15T05:59:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-15</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="一、基础概念"><a href="#一、基础概念" class="headerlink" title="一、基础概念"></a>一、基础概念</h3><table>
-<thead>
-<tr>
-<th>Sql概念</th>
-<th>MongoDB概念</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>table</td>
-<td>collection</td>
-<td>数据库表/集合</td>
-</tr>
-<tr>
-<td>row</td>
-<td>document</td>
-<td>数据记录行/文档</td>
-</tr>
-<tr>
-<td>column</td>
-<td>field</td>
-<td>数据字段/域</td>
-</tr>
-<tr>
-<td>index</td>
-<td>index</td>
-<td>索引</td>
-</tr>
-<tr>
-<td>primary key</td>
-<td>primary key</td>
-<td>主键,MongoDB自动将_id字段设置为主键</td>
-</tr>
-</tbody>
-</table>
+        <h3 id="1-TCC事务简介"><a href="#1-TCC事务简介" class="headerlink" title="1. TCC事务简介"></a>1. TCC事务简介</h3><ul>
+<li><p><strong>TCC事务</strong> 即：Try-Confirm-Cancel 。它是基于<strong>业务层面</strong>的事务定义，把事务运行过程分成 Try、Confirm / Cancel 两个阶段。在每个阶段的逻辑由<strong>业务代码控制</strong>。每一个初步操作，最终都会被确认或取消。因此，针对一个具体的业务服务，TCC事务机制需要业务系统提供三段业务逻辑：初步操作Try、确认操作Confirm、取消操作Cancel。</p>
+</li>
+<li><p><strong>Try</strong>  从执行阶段来看，与传统事务机制中业务逻辑相同。但从业务角度来看，却不一样。TCC机制中的Try仅是一个初步操作，它和后续的确认一起才能真正构成一个完整的业务逻辑。TCC机制将传统事务机制中的业务逻辑一分为二，拆分后保留的部分即为初步操作（Try）；而分离出的部分即为确认操作（Confirm），被延迟到事务提交阶段执行。</p>
+<ul>
+<li>完成所有业务检查( 一致性 )</li>
+<li>预留必须业务资源( 准隔离性 )</li>
+</ul>
+</li>
+<li><p><strong>Confirm</strong> 是对 <strong>Try</strong> 操作的一个补充。当TCC事务管理器决定commit全局事务时，就会逐个执行<strong>Try</strong>操作指定的<strong>Confirm</strong>操作，将<strong>Try</strong>未完成的事项最终完成。</p>
+</li>
+<li><p><strong>Cancel</strong> 是对<strong>Try</strong>操作的一个回撤。当TCC事务管理器决定rollback全局事务时，就会逐个执行<strong>Try</strong>操作指定的<strong>Cancel</strong>操作，将<strong>Try</strong>操作已完成的事项全部撤回。</p>
 <a id="more"></a>
-<h5 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h5><p><img src="https://raw.githubusercontent.com/lingo0/MyPostImage/master/blog/mongo/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.png" alt="基本概念"></p>
-<h4 id="数据库-db-db"><a href="#数据库-db-db" class="headerlink" title="数据库 db - db"></a>数据库 db - db</h4><p>一个mongodb中可以建立多个数据库。</p>
-<p>MongoDB的默认数据库为”db”，该数据库存储在data目录中。</p>
-<p>MongoDB的单个实例可以容纳多个独立的数据库，每一个都有自己的集合和权限，不同的数据库也放置在不同的文件中。</p>
-<p>相关命令：</p>
-<blockquote>
-<p> <strong>“show dbs”</strong> 命令可以显示所有数据的列表。</p>
-<p> <strong>“db”</strong> 命令可以显示当前数据库对象或集合。</p>
-<p> <strong>“use”</strong> 命令，可以连接到一个指定的数据库。</p>
-</blockquote>
-<h4 id="文档-document-row"><a href="#文档-document-row" class="headerlink" title="文档 document - row"></a>文档 document - row</h4><p>文档是一组键值(key-value)对(即BSON)。MongoDB 的文档不需要设置相同的字段，并且相同的字段不需要相同的数据类型，这与关系型数据库有很大的区别，也是 MongoDB 非常突出的特点。</p>
-<p>一个简单的文档例子如下：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"site"</span>:<span class="string">"www.runoob.com"</span>, <span class="attr">"name"</span>:<span class="string">"菜鸟教程"</span>&#125;</span><br></pre></td></tr></table></figure>
-<h6 id="需要注意的是："><a href="#需要注意的是：" class="headerlink" title="需要注意的是："></a>需要注意的是：</h6><ol>
-<li>文档中的键/值对是有序的。</li>
-<li>文档中的值,不仅可以是在双引号里面的字符串，还可以是其他几种数据类型（甚至可以是整个嵌入的文档)。</li>
-<li>MongoDB区分类型和大小写。</li>
-<li>MongoDB的文档不能有重复的键。</li>
-<li>文档的键是字符串。除了少数例外情况，键可以使用任意UTF-8字符。</li>
-</ol>
-<p>######文档键命名规范：</p>
-<ul>
-<li>键不能含有\0 (空字符)。这个字符用来表示键的结尾。</li>
-<li>.和$有特别的意义，只有在特定环境下才能使用。</li>
-<li><p>以下划线”_”开头的键是保留的(不是严格要求的)。</p>
-<h4 id="集合-collection"><a href="#集合-collection" class="headerlink" title="集合 collection"></a>集合 collection</h4></li>
+</li>
 </ul>
-<p>集合就是 MongoDB 文档组，类似于 RDBMS （关系数据库管理系统：Relational Database Management System)中的表格。</p>
-<p>集合存在于数据库中，集合没有固定的结构，这意味着你在对集合可以插入不同格式和类型的数据，但通常情况下我们插入集合的数据都会有一定的关联性。</p>
-<p>比如，我们可以将以下不同数据结构的文档插入到集合中：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;site&quot;:&quot;www.baidu.com&quot;&#125;</span><br><span class="line">&#123;&quot;site&quot;:&quot;www.google.com&quot;,&quot;name&quot;:&quot;Google&quot;&#125;</span><br><span class="line">&#123;&quot;site&quot;:&quot;www.runoob.com&quot;,&quot;name&quot;:&quot;菜鸟教程&quot;,&quot;num&quot;:5&#125;</span><br></pre></td></tr></table></figure>
-<p> 当第一个文档插入时，集合就会被创建。</p>
-<h4 id="支持的数据类型"><a href="#支持的数据类型" class="headerlink" title="支持的数据类型"></a>支持的数据类型</h4><p>下表为MongoDB中常用的几种数据类型。</p>
-<table>
-<thead>
-<tr>
-<th>数据类型</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>String</td>
-<td>字符串。存储数据常用的数据类型。在 MongoDB 中，UTF-8 编码的字符串才是合法的。</td>
-</tr>
-<tr>
-<td>Integer</td>
-<td>整型数值。用于存储数值。根据你所采用的服务器，可分为 32 位或 64 位。</td>
-</tr>
-<tr>
-<td>Boolean</td>
-<td>布尔值。用于存储布尔值（真/假）。</td>
-</tr>
-<tr>
-<td>Double</td>
-<td>双精度浮点值。用于存储浮点值。</td>
-</tr>
-<tr>
-<td>Min/Max keys</td>
-<td>将一个值与 BSON（二进制的 JSON）元素的最低值和最高值相对比。</td>
-</tr>
-<tr>
-<td>Array</td>
-<td>用于将数组或列表或多个值存储为一个键。</td>
-</tr>
-<tr>
-<td>Timestamp</td>
-<td>时间戳。记录文档修改或添加的具体时间。</td>
-</tr>
-<tr>
-<td>Object</td>
-<td>用于内嵌文档。</td>
-</tr>
-<tr>
-<td>Null</td>
-<td>用于创建空值。</td>
-</tr>
-<tr>
-<td>Symbol</td>
-<td>符号。该数据类型基本上等同于字符串类型，但不同的是，它一般用于采用特殊符号类型的语言。</td>
-</tr>
-<tr>
-<td>Date</td>
-<td>日期时间。用 UNIX 时间格式来存储当前日期或时间。你可以指定自己的日期时间：创建 Date 对象，传入年月日信息。</td>
-</tr>
-<tr>
-<td>Object ID</td>
-<td>对象 ID。用于创建文档的 ID。</td>
-</tr>
-<tr>
-<td>Binary Data</td>
-<td>二进制数据。用于存储二进制数据。</td>
-</tr>
-<tr>
-<td>Code</td>
-<td>代码类型。用于在文档中存储 JavaScript 代码。</td>
-</tr>
-<tr>
-<td>Regular expression</td>
-<td>正则表达式类型。用于存储正则表达式。</td>
-</tr>
-</tbody>
-</table>
-<h3 id="ObjectId"><a href="#ObjectId" class="headerlink" title="ObjectId"></a>ObjectId</h3><p>ObjectId 类似唯一主键，可以很快的去生成和排序，包含 12 bytes，含义是：</p>
+<p><strong>整体流程如图</strong></p>
+<p><img src="https://liangzl.com/editorImages/cawler/20180604001625_695.jpg" alt="img"></p>
 <ul>
-<li>前 4 个字节表示创建 <strong>unix</strong> 时间戳,格林尼治时间 <strong>UTC</strong> 时间，比北京时间晚了 8 个小时</li>
-<li>接下来的 3 个字节是机器标识码</li>
-<li>紧接的两个字节由进程 id 组成 PID</li>
-<li>最后三个字节是随机数</li>
+<li><strong>TCC优缺点</strong> <ul>
+<li>优点：让应用自己定义数据库操作的粒度，使得降低锁冲突、提高吞吐量成为可能。</li>
+<li>不足：<ul>
+<li>对应用的侵入性强。业务逻辑的每个分支都需要实现try、confirm、cancel三个操作，应用侵入性较强，改造成本高。</li>
+<li>实现难度较大。需要按照网络状态、系统故障等不同的失败原因实现不同的回滚策略。为了满足一致性的要求，confirm和cancel接口必须实现幂等。</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/lingo0/MyPostImage/master/blog/mongo/%E5%AD%97%E6%AE%B5.png" alt="img"></p>
-<p>MongoDB 中存储的文档必须有一个 _id 键。这个键的值可以是任何类型的，默认是个 ObjectId 对象</p>
-<p>由于 ObjectId 中保存了创建的时间戳，所以你不需要为你的文档保存时间戳字段，你可以通过 getTimestamp 函数来获取文档的创建时间:</p>
-<figure class="highlight vb"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; var newObject = ObjectId()</span><br><span class="line">&gt; newObject.getTimestamp()</span><br><span class="line">ISODate(<span class="string">"2017-11-25T07:21:10Z"</span>)</span><br></pre></td></tr></table></figure>
-<h4 id="MongoDB索引"><a href="#MongoDB索引" class="headerlink" title="MongoDB索引"></a>MongoDB索引</h4><p>索引通常能够极大的提高查询的效率，如果没有索引，MongoDB在读取数据时必须扫描集合中的每个文件并选取那些符合查询条件的记录。</p>
-<p>这种扫描全集合的查询效率是非常低的，特别在处理大量的数据时，查询可以要花费几十秒甚至几分钟，这对网站的性能是非常致命的。</p>
-<p>索引是特殊的数据结构，索引存储在一个易于遍历读取的数据集合中，索引是对数据库表中一列或多列的值进行排序的一种结构</p>
-<h5 id="createIndex-方法"><a href="#createIndex-方法" class="headerlink" title="createIndex() 方法"></a>createIndex() 方法</h5><p>MongoDB使用 createIndex() 方法来创建索引。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.collection.createIndex(keys, options)</span><br></pre></td></tr></table></figure>
-<p>createIndex() 方法中你也可以设置使用多个字段创建索引（关系型数据库中称作复合索引）。</p>
-<h4 id="MongoDB-监控"><a href="#MongoDB-监控" class="headerlink" title="MongoDB 监控"></a>MongoDB 监控</h4><p>需要了解MongoDB的运行情况，并查看MongoDB的性能。这样在大流量得情况下可以很好的应对并保证MongoDB正常运作。</p>
-<p>MongoDB中提供了mongostat 和 mongotop 两个命令来监控MongoDB的运行情况。</p>
-<h5 id="mongostat-命令"><a href="#mongostat-命令" class="headerlink" title="mongostat 命令"></a>mongostat 命令</h5><p>mongostat是mongodb自带的状态检测工具，在命令行下使用。它会间隔固定时间获取mongodb的当前运行状态，并输出。如果你发现数据库突然变慢或者有其他问题的话，你第一手的操作就考虑采用mongostat来查看mongo的状态。</p>
-<p>启动你的Mongod服务，进入到你安装的MongoDB目录下的bin目录， 然后输入mongostat命令，如下所示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\set up\mongodb\bin&gt;mongostat</span><br></pre></td></tr></table></figure>
-<h5 id="mongotop-命令"><a href="#mongotop-命令" class="headerlink" title="mongotop 命令"></a>mongotop 命令</h5><p>mongotop也是mongodb下的一个内置工具，mongotop提供了一个方法，用来跟踪一个MongoDB的实例，查看哪些大量的时间花费在读取和写入数据。 mongotop提供每个集合的水平的统计数据。默认情况下，mongotop返回值的每一秒。</p>
-<p>启动你的Mongod服务，进入到你安装的MongoDB目录下的bin目录， 然后输入mongotop命令，如下所示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\set up\mongodb\bin&gt;mongotop</span><br></pre></td></tr></table></figure>
-<h3 id="MongoDB-Java-结合-Spring-boot"><a href="#MongoDB-Java-结合-Spring-boot" class="headerlink" title="MongoDB Java 结合 Spring boot"></a>MongoDB Java 结合 Spring boot</h3><p>在 applicationContext中添加mongoClient和mongoTemplate的配置。</p>
-<p>在后续使用中，基本是使用mongoTemplate来执行增删改查工作。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"mongodbUri"</span> <span class="attr">class</span>=<span class="string">"com.mongodb.MongoClientURI"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">value</span>=<span class="string">"$&#123;mongo_db_url&#125;"</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"> <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"mongoClient"</span> <span class="attr">class</span>=<span class="string">"com.mongodb.MongoClient"</span> <span class="attr">destroy-method</span>=<span class="string">"close"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">ref</span>=<span class="string">"mongodbUri"</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"> <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"morphia"</span> <span class="attr">class</span>=<span class="string">"org.mongodb.morphia.Morphia"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"> <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"datastore"</span> <span class="attr">class</span>=<span class="string">"org.mongodb.morphia.Datastore"</span> <span class="attr">factory-bean</span>=<span class="string">"morphia"</span> <span class="attr">factory-method</span>=<span class="string">"createDatastore"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">ref</span>=<span class="string">"mongoClient"</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">value</span>=<span class="string">"$&#123;mongo.dbname:defaultMongoDb&#125;"</span>/&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"> <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"mongoTemplate"</span> <span class="attr">class</span>=<span class="string">"org.springframework.data.mongodb.core.MongoTemplate"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">"mongoDbFactory"</span> <span class="attr">ref</span>=<span class="string">"mongoDbFactory"</span> /&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"> <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"mongoDbFactory"</span> <span class="attr">class</span>=<span class="string">"org.springframework.data.mongodb.core.SimpleMongoDbFactory"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">ref</span>=<span class="string">"mongoClient"</span> /&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"1"</span> <span class="attr">value</span>=<span class="string">"$&#123;mongo.dbname:defaultMongoDb&#125;"</span> /&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mongo_db_url:&quot;mongodb://study7920:study7920@hzbxs-study-test026.server.163.org:7920/?maxPoolSize=40&quot;</span><br><span class="line">mongo.dbname:&quot;study_v2&quot;</span><br></pre></td></tr></table></figure>
-<h5 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h5><h6 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h6><ol>
-<li>使用insert方法</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongoTemplate.insert(Object);</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>使用save方法</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongoTemplate.save(Object);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-TCC-transaction-框架介绍"><a href="#2-TCC-transaction-框架介绍" class="headerlink" title="2. TCC-transaction 框架介绍"></a>2. TCC-transaction 框架介绍</h3><p>源码地址：<a href="https://github.com/changmingxie/tcc-transaction" target="_blank" rel="noopener">https://github.com/changmingxie/tcc-transaction</a></p>
+<p>TCC-transaction是开源的TCC补偿性分布式事务框架，使用Java实现，不和底层使用的rpc框架耦合，可以使用doubbo,thrift,web service,http等接口。事务管理器日志持久化支持多种方式，如mysql，zookeeper等。</p>
+<h5 id="1-接入准备"><a href="#1-接入准备" class="headerlink" title="1. 接入准备"></a>1. 接入准备</h5><ul>
+<li><p>引用tcc-transaction的Maven依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mengyun<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tcc-transaction-spring<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;project.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>加载tcc-transaction.xml配置</p>
 <blockquote>
-<p>二者区别是：若新增的数据中存在主键 ，insert() 会提示错误，而save() 则更改原来的内容为新内容。</p>
+<p>启动应用时，需要将tcc-transaction-spring jar中的tcc-transaction.xml加入到classpath中。如在web.xml中配置：</p>
 </blockquote>
-<p>######删除</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Query query = <span class="keyword">new</span> Query(Criteria.where(<span class="string">"_id"</span>).is(id));</span><br><span class="line">mongoTemplate.remove(query,AutomaticAlarm.class);</span><br></pre></td></tr></table></figure>
-<p>######修改</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Query query=<span class="keyword">new</span> Query(Criteria.where(<span class="string">"_id"</span>).is(id));</span><br><span class="line">Update update = Update.update(<span class="string">"要更新的字段"</span>, <span class="string">"更新的值"</span>);</span><br><span class="line">mongoTemplate.updateFirst(query, update, Object.class);</span><br></pre></td></tr></table></figure>
-<p>也可以用save()方法</p>
-<p>######查询</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查找所有</span></span><br><span class="line">mongoTemplate.findAll(Object.class);</span><br><span class="line"></span><br><span class="line"><span class="comment">//分页查询</span></span><br><span class="line">Query query = <span class="keyword">new</span> Query();</span><br><span class="line">query.skip(<span class="string">"跳过的数据条数"</span>).limit(<span class="string">"一页的数据条数"</span>); </span><br><span class="line"><span class="keyword">return</span> mongoTemplate.find(query, Object.class);</span><br><span class="line"></span><br><span class="line"><span class="comment">//条件查询1，多条件is("值")后面可以加and("字段2").is("值2")</span></span><br><span class="line">Query query=<span class="keyword">new</span> Query(Criteria.where(<span class="string">"字段1"</span>).is(<span class="string">"值1"</span>));</span><br><span class="line"><span class="keyword">return</span> mongoTemplate.find(query, Object.class);</span><br><span class="line"></span><br><span class="line"><span class="comment">//条件查询2，gte大于 lte小于</span></span><br><span class="line">Criteria criteria1 = Criteria.where(<span class="string">"timestamp"</span>).gte(startTime).lte(endTime+<span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:tcc-transaction.xml</span><br><span class="line">    <span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置TransactionRepository</p>
+<blockquote>
+<p>选择 持久化方式。可以选择FileSystemTransactionRepository、SpringJdbcTransactionRepository、RedisTransactionRepository或ZooKeeperTransactionRepository。</p>
+</blockquote>
+<p>如SpringJdbcTransactionRepository</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionRepository"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">class</span>=<span class="string">"org.mengyun.tcctransaction.spring.repository.SpringJdbcTransactionRepository"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"org.apache.commons.dbcp.BasicDataSource"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">destroy-method</span>=<span class="string">"close"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">value</span>=<span class="string">"com.mysql.jdbc.Driver"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"jdbc:mysql://127.0.0.1:3306/test"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"root"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">""</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建TCC表</p>
+<ul>
+<li>执行 tcc-transaction-tutorial-sample/src/dbscripts/下，create_db_cap.sql，create_db_ord.sql等四个文件</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-本地部署调试"><a href="#2-本地部署调试" class="headerlink" title="2. 本地部署调试"></a>2. 本地部署调试</h5><p>在本机中需要有Mysql环境，如果调试dubbo需要按照zookeeper。</p>
+<p>可以参照<a href="https://github.com/lingo0/tcc-transaction中分支normalDebug分支。" target="_blank" rel="noopener">https://github.com/lingo0/tcc-transaction中分支normalDebug分支。</a></p>
+<ul>
+<li>修改所有tccjdbc.properties文件中的jdbc的配置，</li>
+<li>新建dubbo-capital，dubbo-redpacket，dubbo-order三个tomcat启动环境。</li>
+</ul>
+<h3 id="3-TCC-transaction-事务测试"><a href="#3-TCC-transaction-事务测试" class="headerlink" title="3. TCC-transaction 事务测试"></a>3. TCC-transaction 事务测试</h3><ol>
+<li><p>异常情况1：try失败</p>
+<blockquote>
+<p>可以参照<a href="https://github.com/lingo0/tcc-transaction中分支error-test-1分支。" target="_blank" rel="noopener">https://github.com/lingo0/tcc-transaction中分支error-test-1分支。</a></p>
+</blockquote>
+<p><strong>具体异常描述</strong>：红包账户冻结成功(try)、资金账户冻结成功(try)，订单操作异常(try)</p>
+<p>在makePayment中添加抛出异常，使之try失败。</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fw6d4se8yqj31fq0mitf7.jpg" alt=""></p>
+<p>此时order主业务流程try异常，支付失败，事务需要回滚，TCC事务协调器执行cancel操作，会将红包账户冻结金额、资金账户冻结金额全部回滚。</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fw6d8v5tthj30ec078q3j.jpg" alt=""></p>
+<p><strong>类似的</strong>：红包账户try异常、资金账户try异常，远程dubbo接口抛出异常，在主服务的TCC事务协调器获取到异常，由事务恢复任务处理回滚。</p>
+<p>如，在远程方法中造成异常，抛出npe</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fw6d733dvnj31kw184wo9.jpg" alt=""></p>
+</li>
+<li><p>异常情况2：confirm异常</p>
+<blockquote>
+<p>可以参照<a href="https://github.com/lingo0/tcc-transaction中分支error-test-2分支。" target="_blank" rel="noopener">https://github.com/lingo0/tcc-transaction中分支error-test-2分支。</a></p>
+</blockquote>
+<p><strong>具体异常描述</strong>：订单处理成功(confirm)，资金账户扣减成功(confirm)，但红包账户扣减失败(confirm)。</p>
+<p>如图：添加如下异常。</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNbRwgy1fw8nx2bwjbj31jm0twahp.jpg" alt=""></p>
+</li>
+</ol>
+<p>   这时候三个try操作均成功，对于业务来说成功。</p>
+<p>   <img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fw8nzydicsj308i03uaa8.jpg" alt=""></p>
+<p>   TCC事务协调器会执行confirm操作。当红包的confirm接口异常时，订单confirm操作未执行成功，系统会不断重试调用订单的confirm操作，直到红包的confirm成功。</p>
+<p>   如果达到最大重试次数，或者时间，则需要人工处理。类似我们造异常的情况。</p>
+<p>   <strong>类似的</strong>，如果try异常，cancel也异常，那么事务协调器会不断重试，直达cancel成功。</p>
+<ol>
+<li><strong>总结</strong>： try 操作成功，进入 confirm 操作，只要 confirm 处理失败（不管是协调者挂了，还是参与者处理失败或超时），系统通过不断重试直到处理成功。 进入 cancel 操作也是一样，只要 cancel 处理失败，系统通过不断重试直到处理成功。</li>
+</ol>
+<h3 id="4-TCC-transaction-事务实现"><a href="#4-TCC-transaction-事务实现" class="headerlink" title="4. TCC-transaction 事务实现"></a>4. TCC-transaction 事务实现</h3><ul>
+<li>主要代码位置  tcc-transaction-core</li>
+</ul>
+<h5 id="1-主要的几个类"><a href="#1-主要的几个类" class="headerlink" title="1. 主要的几个类"></a>1. 主要的几个类</h5><h6 id="实体类"><a href="#实体类" class="headerlink" title="实体类"></a>实体类</h6><ul>
+<li><p><strong>@Compensable</strong>    TCC事务方法注解</p>
+</li>
+<li><p><strong>Transaction</strong> 事务实体</p>
+</li>
+<li><p><strong>Participant</strong>  事务参与者</p>
+</li>
+<li><p><strong>TransactionContext</strong> 事务上下文</p>
+</li>
+<li><p><strong>Propagation</strong> 事务传播级别 </p>
+<blockquote>
+<p>和spring事务传播级别类似</p>
+</blockquote>
+</li>
+</ul>
+<h6 id="功能相关类"><a href="#功能相关类" class="headerlink" title="功能相关类"></a>功能相关类</h6><ul>
+<li><p><strong>CompensableTransactionAspect</strong>和<strong>CompensableTransactionInterceptor</strong> 事务执行器</p>
+<blockquote>
+<p>处理事务执行</p>
+</blockquote>
+</li>
+<li><p><strong>ResourceCoordinatorAspect</strong> 和 <strong>ResourceCoordinatorInterceptor</strong> 事务资源协调器</p>
+<blockquote>
+<p>处理事务过程中，添加事务参与者</p>
+</blockquote>
+</li>
+<li><p><strong>TransactionManager</strong> 事务管理器。</p>
+<blockquote>
+<p>提供事务的获取、发起、提交、回滚，参与者的新增等等方法。</p>
+</blockquote>
+</li>
+<li><p><strong>TransactionRepository</strong> 事务持久化</p>
+</li>
+</ul>
+<h5 id="2-事务执行流程图"><a href="#2-事务执行流程图" class="headerlink" title="2.事务执行流程图"></a>2.事务执行流程图</h5><p><img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fw4hzctbt3j30og0peq4a.jpg" alt=""></p>
+<ul>
+<li>第一个切面<strong>CompensableTransactionAspect</strong>拦截后，执行事务操作。实现功能有：<ul>
+<li>在Try阶段，执行事务发起和传播</li>
+<li>在 Confirm / Cancel 阶段，对事务提交或回滚</li>
+</ul>
+</li>
+<li>第二个切面<strong>ResourceCoordinatorAspect</strong>拦截后，事务协调器，添加事务上下文和添加参与者到事务中。</li>
+</ul>
+<h5 id="3-走读代码"><a href="#3-走读代码" class="headerlink" title="3. 走读代码"></a>3. 走读代码</h5><p><img src="https://ws1.sinaimg.cn/large/006tNbRwgy1fw8ofu30voj31kw0lpn5b.jpg" alt=""></p>
+<h4 id="5-TCC-事务恢复"><a href="#5-TCC-事务恢复" class="headerlink" title="5. TCC 事务恢复"></a>5. TCC 事务恢复</h4><blockquote>
+<p>事务信息被持久化到外部的存储器中。<strong>事务存储是事务恢复的基础</strong>。通过读取外部存储器中的异常事务，定时任务会按照一定频率对事务进行重试，直到事务完成或超过最大重试次数。</p>
+</blockquote>
+<h5 id="1-主要的类"><a href="#1-主要的类" class="headerlink" title="1. 主要的类"></a>1. 主要的类</h5><ul>
+<li><strong>RecoverConfig</strong> 事务恢复配置接口</li>
+<li><strong>TransactionRecovery</strong> 事务恢复逻辑</li>
+<li><strong>RecoverScheduledJob</strong> 事务恢复定时任务</li>
+</ul>
+<p><img src="http://www.iocoder.cn/images/TCC-Transaction/2018_02_22/01.png" alt="img"></p>
+<p>我们主要看<strong>TransactionRecovery</strong></p>
+<ul>
+<li><p>当单个事务超过最大重试次数时，不再重试，只打印异常，此时需要<strong>人工介入</strong>解决。可以接入报警</p>
+</li>
+<li><p>当<strong>分支事务</strong>超过最大可重试时间时，不再重试。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TransactionRecovery</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = Logger.getLogger(TransactionRecovery.class.getSimpleName());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> TransactionConfigurator transactionConfigurator;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 启动恢复事务逻辑</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startRecover</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 加载异常事务集合</span></span><br><span class="line">        List&lt;Transaction&gt; transactions = loadErrorTransactions();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 恢复异常事务集合</span></span><br><span class="line">        recoverErrorTransactions(transactions);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 加载异常事务集合</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> List&lt;Transaction&gt; <span class="title">loadErrorTransactions</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">long</span> currentTimeInMillis = Calendar.getInstance().getTimeInMillis();</span><br><span class="line"></span><br><span class="line">        TransactionRepository transactionRepository = transactionConfigurator.getTransactionRepository();</span><br><span class="line">        RecoverConfig recoverConfig = transactionConfigurator.getRecoverConfig();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 当前时间超过 - 事务恢复间隔 RecoverConfig#getRecoverDuration()</span></span><br><span class="line">        <span class="keyword">return</span> transactionRepository.findAllUnmodifiedSince(<span class="keyword">new</span> Date(currentTimeInMillis - recoverConfig.getRecoverDuration() * <span class="number">1000</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 恢复异常事务集合</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">recoverErrorTransactions</span><span class="params">(List&lt;Transaction&gt; transactions)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Transaction transaction : transactions) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 超过最大重试次数</span></span><br><span class="line">            <span class="keyword">if</span> (transaction.getRetriedCount() &gt; transactionConfigurator.getRecoverConfig().getMaxRetryCount()) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 当单个事务超过最大重试次数时，不再重试，只打印异常，此时需要人工介入解决。</span></span><br><span class="line">                logger.error(String.format(<span class="string">"recover failed with max retry count,will not try again. txid:%s, status:%s,retried count:%d,transaction content:%s"</span>, transaction.getXid(), transaction.getStatus().getId(), transaction.getRetriedCount(), JSON.toJSONString(transaction)));</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 分支事务超过最大可重试时间</span></span><br><span class="line">            <span class="keyword">if</span> (transaction.getTransactionType().equals(TransactionType.BRANCH)</span><br><span class="line">                    &amp;&amp; (transaction.getCreateTime().getTime() +</span><br><span class="line">                    transactionConfigurator.getRecoverConfig().getMaxRetryCount() *</span><br><span class="line">                            transactionConfigurator.getRecoverConfig().getRecoverDuration() * <span class="number">1000</span></span><br><span class="line">                    &gt; System.currentTimeMillis())) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Confirm / Cancel</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 增加重试次数</span></span><br><span class="line">                transaction.addRetriedCount();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 如果事务状态是 confirm ,则重试commit</span></span><br><span class="line">                <span class="keyword">if</span> (transaction.getStatus().equals(TransactionStatus.CONFIRMING)) &#123;</span><br><span class="line"></span><br><span class="line">                    transaction.changeStatus(TransactionStatus.CONFIRMING);</span><br><span class="line">                    transactionConfigurator.getTransactionRepository().update(transaction);</span><br><span class="line">                    transaction.commit();</span><br><span class="line">                    transactionConfigurator.getTransactionRepository().delete(transaction);</span><br><span class="line"></span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (transaction.getStatus().equals(TransactionStatus.CANCELLING)</span><br><span class="line">                           <span class="comment">// 这里加判断的事务类型为根事务，用于处理延迟回滚异常的事务的回滚。</span></span><br><span class="line">                        || transaction.getTransactionType().equals(TransactionType.ROOT)) &#123;</span><br><span class="line"></span><br><span class="line">                    transaction.changeStatus(TransactionStatus.CANCELLING);</span><br><span class="line">                    transactionConfigurator.getTransactionRepository().update(transaction);</span><br><span class="line">                    transaction.rollback();</span><br><span class="line">                    transactionConfigurator.getTransactionRepository().delete(transaction);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125; <span class="keyword">catch</span> (Throwable throwable) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (throwable <span class="keyword">instanceof</span> OptimisticLockException</span><br><span class="line">                        || ExceptionUtils.getRootCause(throwable) <span class="keyword">instanceof</span> OptimisticLockException) &#123;</span><br><span class="line">                    logger.warn(String.format(<span class="string">"optimisticLockException happened while recover. txid:%s, status:%s,retried count:%d,transaction content:%s"</span>, transaction.getXid(), transaction.getStatus().getId(), transaction.getRetriedCount(), JSON.toJSONString(transaction)), throwable);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    logger.error(String.format(<span class="string">"recover failed, txid:%s, status:%s,retried count:%d,transaction content:%s"</span>, transaction.getXid(), transaction.getStatus().getId(), transaction.getRetriedCount(), JSON.toJSONString(transaction)), throwable);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTransactionConfigurator</span><span class="params">(TransactionConfigurator transactionConfigurator)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.transactionConfigurator = transactionConfigurator;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="6-dubbo-支持"><a href="#6-dubbo-支持" class="headerlink" title="6. dubbo 支持"></a>6. dubbo 支持</h4><blockquote>
+<p>TCC-Transaction 通过 Dubbo <strong>隐式传参</strong>的功能，避免自己对业务代码的入侵。</p>
+<p>通过 Dubbo Proxy 的机制，实现 <code>@Compensable</code> 属性自动生成，优点就是增加开发体验，也避免出错。</p>
+</blockquote>
+<p>dubbo接口上只要加<code>@Compensable</code>并不需要其他参数，也不需要显示传递事务上下文。</p>
+<h5 id="1-实现原理："><a href="#1-实现原理：" class="headerlink" title="1. 实现原理："></a>1. 实现原理：</h5><p>通过 Dubbo Proxy 的机制，重写 Javassist 代理生成方式。</p>
+<p>修改配置： <code>&lt;dubbo:provider proxy=&quot;tccJavassist&quot;/&gt;</code> 让dubbo使用org.mengyun.tcctransaction.dubbo.proxy.javassist.TccJavassistProxyFactory 类生成代理类。</p>
+<p>在项目启动时，调用 <code>TccJavassistProxyFactory#getProxy(...)</code> 方法，生成 Dubbo Service 调用代理类，最终将 接口 生成 可调用的类。</p>
+<h5 id="2-生成结果"><a href="#2-生成结果" class="headerlink" title="2. 生成结果"></a>2. 生成结果</h5><p>原来的接口类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public interface RedPacketTradeOrderService &#123;</span><br><span class="line"></span><br><span class="line">    @Compensable</span><br><span class="line">    String record(RedPacketTradeOrderDto tradeOrderDto);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>生成的 Dubbo Service 调用类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TccProxy3</span> <span class="keyword">extends</span> <span class="title">TccProxy</span> <span class="keyword">implements</span> <span class="title">TccClassGenerator</span>.<span class="title">DC</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">newInstance</span><span class="params">(InvocationHandler paramInvocationHandler)</span> </span>&#123;    </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> proxy3(paramInvocationHandler);  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>生成的 Dubbo Service 调用 <strong>Proxy</strong> 如下 ：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">proxy3</span> <span class="keyword">implements</span> <span class="title">TccClassGenerator</span>.<span class="title">DC</span>, <span class="title">RedPacketTradeOrderService</span>, <span class="title">EchoService</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Method[] methods;</span><br><span class="line">    <span class="keyword">private</span> InvocationHandler handler;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">proxy3</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">proxy3</span><span class="params">(InvocationHandler paramInvocationHandler)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.handler = paramInvocationHandler;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Compensable</span>(propagation = Propagation.SUPPORTS, confirmMethod = <span class="string">"record"</span>, cancelMethod = <span class="string">"record"</span>, transactionContextEditor = DubboTransactionContextEditor.class)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">record</span><span class="params">(RedPacketTradeOrderDto paramRedPacketTradeOrderDto)</span> </span>&#123;</span><br><span class="line">        Object[] arrayOfObject = <span class="keyword">new</span> Object[<span class="number">1</span>];</span><br><span class="line">        arrayOfObject[<span class="number">0</span>] = paramRedPacketTradeOrderDto;</span><br><span class="line">        Object localObject = <span class="keyword">this</span>.handler.invoke(<span class="keyword">this</span>, methods[<span class="number">0</span>], arrayOfObject);</span><br><span class="line">        <span class="keyword">return</span> (String) localObject;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Object $echo(Object paramObject) &#123;</span><br><span class="line">        Object[] arrayOfObject = <span class="keyword">new</span> Object[<span class="number">1</span>];</span><br><span class="line">        arrayOfObject[<span class="number">0</span>] = paramObject;</span><br><span class="line">        Object localObject = <span class="keyword">this</span>.handler.invoke(<span class="keyword">this</span>, methods[<span class="number">1</span>], arrayOfObject);</span><br><span class="line">        <span class="keyword">return</span> (Object) localObject;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="3-自动生成-Compensable-属性关键代码"><a href="#3-自动生成-Compensable-属性关键代码" class="headerlink" title="3. 自动生成@Compensable 属性关键代码"></a>3. 自动生成<code>@Compensable</code> 属性关键代码</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">public Class&lt;?&gt; toClass() &#123;</span><br><span class="line">        // mCtc 非空时，进行释放；下面会进行创建  mCtc --- 动态生成的类</span><br><span class="line">        if (mCtc != null)</span><br><span class="line">            mCtc.detach();</span><br><span class="line">        long id = CLASS_NAME_COUNTER.getAndIncrement();</span><br><span class="line">        try &#123;</span><br><span class="line">            CtClass ctcs = mSuperClass == null ? null : mPool.get(mSuperClass);</span><br><span class="line">            if (mClassName == null)</span><br><span class="line">                mClassName = (mSuperClass == null || javassist.Modifier.isPublic(ctcs.getModifiers())</span><br><span class="line">                        ? TccClassGenerator.class.getName() : mSuperClass + &quot;$sc&quot;) + id;</span><br><span class="line"></span><br><span class="line">            // 创建mCtc</span><br><span class="line">            mCtc = mPool.makeClass(mClassName);</span><br><span class="line">            if (mSuperClass != null)</span><br><span class="line">                mCtc.setSuperclass(ctcs); // 继承类</span><br><span class="line">            mCtc.addInterface(mPool.get(DC.class.getName())); // add dynamic class tag.</span><br><span class="line">            if (mInterfaces != null) // 实现接口集合</span><br><span class="line">                for (String cl : mInterfaces) mCtc.addInterface(mPool.get(cl));</span><br><span class="line">            if (mFields != null)    // 属性集合</span><br><span class="line">                for (String code : mFields) mCtc.addField(CtField.make(code, mCtc));</span><br><span class="line">            if (mMethods != null) &#123; // 方法集合</span><br><span class="line">                for (String code : mMethods) &#123;</span><br><span class="line">                    if (code.charAt(0) == &apos;:&apos;)</span><br><span class="line">                        mCtc.addMethod(CtNewMethod.copy(getCtMethod(mCopyMethods.get(code.substring(1))), code.substring(1, code.indexOf(&apos;(&apos;)), mCtc, null));</span><br><span class="line">                    else &#123;</span><br><span class="line"></span><br><span class="line">                        CtMethod ctMethod = CtNewMethod.make(code, mCtc);</span><br><span class="line"></span><br><span class="line">                        if (compensableMethods.contains(code)) &#123;</span><br><span class="line"></span><br><span class="line">                            // 设置 @Compensable 属性</span><br><span class="line">                            ConstPool constpool = mCtc.getClassFile().getConstPool();</span><br><span class="line">                            AnnotationsAttribute attr = new AnnotationsAttribute(constpool, AnnotationsAttribute.visibleTag);</span><br><span class="line">                            Annotation annot = new Annotation(&quot;org.mengyun.tcctransaction.api.Compensable&quot;, constpool);</span><br><span class="line">                            EnumMemberValue enumMemberValue = new EnumMemberValue(constpool);</span><br><span class="line">                            enumMemberValue.setType(&quot;org.mengyun.tcctransaction.api.Propagation&quot;);</span><br><span class="line">                            enumMemberValue.setValue(&quot;SUPPORTS&quot;);</span><br><span class="line">                            annot.addMemberValue(&quot;propagation&quot;, enumMemberValue);</span><br><span class="line">                            annot.addMemberValue(&quot;confirmMethod&quot;, new StringMemberValue(ctMethod.getName(), constpool));</span><br><span class="line">                            annot.addMemberValue(&quot;cancelMethod&quot;, new StringMemberValue(ctMethod.getName(), constpool));</span><br><span class="line"></span><br><span class="line">                            ClassMemberValue classMemberValue = new ClassMemberValue(&quot;org.mengyun.tcctransaction.dubbo.context.DubboTransactionContextEditor&quot;, constpool);</span><br><span class="line">                            annot.addMemberValue(&quot;transactionContextEditor&quot;, classMemberValue);</span><br><span class="line"></span><br><span class="line">                            attr.addAnnotation(annot);</span><br><span class="line">                            ctMethod.getMethodInfo().addAttribute(attr);</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        mCtc.addMethod(ctMethod);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            if (mDefaultConstructor)      // 空参数构造方法</span><br><span class="line">                mCtc.addConstructor(CtNewConstructor.defaultConstructor(mCtc));</span><br><span class="line"></span><br><span class="line">            if (mConstructors != null) &#123;  // 带参数构造方法</span><br><span class="line">                for (String code : mConstructors) &#123;</span><br><span class="line">                    if (code.charAt(0) == &apos;:&apos;) &#123;</span><br><span class="line">                        mCtc.addConstructor(CtNewConstructor.copy(getCtConstructor(mCopyConstructors.get(code.substring(1))), mCtc, null));</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        String[] sn = mCtc.getSimpleName().split(&quot;\\$+&quot;); // inner class name include $.</span><br><span class="line">                        mCtc.addConstructor(CtNewConstructor.make(code.replaceFirst(SIMPLE_NAME_TAG, sn[sn.length - 1]), mCtc));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return mCtc.toClass();</span><br><span class="line">        &#125; catch (RuntimeException e) &#123;</span><br><span class="line">            throw e;</span><br><span class="line">        &#125; catch (NotFoundException e) &#123;</span><br><span class="line">            throw new RuntimeException(e.getMessage(), e);</span><br><span class="line">        &#125; catch (CannotCompileException e) &#123;</span><br><span class="line">            throw new RuntimeException(e.getMessage(), e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="4-隐式传递事务上下文给远程dubbo服务"><a href="#4-隐式传递事务上下文给远程dubbo服务" class="headerlink" title="4. 隐式传递事务上下文给远程dubbo服务"></a>4. 隐式传递事务上下文给远程dubbo服务</h5><p>见 <strong>DubboTransactionContextEditor</strong>中，存放在RpcContext.getContext().setAttachment(TransactionContextConstants.TRANSACTION_CONTEXT, JSON.toJSONString(transactionContext));</p>
+<p>远程dubbo服务可以直接获取。</p>
 
       
 
@@ -408,7 +399,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MongoDB</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">分布式事务</a>
         		</li>
       		
 		</ul>
@@ -464,7 +455,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://lingo0.github.io/2018/07/11/Mongo快速上手/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://lingo0.github.io/2018/10/15/TCC-transaction学习/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -478,18 +469,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/07/24/大数据量excle导出优化/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          大数据量excle导出优化
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/06/27/一种生产消费框架实现/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">一种数据库遍历工具实现</div>
+    <a href="/2018/07/24/大数据量excle导出优化/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">大数据量excle导出优化</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -528,7 +510,7 @@
 <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "http://lingo0.github.io/2018/07/11/Mongo快速上手/",
+  id: "http://lingo0.github.io/2018/10/15/TCC-transaction学习/",
   owner: 'lingo0',
   repo: 'lingo0.github.com',
   oauth: {
