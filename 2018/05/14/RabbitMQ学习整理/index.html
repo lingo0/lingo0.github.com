@@ -16,15 +16,15 @@
 <meta property="og:site_name" content="Ling&#39;s blog">
 <meta property="og:description" content="RabbitMQ基础知识详解 新工作又是新的消息队列，和之前用的消息队列又有些区别，之前使用的消息中间件基于JMS，而RabbitMQ基于AMQP。因此需要学习对比下。  一、RabbitMQ的基本概念 队列、生产者、消费者  队列是RabbitMQ的内部对象，用于存储消息。生产者（下图中的P）生产消息并投递到队列中，消费者（下图中的C）可以从队列中获取消息并消费。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://img-blog.csdn.net/20170828201708910?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZHJlYW1jaGFzZXJpbmc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
-<meta property="og:image" content="https://img-blog.csdn.net/20170828201853982?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZHJlYW1jaGFzZXJpbmc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
-<meta property="og:image" content="https://img-blog.csdn.net/20170828202419941?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZHJlYW1jaGFzZXJpbmc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
-<meta property="og:image" content="https://img-blog.csdn.net/20170828204522460?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZHJlYW1jaGFzZXJpbmc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
-<meta property="og:updated_time" content="2018-05-15T01:53:52.615Z">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNbRwgy1fx7m91ff94j30go02wq37.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwgy1fx7m9wj0u2j30ed053t96.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwgy1fx7maeb53pj30dr048dg6.jpg">
+<meta property="og:image" content="http://lingo0.github.io/2018/05/14/RabbitMQ学习整理/Users/muzhi/Desktop/rabbitMq.png">
+<meta property="og:updated_time" content="2019-03-08T08:18:38.099Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RabbitMQ学习整理">
 <meta name="twitter:description" content="RabbitMQ基础知识详解 新工作又是新的消息队列，和之前用的消息队列又有些区别，之前使用的消息中间件基于JMS，而RabbitMQ基于AMQP。因此需要学习对比下。  一、RabbitMQ的基本概念 队列、生产者、消费者  队列是RabbitMQ的内部对象，用于存储消息。生产者（下图中的P）生产消息并投递到队列中，消费者（下图中的C）可以从队列中获取消息并消费。">
-<meta name="twitter:image" content="https://img-blog.csdn.net/20170828201708910?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZHJlYW1jaGFzZXJpbmc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tNbRwgy1fx7m91ff94j30go02wq37.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Ling&#39;s blog" type="application/atom+xml">
   
@@ -191,15 +191,17 @@
 <li><p>队列、生产者、消费者</p>
 <p> 队列是RabbitMQ的内部对象，用于存储消息。生产者（下图中的P）生产消息并投递到队列中，消费者（下图中的C）可以从队列中获取消息并消费。</p>
 <a id="more"></a>
-<p><img src="https://img-blog.csdn.net/20170828201708910?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZHJlYW1jaGFzZXJpbmc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNbRwgy1fx7m91ff94j30go02wq37.jpg" alt=""></p>
 <p>多个消费者可以订阅同一个队列，这时队列中的消息会被平均分摊给多个消费者进行处理，而不是每个消费者都收到所有的消息并处理。</p>
-<p><img src="https://img-blog.csdn.net/20170828201853982?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZHJlYW1jaGFzZXJpbmc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
 </li>
+</ol>
+<p><img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fx7m9wj0u2j30ed053t96.jpg" alt=""></p>
+<ol start="2">
 <li><p>Exchange、Binding</p>
 <p>生产者将消息投递到队列中，实际上这在RabbitMQ中这种事情永远都不会发生。实际的情况是，生产者将消息发送到Exchange（交换器，下图中的X），再通过Binding将Exchange与Queue关联起来。</p>
 </li>
 </ol>
-<p><img src="https://img-blog.csdn.net/20170828202419941?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZHJlYW1jaGFzZXJpbmc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNbRwgy1fx7maeb53pj30dr048dg6.jpg" alt=""></p>
 <ol start="3">
 <li><p>Exchange Type、Bingding key、routing key</p>
 <p>在绑定（Binding）Exchange与Queue的同时，一般会指定一个binding key。在绑定多个Queue到同一个Exchange的时候，这些Binding允许使用相同的binding key。</p>
@@ -213,7 +215,7 @@
 <p>​      附上一张RabbitMQ的结构图：</p>
 </li>
 </ol>
-<p><img src="https://img-blog.csdn.net/20170828204522460?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZHJlYW1jaGFzZXJpbmc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<p><img src="/2018/05/14/RabbitMQ学习整理/Users/muzhi/Desktop/rabbitMq.png" alt=""></p>
 <h4 id="分析上图："><a href="#分析上图：" class="headerlink" title="分析上图："></a>分析上图：</h4><ul>
 <li><strong>RabbitMQ Server</strong>： 也叫broker server，它不是运送食物的卡车，而是一种传输服务。原话是<strong>RabbitMQ</strong>isn’t a food truck, it’s a delivery service. 他的角色就是维护一条从Producer到Consumer的路线，保证数据能够按照指定的方式进行传输。但是这个保证也不是100%的保证，但是对于普通的应用来说这已经足够了。当然对于商业系统来说，可以再做一层数据一致性的guard，就可以彻底保证系统的一致性了。</li>
 <li><strong>Client A &amp; B</strong>： 也叫Producer，数据的发送方。createmessages and publish (send) them to a broker server (RabbitMQ).一个Message有两个部分：payload（有效载荷）和label（标签）。payload顾名思义就是传输的数据。label是exchange的名字或者说是一个tag，它描述了payload，而且RabbitMQ也是通过这个label来决定把这个Message发给哪个Consumer。AMQP仅仅描述了label，而RabbitMQ决定了如何使用这个label的规则。</li>
@@ -238,7 +240,7 @@
 <li>客户端声明一个queue，并设置相关属性；</li>
 <li>客户端使用routing key，在exchange和queue之间建立好绑定关系；</li>
 <li>客户端投递消息到exchange；</li>
-<li>exchange接收到消息后，就根据消息的key和已经设置的binding，进行消息路由，将消息投递到一个或多个队列里。</li>
+<li>exchange接收到消息后，就根据消息的key和已经设置的binding，进行消息路由，将消息投递到一个或多个队列里。i</li>
 </ol>
 
       
@@ -419,7 +421,7 @@ gitment.render('gitment-ctn')
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 Ling
+    		&copy; 2019 Ling
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -518,15 +520,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Sping</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -546,11 +548,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
+                <a href="javascript:void(0)" class="js-tag color1">cache</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ACM</a>
+                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -559,6 +561,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ACM</a>
               </li>
             
             <div class="clearfix"></div>

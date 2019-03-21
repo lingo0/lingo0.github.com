@@ -6,15 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://lingo0.github.io">
-  <title>Archives: 2018/7 | Ling&#39;s blog</title>
+  <title>缓存应用场景分析 | Ling&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Ling&#39;s blog">
-<meta property="og:url" content="http://lingo0.github.io/archives/2018/07/index.html">
+  <meta name="description" content="​    这篇文章会通过在开发中遇到的不同场景来分析缓存的使用方式。">
+<meta name="keywords" content="cache">
+<meta property="og:type" content="article">
+<meta property="og:title" content="缓存应用场景分析">
+<meta property="og:url" content="http://lingo0.github.io/2019/03/21/缓存应用场景分析/index.html">
 <meta property="og:site_name" content="Ling&#39;s blog">
+<meta property="og:description" content="​    这篇文章会通过在开发中遇到的不同场景来分析缓存的使用方式。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcly1g1an11tl5fj312d0u0tid.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcly1g1an8i0gd5j30po0uwwkw.jpg">
+<meta property="og:updated_time" content="2019-03-21T11:39:24.842Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ling&#39;s blog">
+<meta name="twitter:title" content="缓存应用场景分析">
+<meta name="twitter:description" content="​    这篇文章会通过在开发中遇到的不同场景来分析缓存的使用方式。">
+<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tKfTcly1g1an11tl5fj312d0u0tid.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Ling&#39;s blog" type="application/atom+xml">
   
@@ -154,87 +162,237 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-缓存应用场景分析" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/24/大数据量excle导出优化/" class="archive-article-date">
-  	<time datetime="2018-07-24T07:29:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-24</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/24/大数据量excle导出优化/">大数据量excle导出优化</a>
+    <h1 class="article-title" itemprop="name">
+      缓存应用场景分析
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/11/Mongo快速上手/" class="archive-article-date">
-  	<time datetime="2018-07-11T06:51:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-11</time>
+        
+        <a href="/2019/03/21/缓存应用场景分析/" class="archive-article-date">
+  	<time datetime="2019-03-21T10:59:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-21</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/11/Mongo快速上手/">Mongo快速上手</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>​    这篇文章会通过在开发中遇到的不同场景来分析缓存的使用方式。</p>
+<a id="more"></a>
+<h3 id="一、最简单的“读‑写”场景"><a href="#一、最简单的“读‑写”场景" class="headerlink" title="一、最简单的“读‑写”场景"></a>一、最简单的“读‑写”场景</h3><h4 id="场景需求"><a href="#场景需求" class="headerlink" title="场景需求"></a>场景需求</h4><p>先从一个最简单的缓存需求开始，比如数据被查询后，希望能缓存一段时间，提高接口响应速度、缓解DB压力等。</p>
+<h4 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h4><p>1.首先查询缓存，</p>
+<p>2.如果缓存没有命中，则调用业务代码进行数据加载，并将数据写入缓存、设置超时时间；</p>
+<p>3.如果缓存命中，则直接返回缓存数据。</p>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><p>方案简单有效</p>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><p>缓存和数据库中的数据可能不一致，不能及时更新。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>适用于对数据实时性不敏感的场景。比如：用来展示的列表数据</p>
+<h3 id="二、查询‑删除场景"><a href="#二、查询‑删除场景" class="headerlink" title="二、查询‑删除场景"></a>二、查询‑删除场景</h3><h4 id="场景需求-1"><a href="#场景需求-1" class="headerlink" title="场景需求"></a>场景需求</h4><p>另一个简单的场景，希望数据被查询后，能缓存一段时间，但数据被更新、删除后，希望查询接口能查出最新数据。</p>
+<h4 id="解决思路-1"><a href="#解决思路-1" class="headerlink" title="解决思路"></a>解决思路</h4><p>1.查询时，仍然按照“先查缓存-没命中则加载数据-回写缓存”的流程；</p>
+<p>2.数据变更时，删除缓存。</p>
+<h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h4><p>方案简单，能及时更新缓存数据。</p>
+<h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h4><p>可能出现缓存与DB数据不一致，更多信息</p>
+<h4 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h4><p>能适用于大部分常见场景，能容忍较低概率的db与缓存数据一定时间内存在不一致的场景。</p>
+<h3 id="三、更新场景"><a href="#三、更新场景" class="headerlink" title="三、更新场景"></a>三、更新场景</h3><h4 id="场景需求-2"><a href="#场景需求-2" class="headerlink" title="场景需求"></a>场景需求</h4><p>数据被查询后，能缓存一段时间，</p>
+<p>但数据被更新后，不希望删除缓存增加DB穿透次数，希望能立即更新缓存。</p>
+<h4 id="解决思路-2"><a href="#解决思路-2" class="headerlink" title="解决思路"></a>解决思路</h4><p>查询时，仍然按照“先查缓存‑没命中则加载数据‑回写缓存”的流程；</p>
+<p>数据变更时，更新缓存。</p>
+<h4 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h4><p>方案简单，能及时更新缓存数据。</p>
+<h4 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h4><p>可能出现缓存与DB数据不一致</p>
+<h4 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h4><p>能适用于大部分常见场景，</p>
+<p>能容忍较低概率的db与缓存数据一定时间内存在不一致的场景</p>
+<h3 id="四、数据加载耗时场景"><a href="#四、数据加载耗时场景" class="headerlink" title="四、数据加载耗时场景"></a>四、数据加载耗时场景</h3><h4 id="场景需求-3"><a href="#场景需求-3" class="headerlink" title="场景需求"></a>场景需求</h4><p>当数据加载比较耗时、并发较高时，会形成缓存雪崩，对DB造成较大的压力。</p>
+<p>数据加载比较耗时，瞬间高并发没有命中缓存，全部穿透到DB，较长时间的加载加上DB性能的影响、接口超时重试等，形成缓存雪崩。</p>
+<p>如果没有额外的隔离保护措施，还有可能引发服务雪崩。</p>
+<h4 id="解决思路-3"><a href="#解决思路-3" class="headerlink" title="解决思路"></a>解决思路</h4><p>主要解决思路是减少穿透到DB的线程数。</p>
+<p>当一个JVM进程内，同时存在多个线程，对于同一个缓存key，没有命中缓存，需要从DB中加载数据时，</p>
+<p>选其中一个线程作为Master，其余线程均为Slave，</p>
+<p>只有Master会真正的执行数据加载，穿透到DB，并最终回写缓存；Slave则仅等待Master取回来的数据。</p>
+<h5 id="Master选择："><a href="#Master选择：" class="headerlink" title="Master选择："></a>Master选择：</h5><p>当线程没有命中，进入加载流程时，往ConcurrentHashMap loadingMap中，能putIfAbsent成功即成为Master，失败</p>
+<p>则为Slave。</p>
+<p>loadingMap中记录着，某个缓存key，正在进行数据加载中。</p>
+<h5 id="Slave如何等待Master加载数据："><a href="#Slave如何等待Master加载数据：" class="headerlink" title="Slave如何等待Master加载数据："></a>Slave如何等待Master加载数据：</h5><p>Slave通过wait等待Master的信号，Master完成数据加载后，把数据放入LoadingWrapper中，notifyAll通过所有Slave</p>
+<p>去LoadingWrapper中取。</p>
+<p>其中还需要包括一些必要的超时检测、异常机制，确保Master异常等，不会引起Slave一直等待，保证业务功能不受影</p>
+<p>响。</p>
+<h5 id="具体实现流程"><a href="#具体实现流程" class="headerlink" title="具体实现流程"></a>具体实现流程</h5><p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g1an11tl5fj312d0u0tid.jpg" alt=""></p>
+<h4 id="优点-3"><a href="#优点-3" class="headerlink" title="优点"></a>优点</h4><p>可以防止缓存雪崩</p>
+<h4 id="缺点-3"><a href="#缺点-3" class="headerlink" title="缺点"></a>缺点</h4><p>阻塞一部分线程</p>
+<p>#### </p>
+<h3 id="五、本地缓存"><a href="#五、本地缓存" class="headerlink" title="五、本地缓存"></a>五、本地缓存</h3><h4 id="场景需求-4"><a href="#场景需求-4" class="headerlink" title="场景需求"></a>场景需求</h4><p>当接口响应时间要求很高、或存在热点key等，连分布式缓存也达不到要求，需要使用本地缓存时。</p>
+<h4 id="解决思路-4"><a href="#解决思路-4" class="headerlink" title="解决思路"></a>解决思路</h4><p>本地缓存与分布式缓存结合使用，形成二级缓存</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1g1an8i0gd5j30po0uwwkw.jpg" alt=""></p>
+<p>先查询本地缓存，本地缓存命中则直接返回；</p>
+<p>本地缓存没命中，查询分布式缓存，分布式缓存命中，则回写本地，返回数据。</p>
+<h4 id="优点-4"><a href="#优点-4" class="headerlink" title="优点"></a>优点</h4><p>可以提高接口响应速度。</p>
+<h4 id="缺点-4"><a href="#缺点-4" class="headerlink" title="缺点"></a>缺点</h4><p>分布式节点的本地缓存的同步较为复杂，需要引入额外的手段，目前缓存框架没有支持，用户可以自己实现，如数据更新时MQ广播更新的push方式、定时轮训分布式缓存的pull方式等。</p>
+<h4 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h4><p>适用于数据实时性要求不那么高的场景，本地缓存的超时时间可以较短，如1分钟等，</p>
+<p>1分钟超时后穿透到分布式缓存获取，再回写本地缓存，而分布式缓存的数据更新是可以做到实时同步的。</p>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://s10.mogucdn.com/mlcdn/c45406/180420_0dg7116cadcl9g416clgb9al70ac2_426x432.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MongoDB</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">cache</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://lingo0.github.io/2019/03/21/缓存应用场景分析/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/10/15/TCC-transaction学习/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">TCC-transaction学习</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://lingo0.github.io/2019/03/21/缓存应用场景分析/",
+  owner: 'lingo0',
+  repo: 'lingo0.github.com',
+  oauth: {
+    client_id: 'c72bd154eaeeabfd97bd',
+    client_secret: '46414fa1d7c7a55b66dccee93890b94e7677bcde',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
+  
 
 
           </div>
@@ -257,8 +415,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

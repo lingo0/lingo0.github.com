@@ -25,7 +25,7 @@
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwgy1fw4hzctbt3j30og0peq4a.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNbRwgy1fw8ofu30voj31kw0lpn5b.jpg">
 <meta property="og:image" content="http://www.iocoder.cn/images/TCC-Transaction/2018_02_22/01.png">
-<meta property="og:updated_time" content="2018-10-15T06:00:20.290Z">
+<meta property="og:updated_time" content="2019-03-04T01:20:20.126Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCC-transaction学习">
 <meta name="twitter:description" content="1. TCC事务简介 TCC事务 即：Try-Confirm-Cancel 。它是基于业务层面的事务定义，把事务运行过程分成 Try、Confirm / Cancel 两个阶段。在每个阶段的逻辑由业务代码控制。每一个初步操作，最终都会被确认或取消。因此，针对一个具体的业务服务，TCC事务机制需要业务系统提供三段业务逻辑：初步操作Try、确认操作Confirm、取消操作Cancel。  Try  从">
@@ -192,7 +192,7 @@
         <h3 id="1-TCC事务简介"><a href="#1-TCC事务简介" class="headerlink" title="1. TCC事务简介"></a>1. TCC事务简介</h3><ul>
 <li><p><strong>TCC事务</strong> 即：Try-Confirm-Cancel 。它是基于<strong>业务层面</strong>的事务定义，把事务运行过程分成 Try、Confirm / Cancel 两个阶段。在每个阶段的逻辑由<strong>业务代码控制</strong>。每一个初步操作，最终都会被确认或取消。因此，针对一个具体的业务服务，TCC事务机制需要业务系统提供三段业务逻辑：初步操作Try、确认操作Confirm、取消操作Cancel。</p>
 </li>
-<li><p><strong>Try</strong>  从执行阶段来看，与传统事务机制中业务逻辑相同。但从业务角度来看，却不一样。TCC机制中的Try仅是一个初步操作，它和后续的确认一起才能真正构成一个完整的业务逻辑。TCC机制将传统事务机制中的业务逻辑一分为二，拆分后保留的部分即为初步操作（Try）；而分离出的部分即为确认操作（Confirm），被延迟到事务提交阶段执行。</p>
+<li><p><strong>Try</strong>  从执行阶段来看，与传统事务机制中业务逻辑相同。但从业务角度来看，却不一样。TCC机制中的Try仅是一个初步操作，它和后续的确认一起才能真正构成一个完整的业务逻辑。TCC机制将传统事务机制中的业务逻辑一分为二，拆分后保留的部分即为初步操作（Try）；而分离出的部yfyf分即为确认操作（Confirm），被延迟到事务提交阶段执行。</p>
 <ul>
 <li>完成所有业务检查( 一致性 )</li>
 <li>预留必须业务资源( 准隔离性 )</li>
@@ -469,6 +469,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2019/03/21/缓存应用场景分析/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          缓存应用场景分析
+        
+      </div>
+    </a>
+  
   
     <a href="/2018/07/24/大数据量excle导出优化/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">大数据量excle导出优化</div>
@@ -530,7 +539,7 @@ gitment.render('gitment-ctn')
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 Ling
+    		&copy; 2019 Ling
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -629,15 +638,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Sping</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -657,11 +666,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
+                <a href="javascript:void(0)" class="js-tag color1">cache</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ACM</a>
+                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -670,6 +679,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ACM</a>
               </li>
             
             <div class="clearfix"></div>
